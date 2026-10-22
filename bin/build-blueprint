@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+"""Build .wordpress-org/blueprints/blueprint.json (the Playground "Live Preview").
+
+The demo content lives in bin/blueprint-demo.php so it stays readable; this
+script embeds that PHP into the blueprint JSON.
+
+  ./bin/build-blueprint                  -> installs the plugin from WordPress.org (what ships)
+  ./bin/build-blueprint --local OUT.json -> expects the plugin mounted at wp-content/plugins/shopnook (for testing)
+"""
+import json, pathlib, sys
+
+root = pathlib.Path(__file__).resolve().parent.parent
+# The demo file starts with the usual ABSPATH guard; load WordPress in front of it.
+php = (root / "bin" / "blueprint-demo.php").read_text().replace("<?php", "<?php\nrequire_once '/wordpress/wp-load.php';", 1)
+local = "--local" in sys.argv
+
+install = (
+    {"step": "activatePlugin", "pluginPath": "shopnook/shopnook.php"}
+    if local
+    else {"step": "installPlugin", "pluginData": {"resource": "wordpress.org/plugins", "slug": "shopnook"}, "options": {"activate": True}}
+)
+
+blueprint = {
+    "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+    "meta": {
+        "title": "Shopnook demo: a home-goods shop with shoppable images",
+        "description": "Installs WooCommerce and Shopnook, adds products, a shoppable lookbook post, three shoppable galleries and two months of stats.",
+        "author": "sanju-shankar",
+        "categories": ["Ecommerce"],
+    },
+    "landingPage": "/autumn-lookbook-warm-neutrals-at-home/",
+    "preferredVersions": {"php": "8.3", "wp": "latest"},
+    "features": {"networking": True},
+    "login": True,
+    "steps": [
+        {"step": "installPlugin", "pluginData": {"resource": "wordpress.org/plugins", "slug": "woocommerce"}, "options": {"activate": True}},
+        install,
+        {"step": "setSiteOptions", "options": {"blogname": "Nook & Co. Home (Shopnook demo)", "permalink_structure": "/%postname%/"}},
+        {"step": "runPHP", "code": php},
+    ],
+}
+
+out = (pathlib.Path(sys.argv[sys.argv.index("--local") + 1]) if local else root / ".wordpress-org/blueprints/blueprint.json")
+out.parent.mkdir(parents=True, exist_ok=True)
+out.write_text(json.dumps(blueprint, indent=2) + "\n")
+print(f"wrote {out}")

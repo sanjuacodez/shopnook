@@ -1,0 +1,1082 @@
+/* Shopnook – shoppable images. Colours come from --shopnook-* properties set per image. */
+
+.shopnook,
+.shopnook-pop,
+.shopnook-inline,
+.shopnook-drawer,
+.shopnook-sheet,
+.shopnook-lightbox {
+	--shopnook-pin-fg: #fff;
+	--shopnook-pin-bg: #111;
+	--shopnook-accent: #111;
+	--shopnook-surface: #fff;
+	--shopnook-text: #1d1d1f;
+	--shopnook-muted: #6b6b70;
+	--shopnook-line: rgba(0, 0, 0, 0.1);
+	--shopnook-radius: 14px;
+	--shopnook-shadow: 0 12px 32px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.08);
+	--shopnook-sale: #c62828;
+}
+
+/* ------------------------------------------------------------------ */
+/* Stage and pins                                                      */
+/* ------------------------------------------------------------------ */
+
+.shopnook .shopnook-stage {
+	position: relative;
+	display: block;
+	width: fit-content;
+	max-width: 100%;
+	line-height: 0;
+}
+
+.shopnook.alignwide .shopnook-stage,
+.shopnook.alignfull .shopnook-stage {
+	width: 100%;
+}
+
+.shopnook.aligncenter .shopnook-stage {
+	margin-inline: auto;
+}
+
+.shopnook-pin {
+	--shopnook-pin-size: 32px;
+	position: absolute;
+	z-index: 2;
+	display: grid;
+	place-items: center;
+	box-sizing: border-box;
+	width: var(--shopnook-pin-size);
+	height: var(--shopnook-pin-size);
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	transform: translate(-50%, -50%);
+	border: 2px solid rgba(255, 255, 255, 0.92);
+	border-radius: 50%;
+	background: var(--shopnook-pin-bg);
+	color: var(--shopnook-pin-fg);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	font: 600 13px/1 system-ui, -apple-system, "Segoe UI", sans-serif;
+	letter-spacing: 0;
+	text-transform: none;
+	cursor: pointer;
+	transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.shopnook-pin--sm {
+	--shopnook-pin-size: 24px;
+	font-size: 11px;
+}
+
+.shopnook-pin--lg {
+	--shopnook-pin-size: 42px;
+	font-size: 16px;
+}
+
+.shopnook-pin:hover,
+.shopnook-pin.is-active {
+	transform: translate(-50%, -50%) scale(1.12);
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.shopnook-pin:focus-visible {
+	outline: 3px solid var(--shopnook-pin-bg);
+	outline-offset: 3px;
+}
+
+.shopnook-pin svg {
+	width: 58%;
+	height: 58%;
+}
+
+.shopnook-pin__icon {
+	display: grid;
+	place-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+.shopnook-pin__dot {
+	width: 38%;
+	height: 38%;
+	border-radius: 50%;
+	background: var(--shopnook-pin-fg);
+}
+
+.shopnook-pin__num {
+	line-height: 1;
+}
+
+.shopnook-pin--custom {
+	border: 0;
+	background: none;
+	box-shadow: none;
+	overflow: visible;
+}
+
+.shopnook-pin__img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	border-radius: 0;
+	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+	pointer-events: none;
+}
+
+.shopnook-pin__ring {
+	position: absolute;
+	inset: -2px;
+	border-radius: 50%;
+	border: 2px solid var(--shopnook-pin-bg);
+	animation: shopnook-pulse 1.8s ease-out infinite;
+	pointer-events: none;
+}
+
+@keyframes shopnook-pulse {
+	0% {
+		transform: scale(1);
+		opacity: 0.8;
+	}
+	100% {
+		transform: scale(2);
+		opacity: 0;
+	}
+}
+
+/* Hover label */
+.shopnook-pin[data-label]::after {
+	content: attr(data-label);
+	position: absolute;
+	bottom: calc(100% + 8px);
+	left: 50%;
+	max-width: 200px;
+	padding: 5px 9px;
+	transform: translate(-50%, 4px);
+	border-radius: 6px;
+	background: rgba(17, 17, 17, 0.92);
+	color: #fff;
+	font: 500 12px/1.3 system-ui, -apple-system, "Segoe UI", sans-serif;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+@media (hover: hover) {
+	.shopnook-pin:hover::after {
+		opacity: 1;
+		transform: translate(-50%, 0);
+	}
+}
+
+.shopnook-pin[aria-expanded="true"]::after {
+	display: none;
+}
+
+/* Pins shown on hover only (always shown on touch screens) */
+@media (hover: hover) {
+	.shopnook--pins-hover .shopnook-pin {
+		opacity: 0;
+	}
+
+	.shopnook--pins-hover .shopnook-stage:hover .shopnook-pin,
+	.shopnook--pins-hover .shopnook-stage:focus-within .shopnook-pin,
+	.shopnook--pins-hover .shopnook-pin.is-active {
+		opacity: 1;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/* Product card                                                        */
+/* ------------------------------------------------------------------ */
+
+.shopnook-card,
+.shopnook-card *,
+.shopnook-gallery *,
+.shopnook-lightbox * {
+	box-sizing: border-box;
+}
+
+.shopnook-card {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	gap: 14px;
+	align-items: start;
+	color: var(--shopnook-text);
+	font-size: 15px;
+	line-height: 1.4;
+	text-align: start;
+}
+
+.shopnook-card__media {
+	display: block;
+	width: 88px;
+	height: 88px;
+	border-radius: 10px;
+	overflow: hidden;
+	background: #f3f3f4;
+}
+
+.shopnook-card__media img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	margin: 0;
+}
+
+.shopnook-card__body {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 4px;
+	min-width: 0;
+}
+
+.shopnook-card:not(:has(.shopnook-card__media)) {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.shopnook-card__badge {
+	padding: 2px 8px;
+	border-radius: 999px;
+	background: var(--shopnook-sale);
+	color: #fff;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+}
+
+.shopnook-card__name {
+	color: inherit;
+	font-weight: 600;
+	text-decoration: none;
+	overflow-wrap: anywhere;
+}
+
+.shopnook-card__name:hover {
+	text-decoration: underline;
+}
+
+.shopnook-card__rating {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	color: var(--shopnook-muted);
+	font-size: 12px;
+}
+
+.shopnook-card__stars {
+	--shopnook-star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7-6.3-3.9-6.3 3.9 1.7-7L2 9.5l7.1-.6z'/%3E%3C/svg%3E");
+	position: relative;
+	display: inline-block;
+	width: 80px;
+	height: 15px;
+	background: #d4d4d8;
+	-webkit-mask: var(--shopnook-star) 0 0 / 16px 15px repeat-x;
+	mask: var(--shopnook-star) 0 0 / 16px 15px repeat-x;
+}
+
+.shopnook-card__stars::before {
+	content: "";
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: var(--shopnook-rating, 0%);
+	background: #f5a623;
+}
+
+.shopnook-card__price {
+	font-weight: 600;
+}
+
+.shopnook-card__price del {
+	margin-inline-end: 6px;
+	color: var(--shopnook-muted);
+	font-weight: 400;
+}
+
+.shopnook-card__price ins {
+	text-decoration: none;
+}
+
+.shopnook-card__stock {
+	color: var(--shopnook-muted);
+	font-size: 13px;
+}
+
+.shopnook-card__stock--outofstock {
+	color: var(--shopnook-sale);
+}
+
+.shopnook-card__excerpt {
+	margin: 2px 0 0;
+	color: var(--shopnook-muted);
+	font-size: 13px;
+}
+
+.shopnook-card__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 14px;
+	margin-top: 8px;
+}
+
+.shopnook-card__cart {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 40px;
+	margin: 0;
+	padding: 8px 16px;
+	border: 0;
+	border-radius: 999px;
+	background: var(--shopnook-accent);
+	color: #fff;
+	font: inherit;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	cursor: pointer;
+	transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.shopnook-card__cart:hover {
+	opacity: 0.88;
+	color: #fff;
+}
+
+.shopnook-card__cart:active {
+	transform: scale(0.98);
+}
+
+.shopnook-card__cart:focus-visible,
+.shopnook-card__view:focus-visible,
+.shopnook-card__viewcart:focus-visible,
+.shopnook-card__name:focus-visible {
+	outline: 2px solid var(--shopnook-accent);
+	outline-offset: 2px;
+}
+
+.shopnook-card__cart.is-loading {
+	opacity: 0.7;
+	cursor: progress;
+}
+
+.shopnook-card__cart.is-added::before {
+	content: "";
+	width: 14px;
+	height: 14px;
+	margin-inline-end: 6px;
+	background: currentColor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.shopnook-card__view,
+.shopnook-card__viewcart {
+	color: var(--shopnook-text);
+	font-size: 14px;
+	font-weight: 500;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.shopnook-card__error {
+	flex-basis: 100%;
+	margin: 0;
+	color: var(--shopnook-sale);
+	font-size: 13px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tooltip card                                                        */
+/* ------------------------------------------------------------------ */
+
+.shopnook-pop {
+	position: relative;
+	z-index: 99990;
+	box-sizing: border-box;
+	width: min(340px, calc(100vw - 24px));
+	padding: 16px 40px 16px 16px;
+	border-radius: var(--shopnook-radius);
+	background: var(--shopnook-surface);
+	box-shadow: var(--shopnook-shadow);
+	animation: shopnook-in 0.16s ease-out;
+}
+
+.shopnook-pop::before {
+	content: "";
+	position: absolute;
+	top: -6px;
+	left: var(--shopnook-arrow, 50%);
+	width: 12px;
+	height: 12px;
+	transform: translateX(-50%) rotate(45deg);
+	background: var(--shopnook-surface);
+	box-shadow: -2px -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.shopnook-pop.is-above::before {
+	top: auto;
+	bottom: -6px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes shopnook-in {
+	from {
+		opacity: 0;
+		transform: translateY(4px);
+	}
+}
+
+.shopnook-close {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	display: grid;
+	place-items: center;
+	width: 32px;
+	height: 32px;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: transparent;
+	color: var(--shopnook-muted);
+	cursor: pointer;
+}
+
+.shopnook-close:hover {
+	background: rgba(0, 0, 0, 0.06);
+	color: var(--shopnook-text);
+}
+
+.shopnook-close:focus-visible {
+	outline: 2px solid var(--shopnook-accent);
+	outline-offset: 1px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Panel below the image                                               */
+/* ------------------------------------------------------------------ */
+
+.shopnook-inline {
+	position: relative;
+	box-sizing: border-box;
+	margin: 12px 0 0;
+	padding: 16px 48px 16px 16px;
+	border: 1px solid var(--shopnook-line);
+	border-radius: var(--shopnook-radius);
+	background: var(--shopnook-surface);
+	line-height: normal;
+	animation: shopnook-in 0.16s ease-out;
+}
+
+/* ------------------------------------------------------------------ */
+/* Drawer and bottom sheet                                             */
+/* ------------------------------------------------------------------ */
+
+.shopnook-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 99990;
+	background: rgba(0, 0, 0, 0.45);
+	opacity: 0;
+	transition: opacity 0.22s ease;
+}
+
+.shopnook-backdrop.is-open {
+	opacity: 1;
+}
+
+.shopnook-drawer,
+.shopnook-sheet {
+	position: fixed;
+	z-index: 99991;
+	box-sizing: border-box;
+	overflow: auto;
+	background: var(--shopnook-surface);
+	box-shadow: var(--shopnook-shadow);
+	transition: transform 0.26s cubic-bezier(0.2, 0.8, 0.2, 1);
+	overscroll-behavior: contain;
+}
+
+.shopnook-drawer {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: min(400px, 92vw);
+	padding: 56px 24px 24px;
+	transform: translateX(100%);
+}
+
+.shopnook-sheet {
+	left: 0;
+	right: 0;
+	bottom: 0;
+	max-height: 85vh;
+	padding: 28px 20px calc(20px + env(safe-area-inset-bottom));
+	border-radius: 18px 18px 0 0;
+	transform: translateY(100%);
+}
+
+.shopnook-sheet::before {
+	content: "";
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	width: 40px;
+	height: 4px;
+	transform: translateX(-50%);
+	border-radius: 2px;
+	background: rgba(0, 0, 0, 0.18);
+}
+
+.admin-bar .shopnook-drawer {
+	top: 32px;
+}
+
+@media (max-width: 782px) {
+	.admin-bar .shopnook-drawer {
+		top: 46px;
+	}
+}
+
+.shopnook-drawer.is-open,
+.shopnook-sheet.is-open {
+	transform: none;
+}
+
+.shopnook-drawer .shopnook-card {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.shopnook-drawer .shopnook-card__media {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 1;
+}
+
+.shopnook-drawer .shopnook-card__name {
+	font-size: 18px;
+}
+
+.shopnook-drawer .shopnook-close {
+	top: 12px;
+	right: 12px;
+}
+
+html.shopnook-locked {
+	overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ */
+/* "Shop this look" list                                               */
+/* ------------------------------------------------------------------ */
+
+.shopnook-list {
+	margin: 16px 0 0;
+	line-height: normal;
+}
+
+.shopnook-list__title {
+	margin: 0 0 10px;
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--shopnook-muted);
+}
+
+.shopnook-list__items {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+	gap: 10px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.shopnook-list__item {
+	position: relative;
+	margin: 0;
+	padding: 12px 12px 12px 44px;
+	border: 1px solid var(--shopnook-line);
+	border-radius: 12px;
+	background: var(--shopnook-surface);
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.shopnook-list__item.is-active {
+	border-color: var(--shopnook-accent);
+	box-shadow: 0 0 0 1px var(--shopnook-accent);
+}
+
+.shopnook-list__num {
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	display: grid;
+	place-items: center;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: var(--shopnook-pin-bg);
+	color: var(--shopnook-pin-fg);
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.shopnook-list .shopnook-card__media,
+.shopnook-lightbox__list .shopnook-card__media {
+	width: 64px;
+	height: 64px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Galleries: Instagram grid and masonry                               */
+/* ------------------------------------------------------------------ */
+
+.shopnook-gallery {
+	--shopnook-cols: 3;
+	--shopnook-gap: 8px;
+	display: block;
+	min-width: 0;
+	max-width: 100%;
+}
+
+.shopnook-gallery__grid {
+	display: grid;
+	grid-template-columns: repeat(var(--shopnook-cols), minmax(0, 1fr));
+	gap: var(--shopnook-gap);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.shopnook-gallery__item {
+	margin: 0;
+	padding: 0;
+}
+
+.shopnook-gallery__tile {
+	position: relative;
+	display: block;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	background: #f3f3f4;
+	overflow: hidden;
+	cursor: pointer;
+	line-height: 0;
+}
+
+.shopnook-gallery__tile img {
+	display: block;
+	width: 100%;
+	height: auto;
+	margin: 0;
+	transition: transform 0.35s ease;
+}
+
+.shopnook-gallery--instagram .shopnook-gallery__tile {
+	aspect-ratio: 1;
+}
+
+.shopnook-gallery--instagram .shopnook-gallery__tile img {
+	height: 100%;
+	object-fit: cover;
+}
+
+.shopnook-gallery__tile::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.28);
+	opacity: 0;
+	transition: opacity 0.2s ease;
+}
+
+.shopnook-gallery__tile:hover::after,
+.shopnook-gallery__tile:focus-visible::after {
+	opacity: 1;
+}
+
+.shopnook-gallery__tile:hover img {
+	transform: scale(1.03);
+}
+
+.shopnook-gallery__tile:focus-visible {
+	outline: 3px solid var(--shopnook-accent);
+	outline-offset: 2px;
+}
+
+.shopnook-gallery__badge {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	z-index: 1;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 4px 8px 4px 6px;
+	border-radius: 999px;
+	background: rgba(17, 17, 17, 0.72);
+	color: #fff;
+	font: 600 12px/1 system-ui, -apple-system, "Segoe UI", sans-serif;
+	backdrop-filter: blur(6px);
+}
+
+.shopnook-gallery__badge svg {
+	width: 14px;
+	height: 14px;
+}
+
+.shopnook-gallery--masonry .shopnook-gallery__grid {
+	display: block;
+	columns: var(--shopnook-cols);
+	column-gap: var(--shopnook-gap);
+}
+
+.shopnook-gallery--masonry .shopnook-gallery__item {
+	break-inside: avoid;
+	margin-bottom: var(--shopnook-gap);
+}
+
+.shopnook-gallery--masonry .shopnook-gallery__tile {
+	border-radius: 12px;
+}
+
+@media (max-width: 600px) {
+	.shopnook-gallery--masonry .shopnook-gallery__grid {
+		columns: min(var(--shopnook-cols), 2);
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/* Gallery popup                                                       */
+/* ------------------------------------------------------------------ */
+
+.shopnook-lightbox {
+	box-sizing: border-box;
+	width: min(1120px, calc(100vw - 32px));
+	max-width: none;
+	height: min(820px, calc(100vh - 32px));
+	max-height: none;
+	margin: auto;
+	padding: 0;
+	border: 0;
+	border-radius: var(--shopnook-radius);
+	background: var(--shopnook-surface);
+	color: var(--shopnook-text);
+	overflow: hidden;
+	line-height: normal;
+}
+
+.shopnook-lightbox::backdrop {
+	background: rgba(0, 0, 0, 0.72);
+}
+
+.shopnook-lightbox__inner {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 360px;
+	height: 100%;
+}
+
+.shopnook-lightbox__media {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 0;
+	background: #0b0b0c;
+}
+
+.shopnook-lightbox .shopnook-stage {
+	position: relative;
+	display: inline-block;
+	max-width: 100%;
+	max-height: 100%;
+	line-height: 0;
+}
+
+.shopnook-lightbox .shopnook-stage img {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: min(820px, calc(100vh - 32px));
+	margin: 0;
+}
+
+.shopnook-lightbox__nav {
+	position: absolute;
+	top: 50%;
+	z-index: 3;
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	transform: translateY(-50%);
+	border: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.9);
+	color: #111;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+}
+
+.shopnook-lightbox__nav--prev {
+	left: 12px;
+}
+
+.shopnook-lightbox__nav--next {
+	right: 12px;
+}
+
+.shopnook-lightbox__nav:focus-visible {
+	outline: 3px solid #fff;
+	outline-offset: 2px;
+}
+
+.shopnook-lightbox__side {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	min-height: 0;
+	padding: 16px 20px 20px;
+	overflow: auto;
+}
+
+.shopnook-lightbox__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	min-height: 32px;
+}
+
+.shopnook-lightbox__head .shopnook-close {
+	position: static;
+}
+
+.shopnook-lightbox__counter {
+	color: var(--shopnook-muted);
+	font-size: 13px;
+	font-variant-numeric: tabular-nums;
+}
+
+.shopnook-lightbox__caption {
+	font-size: 15px;
+}
+
+.shopnook-lightbox__title {
+	margin: 4px 0 0;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--shopnook-muted);
+}
+
+.shopnook-lightbox__list {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+.shopnook-lightbox__empty {
+	color: var(--shopnook-muted);
+}
+
+@media (max-width: 782px) {
+	.shopnook-lightbox {
+		width: 100vw;
+		height: 100dvh;
+		border-radius: 0;
+	}
+
+	.shopnook-lightbox__inner {
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-rows: auto minmax(0, 1fr);
+	}
+
+	.shopnook-lightbox .shopnook-stage img {
+		max-height: 55dvh;
+	}
+
+	.shopnook-lightbox__media {
+		min-height: 40vh;
+	}
+
+	.shopnook-lightbox__nav {
+		width: 36px;
+		height: 36px;
+	}
+}
+
+/* ------------------------------------------------------------------ */
+/* Stories carousel                                                    */
+/* ------------------------------------------------------------------ */
+
+.shopnook-stories {
+	position: relative;
+}
+
+.shopnook-stories__track {
+	display: flex;
+	gap: 12px;
+	margin: 0;
+	padding: 4px 2px 8px;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+	list-style: none;
+	overscroll-behavior-x: contain;
+}
+
+.shopnook-stories__track::-webkit-scrollbar {
+	display: none;
+}
+
+.shopnook-stories__slide {
+	position: relative;
+	flex: 0 0 min(280px, 72vw);
+	margin: 0;
+	scroll-snap-align: start;
+}
+
+.shopnook .shopnook-stage--cover {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 9 / 16;
+	border-radius: 16px;
+	overflow: hidden;
+	background: #111;
+}
+
+.shopnook-stage--cover img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	object-fit: cover;
+}
+
+.shopnook-stage--cover .shopnook-pin[hidden] {
+	display: none;
+}
+
+.shopnook-stories__meta {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+	padding: 48px 14px 14px;
+	border-radius: 0 0 16px 16px;
+	background: linear-gradient(transparent, rgba(0, 0, 0, 0.65));
+	color: #fff;
+	pointer-events: none;
+	line-height: 1.35;
+}
+
+.shopnook-stories__caption {
+	margin: 0 0 4px;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.shopnook-stories__count {
+	margin: 0;
+	font-size: 12px;
+	opacity: 0.85;
+}
+
+.shopnook-stories__nav {
+	position: absolute;
+	top: 50%;
+	z-index: 3;
+	display: grid;
+	place-items: center;
+	width: 42px;
+	height: 42px;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	transform: translateY(-50%);
+	border: 0;
+	border-radius: 50%;
+	background: #fff;
+	color: #111;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+	cursor: pointer;
+	transition: opacity 0.2s ease;
+}
+
+.shopnook-stories__nav--prev {
+	left: -8px;
+}
+
+.shopnook-stories__nav--next {
+	right: -8px;
+}
+
+.shopnook-stories__nav:disabled {
+	opacity: 0;
+	pointer-events: none;
+}
+
+.shopnook-stories__nav:focus-visible {
+	outline: 3px solid var(--shopnook-accent);
+	outline-offset: 2px;
+}
+
+.shopnook-stories--static .shopnook-stories__nav {
+	display: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion                                                              */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+	.shopnook-pin,
+	.shopnook-pin::after,
+	.shopnook-gallery__tile img,
+	.shopnook-drawer,
+	.shopnook-sheet,
+	.shopnook-backdrop {
+		transition: none;
+	}
+
+	.shopnook-pin__ring,
+	.shopnook-pop,
+	.shopnook-inline {
+		animation: none;
+	}
+
+	.shopnook-gallery__tile:hover img {
+		transform: none;
+	}
+}
+
+[dir="rtl"] .shopnook-close {
+	right: auto;
+	left: 8px;
+}
+
+[dir="rtl"] .shopnook-pop {
+	padding: 16px 16px 16px 40px;
+}

@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+"""Syntax/metadata checks. PHP 7.4 runtime testing is still required separately."""
+import json, os, pathlib, re, shutil, subprocess, sys
+root=pathlib.Path(__file__).resolve().parent.parent
+php=os.environ.get('PHP') or shutil.which('php')
+if not php:
+    local=pathlib.Path.home()/'Library/Application Support/Local/lightning-services/php-8.5.3+1/bin/darwin-arm64/bin/php'
+    php=str(local) if local.exists() else None
+if not php: sys.exit('Set PHP to a PHP binary.')
+failed=[]
+for file in root.rglob('*.php'):
+    if '.git' in file.parts: continue
+    result=subprocess.run([php,'-l',str(file)],capture_output=True,text=True)
+    if result.returncode: failed.append(result.stdout+result.stderr)
+    # This is a guard, not a complete PHP compatibility analyzer.
+    if re.search(r'\b(?:match\s*\(|str_(?:starts|ends)_with\s*\(|str_contains\s*\(|enum\s+\w+|readonly\s+(?:class|\$))',file.read_text()):
+        failed.append(f'{file}: review PHP 8+ syntax/functions')
+for file in root.rglob('*.json'):
+    if '.git' in file.parts: continue
+    try: json.loads(file.read_text())
+    except Exception as error: failed.append(f'{file}: {error}')
+for file in (root/'assets/js').rglob('*.js'):
+    result=subprocess.run(['node','--check',str(file)],capture_output=True,text=True)
+    if result.returncode: failed.append(result.stderr)
+for message in failed: print(message)
+print(f'{len(list(root.rglob("*.php")))} PHP files checked; {len(failed)} failures.')
+sys.exit(bool(failed))

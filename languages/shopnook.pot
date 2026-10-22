@@ -1,0 +1,1125 @@
+# Copyright (C) 2026 Sanjay Shankar
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Shopnook – Shoppable Images for WooCommerce 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/shopnook\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-22T08:17:18+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: shopnook\n"
+
+#. Plugin Name of the plugin
+#: shopnook.php
+msgid "Shopnook – Shoppable Images for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: shopnook.php
+msgid "https://github.com/sanjuacodez/shopnook"
+msgstr ""
+
+#. Description of the plugin
+#: shopnook.php
+msgid "Tag WooCommerce products on any image or gallery in the block editor. Pins open product cards with add to cart, galleries get Instagram, masonry and stories layouts, and an analytics dashboard shows views, clicks and the sales they bring."
+msgstr ""
+
+#. Author of the plugin
+#: shopnook.php
+msgid "Sanjay Shankar"
+msgstr ""
+
+#. Author URI of the plugin
+#: shopnook.php
+msgid "https://sanjayshankar.me"
+msgstr ""
+
+#: includes/admin/class-shopnook-admin.php:42
+#: includes/admin/views/dashboard.php:114
+#: assets/js/block-editor.js:256
+#: assets/js/block-editor.js:400
+msgid "Shopnook"
+msgstr ""
+
+#: includes/admin/class-shopnook-admin.php:43
+msgid "Shopnook Dashboard"
+msgstr ""
+
+#: includes/admin/class-shopnook-admin.php:43
+#: includes/admin/class-shopnook-admin.php:72
+#: includes/admin/views/settings.php:109
+msgid "Dashboard"
+msgstr ""
+
+#: includes/admin/class-shopnook-admin.php:44
+#: includes/admin/views/settings.php:104
+msgid "Shopnook Settings"
+msgstr ""
+
+#: includes/admin/class-shopnook-admin.php:44
+#: includes/admin/class-shopnook-admin.php:71
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-shopnook-admin.php:98
+#: assets/js/pin-editor.js:532
+msgid "Choose a pin image"
+msgstr ""
+
+#: includes/admin/class-shopnook-admin.php:99
+#: assets/js/pin-editor.js:534
+msgid "Use as pin"
+msgstr ""
+
+#: includes/admin/class-shopnook-admin.php:132
+msgid "Last 7 days"
+msgstr ""
+
+#: includes/admin/class-shopnook-admin.php:133
+msgid "Last 30 days"
+msgstr ""
+
+#: includes/admin/class-shopnook-admin.php:134
+msgid "Last 90 days"
+msgstr ""
+
+#: includes/admin/class-shopnook-admin.php:135
+msgid "Last 12 months"
+msgstr ""
+
+#. translators: 1: product name, 2: post title
+#: includes/admin/class-shopnook-admin.php:183
+#, php-format
+msgid "%1$s (from “%2$s”)"
+msgstr ""
+
+#: includes/admin/class-shopnook-admin.php:185
+msgid "Shopnook:"
+msgstr ""
+
+#. translators: %s: list of products
+#: includes/admin/class-shopnook-admin.php:187
+#, php-format
+msgid "credited to shoppable images: %s"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:63
+#: includes/admin/views/dashboard.php:73
+#: includes/admin/views/dashboard.php:219
+#: includes/admin/views/dashboard.php:264
+msgid "Views"
+msgstr ""
+
+#. translators: %s: percentage
+#: includes/admin/views/dashboard.php:64
+#: includes/admin/views/dashboard.php:75
+#: includes/admin/views/dashboard.php:220
+msgid "Pin opens"
+msgstr ""
+
+#. translators: %s: percentage
+#: includes/admin/views/dashboard.php:65
+#: includes/admin/views/dashboard.php:77
+#: includes/admin/views/dashboard.php:221
+msgid "Product clicks"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:66
+#: includes/admin/views/dashboard.php:78
+#: includes/admin/views/dashboard.php:222
+msgid "Add to carts"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:67
+#: includes/admin/views/dashboard.php:223
+msgid "Items sold"
+msgstr ""
+
+#. translators: %s: currency symbol
+#: includes/admin/views/dashboard.php:69
+#, php-format
+msgid "Revenue (%s)"
+msgstr ""
+
+#. translators: %s: percentage
+#: includes/admin/views/dashboard.php:75
+#, php-format
+msgid "%s of views"
+msgstr ""
+
+#. translators: %s: percentage
+#: includes/admin/views/dashboard.php:77
+#, php-format
+msgid "%s of pin opens"
+msgstr ""
+
+#. translators: %s: number of items
+#: includes/admin/views/dashboard.php:80
+msgid "Orders"
+msgstr ""
+
+#. translators: %s: number of items
+#: includes/admin/views/dashboard.php:80
+#, php-format
+msgid "%s item sold"
+msgid_plural "%s items sold"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/views/dashboard.php:98
+msgid "No earlier data"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:108
+msgid "lower than the previous period"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:108
+msgid "higher than the previous period"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:115
+msgid "Date range"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:124
+msgid "Tracking is turned off, so no new activity is being counted."
+msgstr ""
+
+#: includes/admin/views/dashboard.php:125
+msgid "Tracking settings"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:131
+msgid "Make your first image shoppable"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:133
+msgid "Edit a post or page and select an Image block (or a Gallery block)."
+msgstr ""
+
+#: includes/admin/views/dashboard.php:134
+msgid "In the block settings, switch on “Shoppable image” in the Shopnook panel."
+msgstr ""
+
+#: includes/admin/views/dashboard.php:135
+msgid "Click “Tag products”, click the image to drop pins, and pick a product for each."
+msgstr ""
+
+#: includes/admin/views/dashboard.php:137
+msgid "You can also tag images in the Media Library: open an image and click “Tag products”. Those pins show wherever the image is shoppable."
+msgstr ""
+
+#: includes/admin/views/dashboard.php:139
+msgid "Write a post"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:140
+msgid "Open the Media Library"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:141
+msgid "Choose pin and card styles"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:146
+msgid "Totals"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:148
+msgid "Revenue from shoppable images"
+msgstr ""
+
+#. translators: %d: credit window in days
+#: includes/admin/views/dashboard.php:154
+#, php-format
+msgid "Orders credited within %d day of a click."
+msgid_plural "Orders credited within %d days of a click."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/views/dashboard.php:173
+msgid "Trend"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:174
+msgid "Measure"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:200
+msgid "Show as table"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:202
+msgid "Date"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:216
+msgid "From view to sale"
+msgstr ""
+
+#. translators: %s: percentage of the previous step
+#: includes/admin/views/dashboard.php:237
+#, php-format
+msgid "%s of previous"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:244
+msgid "Items sold counts paid orders only. Cancelled and refunded orders are removed."
+msgstr ""
+
+#: includes/admin/views/dashboard.php:251
+msgid "Top images"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:255
+msgid "Top products"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:259
+msgid "Top posts and galleries"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:265
+msgid "Opens"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:266
+msgid "Clicks"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:267
+msgid "Carts"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:268
+msgid "Sold"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:269
+msgid "Revenue"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:278
+msgid "Nothing in this period yet."
+msgstr ""
+
+#: includes/admin/views/dashboard.php:283
+msgid "Product"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:283
+msgid "Post"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:283
+#: includes/admin/views/dashboard.php:312
+msgid "Image"
+msgstr ""
+
+#: includes/admin/views/dashboard.php:312
+msgid "Gallery"
+msgstr ""
+
+#: includes/admin/views/settings.php:12
+#: assets/js/pin-editor.js:789
+msgid "Pins"
+msgstr ""
+
+#: includes/admin/views/settings.php:13
+msgid "Display & card"
+msgstr ""
+
+#: includes/admin/views/settings.php:14
+msgid "Galleries"
+msgstr ""
+
+#: includes/admin/views/settings.php:15
+msgid "Tracking"
+msgstr ""
+
+#: includes/admin/views/settings.php:106
+msgid "These are the defaults for every shoppable image. An image can change them in the Media Library, and a block can change them again for one post."
+msgstr ""
+
+#: includes/admin/views/settings.php:108
+msgid "Settings sections"
+msgstr ""
+
+#: includes/admin/views/settings.php:123
+#: assets/js/pin-editor.js:597
+msgid "Pin style"
+msgstr ""
+
+#: includes/admin/views/settings.php:151
+msgid "Custom pin image"
+msgstr ""
+
+#: includes/admin/views/settings.php:154
+msgid "Choose image"
+msgstr ""
+
+#: includes/admin/views/settings.php:155
+msgid "Remove"
+msgstr ""
+
+#: includes/admin/views/settings.php:156
+msgid "A square PNG, WebP or SVG with a transparent background works best, for example your logo or a small icon."
+msgstr ""
+
+#: includes/admin/views/settings.php:162
+msgid "Size"
+msgstr ""
+
+#: includes/admin/views/settings.php:164
+#: includes/class-shopnook-editor.php:91
+msgid "Small"
+msgstr ""
+
+#: includes/admin/views/settings.php:165
+#: includes/class-shopnook-editor.php:92
+msgid "Medium"
+msgstr ""
+
+#: includes/admin/views/settings.php:166
+#: includes/class-shopnook-editor.php:93
+msgid "Large"
+msgstr ""
+
+#: includes/admin/views/settings.php:171
+#: assets/js/pin-editor.js:611
+msgid "Pin background"
+msgstr ""
+
+#: includes/admin/views/settings.php:172
+#: assets/js/pin-editor.js:619
+msgid "Pin icon color"
+msgstr ""
+
+#: includes/admin/views/settings.php:177
+#: assets/js/pin-editor.js:609
+msgid "Show pins"
+msgstr ""
+
+#: includes/admin/views/settings.php:179
+#: includes/class-shopnook-editor.php:96
+msgid "Always"
+msgstr ""
+
+#: includes/admin/views/settings.php:180
+msgid "When hovering the image"
+msgstr ""
+
+#: includes/admin/views/settings.php:182
+msgid "On phones and tablets, pins are always shown."
+msgstr ""
+
+#: includes/admin/views/settings.php:187
+#: includes/admin/views/settings.php:188
+msgid "Preview"
+msgstr ""
+
+#: includes/admin/views/settings.php:196
+msgid "Updates as you change the options. Save to apply."
+msgstr ""
+
+#: includes/admin/views/settings.php:204
+#: assets/js/pin-editor.js:634
+msgid "When a pin is clicked, show"
+msgstr ""
+
+#: includes/admin/views/settings.php:208
+msgid "A small card next to the pin."
+msgstr ""
+
+#: includes/admin/views/settings.php:209
+msgid "The product opens in a box under the image."
+msgstr ""
+
+#: includes/admin/views/settings.php:210
+msgid "A panel slides in from the side of the screen."
+msgstr ""
+
+#: includes/admin/views/settings.php:211
+msgid "All products are listed under the image; pins highlight their product."
+msgstr ""
+
+#: includes/admin/views/settings.php:223
+#: assets/js/pin-editor.js:635
+msgid "On phones"
+msgstr ""
+
+#: includes/admin/views/settings.php:223
+msgid "A bottom sheet is easiest to use with one thumb."
+msgstr ""
+
+#: includes/admin/views/settings.php:226
+msgid "The product card shows"
+msgstr ""
+
+#: includes/admin/views/settings.php:232
+msgid "Variable and grouped products show “Select options” instead of Add to cart, and link to the product page."
+msgstr ""
+
+#: includes/admin/views/settings.php:235
+#: assets/js/pin-editor.js:679
+msgid "Add to cart button text"
+msgstr ""
+
+#: includes/admin/views/settings.php:235
+#: assets/js/pin-editor.js:680
+msgid "Add to cart"
+msgstr ""
+
+#: includes/admin/views/settings.php:236
+#: assets/js/pin-editor.js:689
+msgid "View product link text"
+msgstr ""
+
+#: includes/admin/views/settings.php:236
+#: includes/class-shopnook-render.php:397
+#: assets/js/pin-editor.js:690
+msgid "View product"
+msgstr ""
+
+#: includes/admin/views/settings.php:238
+#: assets/js/pin-editor.js:697
+msgid "Button color"
+msgstr ""
+
+#: includes/admin/views/settings.php:241
+#: includes/admin/views/settings.php:242
+msgid "Card preview"
+msgstr ""
+
+#: includes/admin/views/settings.php:257
+msgid "Shows your saved settings with one of your products."
+msgstr ""
+
+#: includes/admin/views/settings.php:259
+msgid "Add a published product to see a preview."
+msgstr ""
+
+#: includes/admin/views/settings.php:266
+msgid "Turn on “Shoppable gallery” in a Gallery block’s settings. Each photo uses its own pins, and these are the defaults for the layout."
+msgstr ""
+
+#: includes/admin/views/settings.php:268
+msgid "Default layout"
+msgstr ""
+
+#: includes/admin/views/settings.php:272
+msgid "Square tiles. A photo opens in a popup with its products beside it."
+msgstr ""
+
+#: includes/admin/views/settings.php:273
+msgid "Pinterest-style columns that keep each photo’s shape. Same popup."
+msgstr ""
+
+#: includes/admin/views/settings.php:274
+msgid "Tall slides people swipe through, with pins on each slide."
+msgstr ""
+
+#: includes/admin/views/settings.php:290
+#: assets/js/block-editor.js:389
+msgid "Columns"
+msgstr ""
+
+#: includes/admin/views/settings.php:296
+msgid "For the grid and masonry layouts."
+msgstr ""
+
+#: includes/admin/views/settings.php:300
+msgid "Space between photos (px)"
+msgstr ""
+
+#: includes/admin/views/settings.php:309
+msgid "Show the number of products on each tile"
+msgstr ""
+
+#: includes/admin/views/settings.php:314
+msgid "Count views, clicks and sales"
+msgstr ""
+
+#: includes/admin/views/settings.php:314
+msgid "Anonymous daily totals for the dashboard. No personal data or IP addresses are stored."
+msgstr ""
+
+#: includes/admin/views/settings.php:318
+msgid "Credit a sale to an image for (days)"
+msgstr ""
+
+#: includes/admin/views/settings.php:324
+msgid "When someone clicks a product on a shoppable image and buys it within this many days, the sale counts for that image. The most recent click wins."
+msgstr ""
+
+#: includes/admin/views/settings.php:328
+msgid "Keep stats for"
+msgstr ""
+
+#: includes/admin/views/settings.php:332
+msgid "3 months"
+msgstr ""
+
+#: includes/admin/views/settings.php:333
+msgid "6 months"
+msgstr ""
+
+#: includes/admin/views/settings.php:334
+msgid "1 year"
+msgstr ""
+
+#: includes/admin/views/settings.php:335
+msgid "2 years"
+msgstr ""
+
+#: includes/admin/views/settings.php:336
+msgid "Forever"
+msgstr ""
+
+#: includes/admin/views/settings.php:344
+msgid "Don’t count visits by logged-in staff"
+msgstr ""
+
+#: includes/admin/views/settings.php:344
+msgid "Anyone who can edit posts, so your own testing doesn’t inflate the numbers."
+msgstr ""
+
+#: includes/admin/views/settings.php:346
+msgid "If a cookie consent plugin that supports the WP Consent API is active, Shopnook only counts and sets its cookie after visitors allow statistics cookies."
+msgstr ""
+
+#: includes/admin/views/settings.php:349
+msgid "Delete all Shopnook data when the plugin is deleted"
+msgstr ""
+
+#: includes/admin/views/settings.php:349
+msgid "Removes settings, stats and the pins saved on images. Pins saved in blocks stay in your posts and are simply ignored."
+msgstr ""
+
+#: includes/class-shopnook-editor.php:97
+msgid "On hover"
+msgstr ""
+
+#: includes/class-shopnook-gallery.php:34
+msgid "Instagram grid"
+msgstr ""
+
+#: includes/class-shopnook-gallery.php:35
+msgid "Masonry"
+msgstr ""
+
+#: includes/class-shopnook-gallery.php:36
+msgid "Stories carousel"
+msgstr ""
+
+#. translators: 1: photo number, 2: number of photos, 3: image description
+#: includes/class-shopnook-gallery.php:240
+#, php-format
+msgid "Open photo %1$d of %2$d: %3$s"
+msgstr ""
+
+#: includes/class-shopnook-gallery.php:243
+msgid "no description"
+msgstr ""
+
+#. translators: %d: number of tagged products
+#: includes/class-shopnook-gallery.php:247
+#: includes/class-shopnook-gallery.php:291
+#: includes/class-shopnook-images.php:162
+#: assets/js/block-editor.js:95
+#, php-format,js-format
+msgid "%d product"
+msgid_plural "%d products"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-shopnook-gallery.php:297
+msgid "slide"
+msgstr ""
+
+#. translators: 1: photo number, 2: number of photos
+#: includes/class-shopnook-gallery.php:299
+#: includes/class-shopnook-render.php:124
+#, php-format
+msgid "%1$d of %2$d"
+msgstr ""
+
+#: includes/class-shopnook-gallery.php:321
+msgid "carousel"
+msgstr ""
+
+#: includes/class-shopnook-gallery.php:322
+msgid "Previous slides"
+msgstr ""
+
+#: includes/class-shopnook-gallery.php:325
+msgid "Next slides"
+msgstr ""
+
+#: includes/class-shopnook-images.php:141
+#: includes/class-shopnook-images.php:172
+msgid "Products"
+msgstr ""
+
+#: includes/class-shopnook-images.php:146
+#: assets/js/block-editor.js:227
+#: assets/js/media.js:30
+#: assets/js/media.js:37
+#: assets/js/media.js:44
+msgid "Tag products"
+msgstr ""
+
+#: includes/class-shopnook-images.php:149
+msgid "Shopnook pins show wherever this image is used as a shoppable image."
+msgstr ""
+
+#. translators: %d: number of tagged products
+#: includes/class-shopnook-images.php:162
+msgid "None yet"
+msgstr ""
+
+#: includes/class-shopnook-pins.php:22
+msgid "Dot"
+msgstr ""
+
+#: includes/class-shopnook-pins.php:23
+msgid "Pulsing dot"
+msgstr ""
+
+#: includes/class-shopnook-pins.php:24
+msgid "Plus"
+msgstr ""
+
+#: includes/class-shopnook-pins.php:25
+msgid "Number"
+msgstr ""
+
+#: includes/class-shopnook-pins.php:26
+msgid "Shopping bag"
+msgstr ""
+
+#: includes/class-shopnook-pins.php:27
+msgid "Price tag"
+msgstr ""
+
+#: includes/class-shopnook-pins.php:28
+msgid "Custom image"
+msgstr ""
+
+#: includes/class-shopnook-privacy.php:29
+msgid "Shoppable images on this site count how often they are viewed and how often their products are opened, clicked and added to the cart. These are anonymous daily totals; no personal data or IP address is stored."
+msgstr ""
+
+#: includes/class-shopnook-privacy.php:30
+msgid "When you open a product from a shoppable image, a cookie named shopnook_ref remembers the product and the image for a few days, so a later purchase of that product can be credited to the image. It holds no personal data. If this site asks for cookie consent, the cookie is only set when you allow statistics cookies."
+msgstr ""
+
+#: includes/class-shopnook-products.php:102
+#: assets/js/pin-editor.js:114
+msgid "Out of stock"
+msgstr ""
+
+#: includes/class-shopnook-products.php:102
+msgid "On backorder"
+msgstr ""
+
+#: includes/class-shopnook-render.php:116
+msgid "Added"
+msgstr ""
+
+#: includes/class-shopnook-render.php:117
+msgid "View cart"
+msgstr ""
+
+#: includes/class-shopnook-render.php:118
+msgid "Adding…"
+msgstr ""
+
+#: includes/class-shopnook-render.php:119
+msgid "Could not add this product. Please try again."
+msgstr ""
+
+#: includes/class-shopnook-render.php:120
+msgid "Close"
+msgstr ""
+
+#: includes/class-shopnook-render.php:121
+msgid "Previous photo"
+msgstr ""
+
+#: includes/class-shopnook-render.php:122
+msgid "Next photo"
+msgstr ""
+
+#: includes/class-shopnook-render.php:125
+msgid "Products in this photo"
+msgstr ""
+
+#: includes/class-shopnook-render.php:126
+msgid "No products tagged in this photo."
+msgstr ""
+
+#. translators: 1: pin number, 2: product name
+#: includes/class-shopnook-render.php:269
+#, php-format
+msgid "Product %1$d: %2$s"
+msgstr ""
+
+#: includes/class-shopnook-render.php:332
+msgid "Shop this look"
+msgstr ""
+
+#: includes/class-shopnook-render.php:358
+msgid "Sale"
+msgstr ""
+
+#. translators: %s: average rating
+#: includes/class-shopnook-render.php:367
+#, php-format
+msgid "Rated %s out of 5"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:93
+msgid "Product image"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:94
+msgid "Name"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:95
+msgid "Price"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:96
+msgid "Sale badge"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:97
+msgid "Star rating"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:98
+msgid "Short description"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:99
+msgid "Add to cart button"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:100
+msgid "View product link"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:111
+msgid "Tooltip card"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:112
+#: includes/class-shopnook-settings.php:127
+msgid "Panel below image"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:113
+msgid "Side drawer"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:114
+msgid "Shop this look list"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:125
+msgid "Bottom sheet"
+msgstr ""
+
+#: includes/class-shopnook-settings.php:126
+msgid "Same as desktop"
+msgstr ""
+
+#. translators: %d: number of days
+#: includes/class-shopnook-tracking.php:73
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-shopnook-tracking.php:74
+msgid "Remembers which shoppable image led to a product, to credit the sale to that image."
+msgstr ""
+
+#: shopnook.php:94
+msgid "Shopnook needs WooCommerce to be installed and active."
+msgstr ""
+
+#: assets/js/block-editor.js:144
+msgid "This image is part of a shoppable gallery. Its pins show in the gallery; the gallery sets the layout and look."
+msgstr ""
+
+#: assets/js/block-editor.js:150
+msgid "Shoppable image"
+msgstr ""
+
+#: assets/js/block-editor.js:151
+msgid "Pins open product cards on your site."
+msgstr ""
+
+#: assets/js/block-editor.js:151
+msgid "Off: shown as a plain image. Pins are kept."
+msgstr ""
+
+#: assets/js/block-editor.js:163
+msgid "This image is not from the Media Library, so it has no shared pins. You can still add pins for this post."
+msgstr ""
+
+#. translators: %s: number of products, e.g. "3 products"
+#: assets/js/block-editor.js:172
+#, js-format
+msgid "Customized for this post: %s."
+msgstr ""
+
+#. translators: %s: number of products, e.g. "3 products"
+#: assets/js/block-editor.js:175
+#, js-format
+msgid "Using Media Library pins: %s."
+msgstr ""
+
+#: assets/js/block-editor.js:193
+msgid "Edit pins for this post"
+msgstr ""
+
+#: assets/js/block-editor.js:205
+msgid "Remove the pins made for this post and use the Media Library pins again?"
+msgstr ""
+
+#: assets/js/block-editor.js:210
+msgid "Use Media Library pins"
+msgstr ""
+
+#: assets/js/block-editor.js:227
+msgid "Edit Media Library pins"
+msgstr ""
+
+#: assets/js/block-editor.js:242
+msgid "Customize for this post"
+msgstr ""
+
+#: assets/js/block-editor.js:242
+msgid "Add pins"
+msgstr ""
+
+#: assets/js/block-editor.js:250
+msgid "Media Library pins show everywhere this image is shoppable. Customize to give this post its own pins."
+msgstr ""
+
+#. translators: %d: number of changed settings
+#: assets/js/block-editor.js:267
+#: assets/js/block-editor.js:410
+#, js-format
+msgid "Shopnook look (%d changed)"
+msgstr ""
+
+#: assets/js/block-editor.js:267
+#: assets/js/block-editor.js:410
+msgid "Shopnook look"
+msgstr ""
+
+#: assets/js/block-editor.js:271
+msgid "For this image in this post only. Leave on Default to follow the Media Library and site settings."
+msgstr ""
+
+#: assets/js/block-editor.js:286
+msgid "Media Library pins"
+msgstr ""
+
+#: assets/js/block-editor.js:287
+msgid "These pins are saved on the image and show in every post where it is shoppable, except posts with their own pins."
+msgstr ""
+
+#: assets/js/block-editor.js:291
+msgid "Save to Media Library"
+msgstr ""
+
+#: assets/js/block-editor.js:307
+msgid "Pins for this post"
+msgstr ""
+
+#: assets/js/block-editor.js:308
+msgid "These pins replace the Media Library pins for this image in this post only."
+msgstr ""
+
+#. translators: %s: the inherited value
+#: assets/js/block-editor.js:343
+#: assets/js/pin-editor.js:485
+#, js-format
+msgid "Default (%s)"
+msgstr ""
+
+#. translators: %d: default number of columns
+#: assets/js/block-editor.js:349
+#, js-format
+msgid "Default (%d)"
+msgstr ""
+
+#: assets/js/block-editor.js:358
+msgid "Shoppable gallery"
+msgstr ""
+
+#: assets/js/block-editor.js:360
+msgid "Select an image in the gallery to tag its products. Preview the post to see the layout."
+msgstr ""
+
+#: assets/js/block-editor.js:361
+msgid "Off: a normal gallery."
+msgstr ""
+
+#: assets/js/block-editor.js:375
+msgid "Layout"
+msgstr ""
+
+#: assets/js/block-editor.js:418
+msgid "Applies to every photo in this gallery."
+msgstr ""
+
+#: assets/js/block-editor.js:419
+msgid "Applies to every photo in this gallery. The popup lists the products beside the photo."
+msgstr ""
+
+#: assets/js/media.js:23
+msgid "Could not load this image."
+msgstr ""
+
+#: assets/js/media.js:45
+msgid "Pins saved here show wherever this image is shoppable. A post can still give the image its own pins in the block settings."
+msgstr ""
+
+#: assets/js/pin-editor.js:114
+msgid "Not published"
+msgstr ""
+
+#. translators: %d: product ID
+#: assets/js/pin-editor.js:163
+#, js-format
+msgid "Product #%d"
+msgstr ""
+
+#: assets/js/pin-editor.js:172
+msgid "Change"
+msgstr ""
+
+#: assets/js/pin-editor.js:183
+msgid "Search products"
+msgstr ""
+
+#: assets/js/pin-editor.js:184
+msgid "Search by name or SKU"
+msgstr ""
+
+#: assets/js/pin-editor.js:192
+msgid "No products found."
+msgstr ""
+
+#: assets/js/pin-editor.js:228
+#: assets/js/pin-editor.js:825
+msgid "Cancel"
+msgstr ""
+
+#. translators: 1: pin number, 2: product name
+#: assets/js/pin-editor.js:390
+#, js-format
+msgid "Pin %1$d: %2$s. Use arrow keys to move, Delete to remove."
+msgstr ""
+
+#: assets/js/pin-editor.js:392
+msgid "no product yet"
+msgstr ""
+
+#: assets/js/pin-editor.js:408
+msgid "Click the image to add a pin. Drag pins to move them, or select one and use the arrow keys."
+msgstr ""
+
+#. translators: %d: pin number
+#: assets/js/pin-editor.js:436
+#, js-format
+msgid "Pin %d"
+msgstr ""
+
+#. translators: %d: pin number
+#: assets/js/pin-editor.js:440
+#, js-format
+msgid "Remove pin %d"
+msgstr ""
+
+#: assets/js/pin-editor.js:460
+msgid "Label (optional)"
+msgstr ""
+
+#: assets/js/pin-editor.js:461
+msgid "Shown when hovering the pin. Defaults to the product name."
+msgstr ""
+
+#: assets/js/pin-editor.js:471
+msgid "No pins yet."
+msgstr ""
+
+#: assets/js/pin-editor.js:471
+msgid "Click anywhere on the image to place the first one."
+msgstr ""
+
+#: assets/js/pin-editor.js:522
+msgid "Use default"
+msgstr ""
+
+#: assets/js/pin-editor.js:524
+msgid "Default"
+msgstr ""
+
+#: assets/js/pin-editor.js:549
+msgid "Change pin image"
+msgstr ""
+
+#: assets/js/pin-editor.js:549
+msgid "Choose pin image"
+msgstr ""
+
+#: assets/js/pin-editor.js:608
+msgid "Pin size"
+msgstr ""
+
+#: assets/js/pin-editor.js:648
+msgid "Choose what the product card shows"
+msgstr ""
+
+#: assets/js/pin-editor.js:649
+msgid "Using the default card."
+msgstr ""
+
+#: assets/js/pin-editor.js:659
+msgid "Card fields"
+msgstr ""
+
+#: assets/js/pin-editor.js:751
+msgid "Could not save. Please try again."
+msgstr ""
+
+#: assets/js/pin-editor.js:790
+msgid "Look & display"
+msgstr ""
+
+#. translators: %d: number of pins
+#: assets/js/pin-editor.js:819
+#, js-format
+msgid "%d pin without a product will not be saved."
+msgid_plural "%d pins without a product will not be saved."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/js/pin-editor.js:826
+msgid "Save"
+msgstr ""

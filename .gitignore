@@ -1,0 +1,8 @@
+.DS_Store
+.playwright-cli/
+output/
+build/
+node_modules/
+*.zip
+# Internal planning notes stay local.
+docs/
