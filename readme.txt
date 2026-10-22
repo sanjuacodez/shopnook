@@ -109,7 +109,7 @@ The Shopnook dashboard shows, for any date range and compared with the previous 
 * Visits by logged-in editors and admins are not counted (you can change this), and neither are bots.
 * Suggested text is added to your privacy policy page.
 * Choose how long stats are kept: 3 months to forever.
-* No external services, no tracking scripts from third parties. Everything stays in your WordPress database.
+* No third-party tracking scripts. Shoppable image stats stay in your WordPress database. The only outside service is the optional newsletter sign-up described under External services.
 
 = Fast and light =
 
@@ -138,6 +138,23 @@ The Shopnook dashboard shows, for any date range and compared with the previous 
 * Pins on an image are stored in the `_shopnook_image` attachment meta; per-post pins live in the block's `shopnook` attribute.
 * REST routes under `shopnook/v1`.
 * Development happens on [GitHub](https://github.com/sanjuacodez/shopnook). Bug reports and pull requests are welcome.
+
+= External services =
+
+Shopnook contacts two outside services, and only when an administrator chooses to.
+
+**Brevo (newsletter sign-up).** Administrators see a "Plugins by Sanjay Shankar" card on the Shopnook dashboard, inviting them to join the author's newsletter about new plugins, betas and offers. Nothing is sent unless an administrator types an email address and clicks **Subscribe**. Then the email address, the first name if entered, and the name of the plugin the sign-up came from (for example "Shopnook") are sent from your server to Brevo, the newsletter service. The address is used only to send news about the author's plugins and sanjayshankar.me, is never sold or shared, and every email has an unsubscribe link. Closing the card hides it for 30 days, it stops once the site has subscribed, and it never appears to visitors. The same sign-up form is also available at any time at the bottom of **Shopnook → Settings**, for administrators who closed the card.
+
+* Service: Brevo (Sendinblue SAS), [brevo.com](https://www.brevo.com/)
+* Brevo terms of use: [brevo.com/legal/termsofuse](https://www.brevo.com/legal/termsofuse/)
+* Brevo privacy policy: [brevo.com/legal/privacypolicy](https://www.brevo.com/legal/privacypolicy/)
+* Plugin author's privacy policy: [sanjayshankar.me/privacy](https://sanjayshankar.me/privacy/)
+
+**Google Apps Script and Google Sheets (deactivation feedback).** When an administrator clicks **Deactivate** for Shopnook, a short optional survey asks why. Nothing is sent if they choose **Skip & deactivate** or **Cancel**. If they choose **Send & deactivate**, the selected reason, any comment, the Shopnook version and the WordPress, WooCommerce and PHP versions and admin language are sent from your server to a Google Apps Script web app that stores them in the author's private Google Sheet. The administrator's name and email, shown in the survey, are included while "You can contact me about this" is ticked; unticking it sends the answer anonymously. The site address is never sent.
+
+* Service: Google Apps Script and Google Sheets, by Google LLC
+* Google terms of service: [policies.google.com/terms](https://policies.google.com/terms)
+* Google privacy policy: [policies.google.com/privacy](https://policies.google.com/privacy)
 
 = Support and feedback =
 

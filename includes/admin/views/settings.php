@@ -352,4 +352,6 @@ $shopnook_look = Shopnook_Settings::resolve();
 
 		<?php submit_button(); ?>
 	</form>
+
+	<?php do_action( 'sanjayshankar_connect_box', 'shopnook' ); ?>
 </div>

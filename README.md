@@ -88,7 +88,11 @@ A sale counts for a photo when someone taps a product in it and buys that produc
 - No personal data and no IP addresses are stored, only anonymous daily totals ("42 views today").
 - One small cookie remembers which photo a shopper came from, so the sale can be credited. It expires after the credit window.
 - If your site uses a cookie consent banner that supports the WP Consent API, nothing is tracked until the visitor agrees.
-- No outside services. Everything stays in your own WordPress database.
+- No outside services for your shop or your visitors: stats stay in your own WordPress database. The only outside service is an optional newsletter sign-up for site admins (see below).
+
+## Newsletter card for admins
+
+Admins see a "Plugins by Sanjay Shankar" card on the Shopnook dashboard with an optional newsletter sign-up for new plugins, betas and offers. Nothing is sent unless an admin types an email and clicks **Subscribe**. Then the email, first name (optional) and the plugin name go to [Brevo](https://www.brevo.com/). Closing it hides it for 30 days, it stops once the site has subscribed, and visitors never see it. The same form stays available at the bottom of **Shopnook → Settings**. All plugins by Sanjay Shankar share this one card, so a site with several of them sees it once.
 
 ## Good to know
 
@@ -165,6 +169,26 @@ npx @wp-playground/cli@3 server --php=8.3 --wp=latest \
 ### Hooks
 
 - `shopnook_product_card` (filter): the data a product card shows, `( array $card, WC_Product $product )`.
+
+### Shared newsletter card (`includes/connect/`)
+
+The "Plugins by Sanjay Shankar" card is one module shared by all of the author's plugins. To add it to another plugin, copy `includes/connect/` and change the text domain `shopnook` in `class-sanjayshankar-connect.php` to that plugin's slug. Then:
+
+```php
+require_once __DIR__ . '/includes/connect/connect.php';
+add_filter( 'sanjayshankar_connect_plugins', function ( $plugins ) {
+	$plugins['likenook'] = 'Likenook';
+	return $plugins;
+} );
+// Dismissible card on the plugin's dashboard screen:
+do_action( 'sanjayshankar_connect_card', 'likenook' );
+// Permanent box at the bottom of the plugin's settings screen (outside its <form>):
+do_action( 'sanjayshankar_connect_box', 'likenook' );
+```
+
+Register with an array to also get the deactivation survey: `$plugins['likenook'] = array( 'name' => 'Likenook', 'file' => plugin_basename( __FILE__ ), 'version' => LIKENOOK_VERSION );`. Answers go to `SanjayShankar_Connect::FEEDBACK_URL`, a Google Apps Script web app (`bin/feedback-receiver.gs`) that writes one row per answer to the tab named after the plugin's slug.
+
+When several plugins carry the module, the newest version runs and the card shows once per site. State: option `sanjayshankar_connect` (`subscribed`) and user meta `sanjayshankar_connect_hidden_until`; both are shared, so uninstalling one plugin leaves them for the others. Sign-ups go to the Brevo form in `SanjayShankar_Connect::FORM_URL` with `EMAIL`, `FIRSTNAME` and `PLUGIN`.
 
 ### Data
 

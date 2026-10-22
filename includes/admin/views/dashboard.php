@@ -119,6 +119,8 @@ $shopnook_change = function ( $value ) {
 		</nav>
 	</div>
 
+	<?php do_action( 'sanjayshankar_connect_card', 'shopnook' ); ?>
+
 	<?php if ( ! Shopnook_Settings::get( 'tracking' ) ) : ?>
 		<div class="notice notice-warning inline"><p>
 			<?php esc_html_e( 'Tracking is turned off, so no new activity is being counted.', 'shopnook' ); ?>

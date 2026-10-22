@@ -39,6 +39,7 @@ require_once SHOPNOOK_PATH . 'includes/class-shopnook-stats.php';
 require_once SHOPNOOK_PATH . 'includes/class-shopnook-rest.php';
 require_once SHOPNOOK_PATH . 'includes/class-shopnook-editor.php';
 require_once SHOPNOOK_PATH . 'includes/class-shopnook-privacy.php';
+require_once SHOPNOOK_PATH . 'includes/connect/connect.php';
 
 if ( is_admin() ) {
 	require_once SHOPNOOK_PATH . 'includes/admin/class-shopnook-admin.php';
@@ -48,6 +49,7 @@ register_activation_hook( __FILE__, array( 'Shopnook_DB', 'install' ) );
 register_deactivation_hook( __FILE__, array( 'Shopnook_Stats', 'unschedule' ) );
 
 add_action( 'before_woocommerce_init', 'shopnook_declare_wc_compatibility' );
+add_filter( 'sanjayshankar_connect_plugins', 'shopnook_connect_register' );
 add_action( 'plugins_loaded', 'shopnook_boot' );
 
 /**
@@ -58,6 +60,21 @@ function shopnook_declare_wc_compatibility() {
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', SHOPNOOK_FILE, true );
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', SHOPNOOK_FILE, true );
 	}
+}
+
+/**
+ * Lists Shopnook in the shared "Plugins by Sanjay Shankar" newsletter card.
+ *
+ * @param array $plugins Slug => name.
+ * @return array
+ */
+function shopnook_connect_register( $plugins ) {
+	$plugins['shopnook'] = array(
+		'name'    => 'Shopnook',
+		'file'    => plugin_basename( SHOPNOOK_FILE ),
+		'version' => SHOPNOOK_VERSION,
+	);
+	return $plugins;
 }
 
 /**
