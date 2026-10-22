@@ -233,13 +233,23 @@ class SanjayShankar_Connect {
 		$themes = array( 'green', 'blue', 'purple', 'yellow', 'orange' );
 		$theme  = $themes[ wp_rand( 0, count( $themes ) - 1 ) ];
 
-		$names = self::plugin_names();
-		if ( count( $names ) > 1 ) {
-			$last  = array_pop( $names );
-			/* translators: 1: comma-separated plugin names, 2: the last plugin name */
-			$names = sprintf( __( '%1$s and %2$s', 'shopnook' ), implode( ', ', $names ), $last );
+		// Name the plugin whose screen this is; count the others.
+		$all     = self::plugins();
+		$current = isset( $all[ $source ] ) ? $all[ $source ]['name'] : '';
+		$others  = array_values( array_diff( self::plugin_names(), array( $current ) ) );
+		if ( '' === $current ) {
+			$current = array_shift( $others );
+		}
+		if ( ! $current ) {
+			$names = '';
+		} elseif ( ! $others ) {
+			$names = $current;
+		} elseif ( 1 === count( $others ) ) {
+			/* translators: 1: this plugin's name, 2: another plugin's name */
+			$names = sprintf( __( '%1$s and %2$s', 'shopnook' ), $current, $others[0] );
 		} else {
-			$names = $names ? $names[0] : '';
+			/* translators: 1: this plugin's name, 2: number of the author's other plugins */
+			$names = sprintf( _n( '%1$s and %2$d of my other plugins', '%1$s and %2$d of my other plugins', count( $others ), 'shopnook' ), $current, count( $others ) );
 		}
 		// Pre-filled from the admin's own profile so they don't retype it. Nothing is
 		// sent until they click Subscribe, and they can change both fields first.

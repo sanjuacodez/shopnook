@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Copy the shared "Plugins by Sanjay Shankar" module (includes/connect/) into
+# another plugin, swapping only the text domain.
+#   ./bin/sync-connect <path-to-plugin> <text-domain>
+set -euo pipefail
+SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/includes/connect"
+DEST="$1/includes/connect"
+DOMAIN="$2"
+[[ -d "$1" && -n "$DOMAIN" ]] || { echo "usage: $0 <plugin-dir> <text-domain>" >&2; exit 1; }
+mkdir -p "$DEST"
+rsync -a --delete "$SRC/" "$DEST/"
+# Only the text-domain argument of translation calls: 'shopnook' ) → 'domain' )
+sed -i '' "s/'shopnook' )/'${DOMAIN}' )/g" "$DEST/class-sanjayshankar-connect.php"
+left=$(grep -c "'shopnook' )" "$DEST/class-sanjayshankar-connect.php" || true)
+echo "Synced to $DEST (text domain ${DOMAIN}; leftover shopnook domains: ${left})"
