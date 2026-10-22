@@ -8,13 +8,30 @@
  *
  * Each plugin's answers go to the tab named after the plugin's slug
  * ("shopnook", "likenook", "advanced-preloader", …, matched without regard to
- * case; the display name also matches). A missing tab is created.
+ * case). Only the slugs listed in PLUGINS are accepted; a missing tab for one
+ * of them is created. Requests are rate-limited (RATE_PER_MINUTE, RATE_PER_DAY)
+ * so a flood of fake answers cannot fill the sheet.
  * An empty tab gets the default headings; a tab with its own headings is
  * filled by heading name, and missing known columns are added on the right.
  */
 
 // Filters out random requests; it ships in public plugin code, so it is not a secret.
 var TOKEN = 'ssc-feedback-1';
+
+// The only plugins accepted: slug (tab name) => name written to the Plugin column.
+// Add a line here when a new plugin starts using the survey, then redeploy.
+var PLUGINS = {
+	'shopnook': 'Shopnook',
+	'likenook': 'Likenook',
+	'seeknook': 'Seeknook',
+	'anchormap': 'Anchormap',
+	'advanced-preloader': 'Advanced Preloader',
+	'halloween-animations': 'Seasonal Effects & Notice Bar'
+};
+
+// Most answers accepted across all plugins. Real deactivations stay far below this.
+var RATE_PER_MINUTE = 30;
+var RATE_PER_DAY = 500;
 
 var HEADERS = [ 'Date', 'Plugin', 'Version', 'Reason', 'Details', 'WordPress', 'WooCommerce', 'PHP', 'Language', 'Contact name', 'Contact email' ];
 
@@ -41,8 +58,14 @@ function doPost( e ) {
 			return reply( { ok: false, error: 'bad token' } );
 		}
 
-		var plugin = clean( data.plugin, 60 ) || 'Unknown';
 		var slug = String( data.slug || '' ).toLowerCase().replace( /[^a-z0-9_-]/g, '' ).slice( 0, 60 );
+		if ( ! Object.prototype.hasOwnProperty.call( PLUGINS, slug ) ) {
+			return reply( { ok: false, error: 'unknown plugin' } );
+		}
+		if ( ! withinRate() ) {
+			return reply( { ok: false, error: 'rate limited' } );
+		}
+		var plugin = PLUGINS[ slug ];
 		var values = {
 			date: new Date(),
 			plugin: plugin,
@@ -80,11 +103,27 @@ function doGet() {
 	return reply( { ok: true, service: 'Plugins by Sanjay Shankar feedback' } );
 }
 
-// The tab named after the slug (or, failing that, the display name); created if missing.
+// Counts answers per minute and per day; false once either limit is reached.
+function withinRate() {
+	var cache = CacheService.getScriptCache();
+	var now = new Date();
+	var minuteKey = 'm' + Math.floor( now.getTime() / 60000 );
+	var dayKey = 'd' + Utilities.formatDate( now, 'UTC', 'yyyyMMdd' );
+	var perMinute = Number( cache.get( minuteKey ) || 0 );
+	var perDay = Number( cache.get( dayKey ) || 0 );
+	if ( perMinute >= RATE_PER_MINUTE || perDay >= RATE_PER_DAY ) {
+		return false;
+	}
+	cache.put( minuteKey, String( perMinute + 1 ), 120 );
+	cache.put( dayKey, String( perDay + 1 ), 21600 );
+	return true;
+}
+
+// The tab named after an allowed slug; created if missing.
 function tabFor( slug, plugin ) {
 	var book = SpreadsheetApp.getActiveSpreadsheet();
 	var sheets = book.getSheets();
-	var wanted = [ slug, plugin.toLowerCase() ].filter( String );
+	var wanted = [ slug, plugin.toLowerCase() ];
 	for ( var w = 0; w < wanted.length; w++ ) {
 		for ( var i = 0; i < sheets.length; i++ ) {
 			if ( sheets[ i ].getName().trim().toLowerCase() === wanted[ w ] ) {
@@ -92,7 +131,7 @@ function tabFor( slug, plugin ) {
 			}
 		}
 	}
-	return book.insertSheet( slug || plugin );
+	return book.insertSheet( slug );
 }
 
 // The tab's headings, adding defaults to an empty tab and missing known columns at the end.
