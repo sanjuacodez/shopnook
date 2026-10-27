@@ -32,7 +32,7 @@
       "step": "installPlugin",
       "pluginData": {
         "resource": "wordpress.org/plugins",
-        "slug": "shopnook"
+        "slug": "shopnook-shoppable-images"
       },
       "options": {
         "activate": true

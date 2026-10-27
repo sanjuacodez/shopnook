@@ -138,15 +138,15 @@ class Shopnook_Images {
 		$count = count( self::get( $post->ID )['hotspots'] );
 
 		$fields['shopnook'] = array(
-			'label' => __( 'Products', 'shopnook' ),
+			'label' => __( 'Products', 'shopnook-shoppable-images' ),
 			'input' => 'html',
 			'html'  => sprintf(
 				'<span class="shopnook-media-field"><button type="button" class="button shopnook-media-button" data-id="%1$d">%2$s</button> <span class="shopnook-media-count" data-id="%1$d">%3$s</span></span>',
 				$post->ID,
-				esc_html__( 'Tag products', 'shopnook' ),
+				esc_html__( 'Tag products', 'shopnook-shoppable-images' ),
 				esc_html( self::count_label( $count ) )
 			),
-			'helps' => __( 'Shopnook pins show wherever this image is used as a shoppable image.', 'shopnook' ),
+			'helps' => __( 'Shopnook pins show wherever this image is used as a shoppable image.', 'shopnook-shoppable-images' ),
 		);
 		return $fields;
 	}
@@ -159,7 +159,7 @@ class Shopnook_Images {
 	 */
 	public static function count_label( $count ) {
 		/* translators: %d: number of tagged products */
-		return $count ? sprintf( _n( '%d product', '%d products', $count, 'shopnook' ), $count ) : __( 'None yet', 'shopnook' );
+		return $count ? sprintf( _n( '%d product', '%d products', $count, 'shopnook-shoppable-images' ), $count ) : __( 'None yet', 'shopnook-shoppable-images' );
 	}
 
 	/**
@@ -169,7 +169,7 @@ class Shopnook_Images {
 	 * @return array
 	 */
 	public static function media_column( $columns ) {
-		$columns['shopnook'] = __( 'Products', 'shopnook' );
+		$columns['shopnook'] = __( 'Products', 'shopnook-shoppable-images' );
 		return $columns;
 	}
 

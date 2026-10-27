@@ -9,10 +9,10 @@ defined( 'ABSPATH' ) || exit;
 
 $shopnook_s    = Shopnook_Settings::all();
 $shopnook_tabs = array(
-	'pins'      => __( 'Pins', 'shopnook' ),
-	'display'   => __( 'Display & card', 'shopnook' ),
-	'galleries' => __( 'Galleries', 'shopnook' ),
-	'tracking'  => __( 'Tracking', 'shopnook' ),
+	'pins'      => __( 'Pins', 'shopnook-shoppable-images' ),
+	'display'   => __( 'Display & card', 'shopnook-shoppable-images' ),
+	'galleries' => __( 'Galleries', 'shopnook-shoppable-images' ),
+	'tracking'  => __( 'Tracking', 'shopnook-shoppable-images' ),
 );
 // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Tab switch only.
 $shopnook_tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'pins';
@@ -101,12 +101,12 @@ $shopnook_look = Shopnook_Settings::resolve();
 ?>
 <div class="wrap shopnook-admin">
 	<div class="shopnook-admin__head">
-		<h1><?php esc_html_e( 'Shopnook Settings', 'shopnook' ); ?></h1>
+		<h1><?php esc_html_e( 'Shopnook Settings', 'shopnook-shoppable-images' ); ?></h1>
 	</div>
-	<p class="shopnook-intro"><?php esc_html_e( 'These are the defaults for every shoppable image. An image can change them in the Media Library, and a block can change them again for one post.', 'shopnook' ); ?></p>
+	<p class="shopnook-intro"><?php esc_html_e( 'These are the defaults for every shoppable image. An image can change them in the Media Library, and a block can change them again for one post.', 'shopnook-shoppable-images' ); ?></p>
 
-	<nav class="nav-tab-wrapper shopnook-nav" aria-label="<?php esc_attr_e( 'Settings sections', 'shopnook' ); ?>">
-		<a class="nav-tab" href="<?php echo esc_url( admin_url( 'admin.php?page=shopnook' ) ); ?>"><?php esc_html_e( 'Dashboard', 'shopnook' ); ?></a>
+	<nav class="nav-tab-wrapper shopnook-nav" aria-label="<?php esc_attr_e( 'Settings sections', 'shopnook-shoppable-images' ); ?>">
+		<a class="nav-tab" href="<?php echo esc_url( admin_url( 'admin.php?page=shopnook' ) ); ?>"><?php esc_html_e( 'Dashboard', 'shopnook-shoppable-images' ); ?></a>
 		<?php foreach ( $shopnook_tabs as $shopnook_key => $shopnook_label ) : ?>
 			<a class="nav-tab<?php echo $shopnook_key === $shopnook_tab ? ' nav-tab-active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=shopnook-settings&tab=' . $shopnook_key ) ); ?>" <?php echo $shopnook_key === $shopnook_tab ? 'aria-current="page"' : ''; ?>><?php echo esc_html( $shopnook_label ); ?></a>
 		<?php endforeach; ?>
@@ -120,7 +120,7 @@ $shopnook_look = Shopnook_Settings::resolve();
 			<div class="shopnook-settings__layout">
 				<div class="shopnook-card-box">
 					<fieldset class="shopnook-field">
-						<legend class="shopnook-field__label"><?php esc_html_e( 'Pin style', 'shopnook' ); ?></legend>
+						<legend class="shopnook-field__label"><?php esc_html_e( 'Pin style', 'shopnook-shoppable-images' ); ?></legend>
 						<div class="shopnook-pin-choices">
 							<?php foreach ( Shopnook_Pins::styles() as $shopnook_style => $shopnook_label ) : ?>
 								<?php
@@ -148,44 +148,44 @@ $shopnook_look = Shopnook_Settings::resolve();
 					</fieldset>
 
 					<div class="shopnook-field shopnook-pin-image" <?php echo 'custom' === $shopnook_s['pin_style'] ? '' : 'hidden'; ?>>
-						<span class="shopnook-field__label"><?php esc_html_e( 'Custom pin image', 'shopnook' ); ?></span>
+						<span class="shopnook-field__label"><?php esc_html_e( 'Custom pin image', 'shopnook-shoppable-images' ); ?></span>
 						<input type="hidden" name="<?php echo esc_attr( $shopnook_name( 'pin_image' ) ); ?>" value="<?php echo esc_attr( $shopnook_s['pin_image'] ); ?>">
 						<span class="shopnook-pin-image__preview"><?php echo $shopnook_s['pin_image'] ? wp_get_attachment_image( $shopnook_s['pin_image'], array( 48, 48 ) ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Core image markup. ?></span>
-						<button type="button" class="button shopnook-pin-image__choose"><?php esc_html_e( 'Choose image', 'shopnook' ); ?></button>
-						<button type="button" class="button-link shopnook-pin-image__remove" <?php echo $shopnook_s['pin_image'] ? '' : 'hidden'; ?>><?php esc_html_e( 'Remove', 'shopnook' ); ?></button>
-						<p class="shopnook-help"><?php esc_html_e( 'A square PNG, WebP or SVG with a transparent background works best, for example your logo or a small icon.', 'shopnook' ); ?></p>
+						<button type="button" class="button shopnook-pin-image__choose"><?php esc_html_e( 'Choose image', 'shopnook-shoppable-images' ); ?></button>
+						<button type="button" class="button-link shopnook-pin-image__remove" <?php echo $shopnook_s['pin_image'] ? '' : 'hidden'; ?>><?php esc_html_e( 'Remove', 'shopnook-shoppable-images' ); ?></button>
+						<p class="shopnook-help"><?php esc_html_e( 'A square PNG, WebP or SVG with a transparent background works best, for example your logo or a small icon.', 'shopnook-shoppable-images' ); ?></p>
 					</div>
 
 					<?php
 					$shopnook_segments(
 						'pin_size',
-						__( 'Size', 'shopnook' ),
+						__( 'Size', 'shopnook-shoppable-images' ),
 						array(
-							'sm' => __( 'Small', 'shopnook' ),
-							'md' => __( 'Medium', 'shopnook' ),
-							'lg' => __( 'Large', 'shopnook' ),
+							'sm' => __( 'Small', 'shopnook-shoppable-images' ),
+							'md' => __( 'Medium', 'shopnook-shoppable-images' ),
+							'lg' => __( 'Large', 'shopnook-shoppable-images' ),
 						)
 					);
 					?>
 					<div class="shopnook-field-row">
-						<?php $shopnook_color( 'pin_bg', __( 'Pin background', 'shopnook' ) ); ?>
-						<?php $shopnook_color( 'pin_color', __( 'Pin icon color', 'shopnook' ) ); ?>
+						<?php $shopnook_color( 'pin_bg', __( 'Pin background', 'shopnook-shoppable-images' ) ); ?>
+						<?php $shopnook_color( 'pin_color', __( 'Pin icon color', 'shopnook-shoppable-images' ) ); ?>
 					</div>
 					<?php
 					$shopnook_segments(
 						'pin_visibility',
-						__( 'Show pins', 'shopnook' ),
+						__( 'Show pins', 'shopnook-shoppable-images' ),
 						array(
-							'always' => __( 'Always', 'shopnook' ),
-							'hover'  => __( 'When hovering the image', 'shopnook' ),
+							'always' => __( 'Always', 'shopnook-shoppable-images' ),
+							'hover'  => __( 'When hovering the image', 'shopnook-shoppable-images' ),
 						),
-						__( 'On phones and tablets, pins are always shown.', 'shopnook' )
+						__( 'On phones and tablets, pins are always shown.', 'shopnook-shoppable-images' )
 					);
 					?>
 				</div>
 
-				<aside class="shopnook-card-box shopnook-preview" aria-label="<?php esc_attr_e( 'Preview', 'shopnook' ); ?>">
-					<p class="shopnook-field__label"><?php esc_html_e( 'Preview', 'shopnook' ); ?></p>
+				<aside class="shopnook-card-box shopnook-preview" aria-label="<?php esc_attr_e( 'Preview', 'shopnook-shoppable-images' ); ?>">
+					<p class="shopnook-field__label"><?php esc_html_e( 'Preview', 'shopnook-shoppable-images' ); ?></p>
 					<div class="shopnook-preview__image shopnook" style="<?php echo esc_attr( Shopnook_Pins::style_vars( $shopnook_look ) ); ?>">
 						<div class="shopnook-stage">
 							<?php foreach ( array( array( 30, 38 ), array( 64, 58 ), array( 45, 78 ) ) as $shopnook_i => $shopnook_pos ) : ?>
@@ -193,7 +193,7 @@ $shopnook_look = Shopnook_Settings::resolve();
 							<?php endforeach; ?>
 						</div>
 					</div>
-					<p class="shopnook-help"><?php esc_html_e( 'Updates as you change the options. Save to apply.', 'shopnook' ); ?></p>
+					<p class="shopnook-help"><?php esc_html_e( 'Updates as you change the options. Save to apply.', 'shopnook-shoppable-images' ); ?></p>
 				</aside>
 			</div>
 
@@ -201,14 +201,14 @@ $shopnook_look = Shopnook_Settings::resolve();
 			<div class="shopnook-settings__layout">
 				<div class="shopnook-card-box">
 					<fieldset class="shopnook-field">
-						<legend class="shopnook-field__label"><?php esc_html_e( 'When a pin is clicked, show', 'shopnook' ); ?></legend>
+						<legend class="shopnook-field__label"><?php esc_html_e( 'When a pin is clicked, show', 'shopnook-shoppable-images' ); ?></legend>
 						<div class="shopnook-mode-choices">
 							<?php
 							$shopnook_mode_help = array(
-								'tooltip' => __( 'A small card next to the pin.', 'shopnook' ),
-								'panel'   => __( 'The product opens in a box under the image.', 'shopnook' ),
-								'drawer'  => __( 'A panel slides in from the side of the screen.', 'shopnook' ),
-								'list'    => __( 'All products are listed under the image; pins highlight their product.', 'shopnook' ),
+								'tooltip' => __( 'A small card next to the pin.', 'shopnook-shoppable-images' ),
+								'panel'   => __( 'The product opens in a box under the image.', 'shopnook-shoppable-images' ),
+								'drawer'  => __( 'A panel slides in from the side of the screen.', 'shopnook-shoppable-images' ),
+								'list'    => __( 'All products are listed under the image; pins highlight their product.', 'shopnook-shoppable-images' ),
 							);
 							foreach ( Shopnook_Settings::displays() as $shopnook_mode => $shopnook_label ) :
 								?>
@@ -220,26 +220,26 @@ $shopnook_look = Shopnook_Settings::resolve();
 							<?php endforeach; ?>
 						</div>
 					</fieldset>
-					<?php $shopnook_segments( 'mobile', __( 'On phones', 'shopnook' ), Shopnook_Settings::mobiles(), __( 'A bottom sheet is easiest to use with one thumb.', 'shopnook' ) ); ?>
+					<?php $shopnook_segments( 'mobile', __( 'On phones', 'shopnook-shoppable-images' ), Shopnook_Settings::mobiles(), __( 'A bottom sheet is easiest to use with one thumb.', 'shopnook-shoppable-images' ) ); ?>
 
 					<fieldset class="shopnook-field">
-						<legend class="shopnook-field__label"><?php esc_html_e( 'The product card shows', 'shopnook' ); ?></legend>
+						<legend class="shopnook-field__label"><?php esc_html_e( 'The product card shows', 'shopnook-shoppable-images' ); ?></legend>
 						<div class="shopnook-checks">
 							<?php foreach ( Shopnook_Settings::card_fields() as $shopnook_key => $shopnook_label ) : ?>
 								<label><input type="checkbox" name="<?php echo esc_attr( $shopnook_name( 'card_fields' ) ); ?>[]" value="<?php echo esc_attr( $shopnook_key ); ?>" <?php checked( in_array( $shopnook_key, $shopnook_s['card_fields'], true ) ); ?>> <?php echo esc_html( $shopnook_label ); ?></label>
 							<?php endforeach; ?>
 						</div>
-						<p class="shopnook-help"><?php esc_html_e( 'Variable and grouped products show “Select options” instead of Add to cart, and link to the product page.', 'shopnook' ); ?></p>
+						<p class="shopnook-help"><?php esc_html_e( 'Variable and grouped products show “Select options” instead of Add to cart, and link to the product page.', 'shopnook-shoppable-images' ); ?></p>
 					</fieldset>
 					<div class="shopnook-field-row">
-						<?php $shopnook_input( 'cart_text', __( 'Add to cart button text', 'shopnook' ), 'text', array( 'placeholder' => __( 'Add to cart', 'shopnook' ) ) ); ?>
-						<?php $shopnook_input( 'view_text', __( 'View product link text', 'shopnook' ), 'text', array( 'placeholder' => __( 'View product', 'shopnook' ) ) ); ?>
+						<?php $shopnook_input( 'cart_text', __( 'Add to cart button text', 'shopnook-shoppable-images' ), 'text', array( 'placeholder' => __( 'Add to cart', 'shopnook-shoppable-images' ) ) ); ?>
+						<?php $shopnook_input( 'view_text', __( 'View product link text', 'shopnook-shoppable-images' ), 'text', array( 'placeholder' => __( 'View product', 'shopnook-shoppable-images' ) ) ); ?>
 					</div>
-					<?php $shopnook_color( 'accent', __( 'Button color', 'shopnook' ) ); ?>
+					<?php $shopnook_color( 'accent', __( 'Button color', 'shopnook-shoppable-images' ) ); ?>
 				</div>
 
-				<aside class="shopnook-card-box shopnook-preview" aria-label="<?php esc_attr_e( 'Card preview', 'shopnook' ); ?>">
-					<p class="shopnook-field__label"><?php esc_html_e( 'Card preview', 'shopnook' ); ?></p>
+				<aside class="shopnook-card-box shopnook-preview" aria-label="<?php esc_attr_e( 'Card preview', 'shopnook-shoppable-images' ); ?>">
+					<p class="shopnook-field__label"><?php esc_html_e( 'Card preview', 'shopnook-shoppable-images' ); ?></p>
 					<?php
 					$shopnook_sample = wc_get_products(
 						array(
@@ -254,24 +254,24 @@ $shopnook_look = Shopnook_Settings::resolve();
 						<div class="shopnook-pop shopnook-pop--preview" style="<?php echo esc_attr( Shopnook_Pins::style_vars( $shopnook_look ) ); ?>">
 							<?php echo Shopnook_Render::card_html( $shopnook_card, $shopnook_look ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in card_html(). ?>
 						</div>
-						<p class="shopnook-help"><?php esc_html_e( 'Shows your saved settings with one of your products.', 'shopnook' ); ?></p>
+						<p class="shopnook-help"><?php esc_html_e( 'Shows your saved settings with one of your products.', 'shopnook-shoppable-images' ); ?></p>
 					<?php else : ?>
-						<p class="shopnook-help"><?php esc_html_e( 'Add a published product to see a preview.', 'shopnook' ); ?></p>
+						<p class="shopnook-help"><?php esc_html_e( 'Add a published product to see a preview.', 'shopnook-shoppable-images' ); ?></p>
 					<?php endif; ?>
 				</aside>
 			</div>
 
 		<?php elseif ( 'galleries' === $shopnook_tab ) : ?>
 			<div class="shopnook-card-box">
-				<p class="shopnook-help shopnook-help--lead"><?php esc_html_e( 'Turn on “Shoppable gallery” in a Gallery block’s settings. Each photo uses its own pins, and these are the defaults for the layout.', 'shopnook' ); ?></p>
+				<p class="shopnook-help shopnook-help--lead"><?php esc_html_e( 'Turn on “Shoppable gallery” in a Gallery block’s settings. Each photo uses its own pins, and these are the defaults for the layout.', 'shopnook-shoppable-images' ); ?></p>
 				<fieldset class="shopnook-field">
-					<legend class="shopnook-field__label"><?php esc_html_e( 'Default layout', 'shopnook' ); ?></legend>
+					<legend class="shopnook-field__label"><?php esc_html_e( 'Default layout', 'shopnook-shoppable-images' ); ?></legend>
 					<div class="shopnook-mode-choices">
 						<?php
 						$shopnook_layout_help = array(
-							'instagram' => __( 'Square tiles. A photo opens in a popup with its products beside it.', 'shopnook' ),
-							'masonry'   => __( 'Pinterest-style columns that keep each photo’s shape. Same popup.', 'shopnook' ),
-							'stories'   => __( 'Tall slides people swipe through, with pins on each slide.', 'shopnook' ),
+							'instagram' => __( 'Square tiles. A photo opens in a popup with its products beside it.', 'shopnook-shoppable-images' ),
+							'masonry'   => __( 'Pinterest-style columns that keep each photo’s shape. Same popup.', 'shopnook-shoppable-images' ),
+							'stories'   => __( 'Tall slides people swipe through, with pins on each slide.', 'shopnook-shoppable-images' ),
 						);
 						foreach ( Shopnook_Gallery::layouts() as $shopnook_layout => $shopnook_label ) :
 							?>
@@ -287,17 +287,17 @@ $shopnook_look = Shopnook_Settings::resolve();
 					<?php
 					$shopnook_input(
 						'gallery_columns',
-						__( 'Columns', 'shopnook' ),
+						__( 'Columns', 'shopnook-shoppable-images' ),
 						'number',
 						array(
 							'min' => 1,
 							'max' => 6,
 						),
-						__( 'For the grid and masonry layouts.', 'shopnook' )
+						__( 'For the grid and masonry layouts.', 'shopnook-shoppable-images' )
 					);
 					$shopnook_input(
 						'gallery_gap',
-						__( 'Space between photos (px)', 'shopnook' ),
+						__( 'Space between photos (px)', 'shopnook-shoppable-images' ),
 						'number',
 						array(
 							'min' => 0,
@@ -306,34 +306,34 @@ $shopnook_look = Shopnook_Settings::resolve();
 					);
 					?>
 				</div>
-				<?php $shopnook_toggle( 'gallery_badge', __( 'Show the number of products on each tile', 'shopnook' ) ); ?>
+				<?php $shopnook_toggle( 'gallery_badge', __( 'Show the number of products on each tile', 'shopnook-shoppable-images' ) ); ?>
 			</div>
 
 		<?php else : ?>
 			<div class="shopnook-card-box">
-				<?php $shopnook_toggle( 'tracking', __( 'Count views, clicks and sales', 'shopnook' ), __( 'Anonymous daily totals for the dashboard. No personal data or IP addresses are stored.', 'shopnook' ) ); ?>
+				<?php $shopnook_toggle( 'tracking', __( 'Count views, clicks and sales', 'shopnook-shoppable-images' ), __( 'Anonymous daily totals for the dashboard. No personal data or IP addresses are stored.', 'shopnook-shoppable-images' ) ); ?>
 				<?php
 				$shopnook_input(
 					'credit_days',
-					__( 'Credit a sale to an image for (days)', 'shopnook' ),
+					__( 'Credit a sale to an image for (days)', 'shopnook-shoppable-images' ),
 					'number',
 					array(
 						'min' => 1,
 						'max' => 90,
 					),
-					__( 'When someone clicks a product on a shoppable image and buys it within this many days, the sale counts for that image. The most recent click wins.', 'shopnook' )
+					__( 'When someone clicks a product on a shoppable image and buys it within this many days, the sale counts for that image. The most recent click wins.', 'shopnook-shoppable-images' )
 				);
 				?>
 				<div class="shopnook-field">
-					<label class="shopnook-field__label" for="shopnook-keep-days"><?php esc_html_e( 'Keep stats for', 'shopnook' ); ?></label>
+					<label class="shopnook-field__label" for="shopnook-keep-days"><?php esc_html_e( 'Keep stats for', 'shopnook-shoppable-images' ); ?></label>
 					<select id="shopnook-keep-days" name="<?php echo esc_attr( $shopnook_name( 'keep_days' ) ); ?>">
 						<?php
 						$shopnook_keep = array(
-							90  => __( '3 months', 'shopnook' ),
-							180 => __( '6 months', 'shopnook' ),
-							365 => __( '1 year', 'shopnook' ),
-							730 => __( '2 years', 'shopnook' ),
-							0   => __( 'Forever', 'shopnook' ),
+							90  => __( '3 months', 'shopnook-shoppable-images' ),
+							180 => __( '6 months', 'shopnook-shoppable-images' ),
+							365 => __( '1 year', 'shopnook-shoppable-images' ),
+							730 => __( '2 years', 'shopnook-shoppable-images' ),
+							0   => __( 'Forever', 'shopnook-shoppable-images' ),
 						);
 						foreach ( $shopnook_keep as $shopnook_days => $shopnook_label ) :
 							?>
@@ -341,12 +341,12 @@ $shopnook_look = Shopnook_Settings::resolve();
 						<?php endforeach; ?>
 					</select>
 				</div>
-				<?php $shopnook_toggle( 'exclude_staff', __( 'Don’t count visits by logged-in staff', 'shopnook' ), __( 'Anyone who can edit posts, so your own testing doesn’t inflate the numbers.', 'shopnook' ) ); ?>
+				<?php $shopnook_toggle( 'exclude_staff', __( 'Don’t count visits by logged-in staff', 'shopnook-shoppable-images' ), __( 'Anyone who can edit posts, so your own testing doesn’t inflate the numbers.', 'shopnook-shoppable-images' ) ); ?>
 				<p class="shopnook-help">
-					<?php esc_html_e( 'If a cookie consent plugin that supports the WP Consent API is active, Shopnook only counts and sets its cookie after visitors allow statistics cookies.', 'shopnook' ); ?>
+					<?php esc_html_e( 'If a cookie consent plugin that supports the WP Consent API is active, Shopnook only counts and sets its cookie after visitors allow statistics cookies.', 'shopnook-shoppable-images' ); ?>
 				</p>
 				<hr>
-				<?php $shopnook_toggle( 'delete_data', __( 'Delete all Shopnook data when the plugin is deleted', 'shopnook' ), __( 'Removes settings, stats and the pins saved on images. Pins saved in blocks stay in your posts and are simply ignored.', 'shopnook' ) ); ?>
+				<?php $shopnook_toggle( 'delete_data', __( 'Delete all Shopnook data when the plugin is deleted', 'shopnook-shoppable-images' ), __( 'Removes settings, stats and the pins saved on images. Pins saved in blocks stay in your posts and are simply ignored.', 'shopnook-shoppable-images' ) ); ?>
 			</div>
 		<?php endif; ?>
 

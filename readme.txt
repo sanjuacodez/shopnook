@@ -148,10 +148,10 @@ Used only when an admin chooses to. Visitors never trigger them.
 
 = Support and feedback =
 
-* Questions or problems: the [support forum](https://wordpress.org/support/plugin/shopnook/).
+* Questions or problems: the [support forum](https://wordpress.org/support/plugin/shopnook-shoppable-images/).
 * Code and issues: [GitHub](https://github.com/sanjuacodez/shopnook).
 * More from the author: [sanjayshankar.me](https://sanjayshankar.me).
-* If Shopnook helps your shop, a [review](https://wordpress.org/support/plugin/shopnook/reviews/#new-post) or a [coffee](https://buymeacoffee.com/sanjayshankar) means a lot.
+* If Shopnook helps your shop, a [review](https://wordpress.org/support/plugin/shopnook-shoppable-images/reviews/#new-post) or a [coffee](https://buymeacoffee.com/sanjayshankar) means a lot.
 
 == Installation ==
 

@@ -20,29 +20,29 @@
 
 		useEffect( function () {
 			apiFetch( { path: '/shopnook/v1/images/' + props.id } ).then( dataState[ 1 ], function ( error ) {
-				errorState[ 1 ]( ( error && error.message ) || __( 'Could not load this image.', 'shopnook' ) );
+				errorState[ 1 ]( ( error && error.message ) || __( 'Could not load this image.', 'shopnook-shoppable-images' ) );
 			} );
 		}, [] );
 
 		if ( errorState[ 0 ] ) {
 			return el(
 				wp.components.Modal,
-				{ title: __( 'Tag products', 'shopnook' ), onRequestClose: props.onClose, overlayClassName: 'shopnook-modal-overlay' },
+				{ title: __( 'Tag products', 'shopnook-shoppable-images' ), onRequestClose: props.onClose, overlayClassName: 'shopnook-modal-overlay' },
 				el( wp.components.Notice, { status: 'error', isDismissible: false }, errorState[ 0 ] )
 			);
 		}
 		if ( ! dataState[ 0 ] ) {
 			return el(
 				wp.components.Modal,
-				{ title: __( 'Tag products', 'shopnook' ), onRequestClose: props.onClose, overlayClassName: 'shopnook-modal-overlay' },
+				{ title: __( 'Tag products', 'shopnook-shoppable-images' ), onRequestClose: props.onClose, overlayClassName: 'shopnook-modal-overlay' },
 				el( wp.components.Spinner )
 			);
 		}
 
 		var data = dataState[ 0 ];
 		return el( shopnook.EditorModal, {
-			title: __( 'Tag products', 'shopnook' ),
-			intro: __( 'Pins saved here show wherever this image is shoppable. A post can still give the image its own pins in the block settings.', 'shopnook' ),
+			title: __( 'Tag products', 'shopnook-shoppable-images' ),
+			intro: __( 'Pins saved here show wherever this image is shoppable. A post can still give the image its own pins in the block settings.', 'shopnook-shoppable-images' ),
 			imageUrl: data.url,
 			hotspots: data.hotspots,
 			overrides: Array.isArray( data.overrides ) ? {} : data.overrides,

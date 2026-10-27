@@ -19,13 +19,13 @@ class Shopnook_Pins {
 	 */
 	public static function styles() {
 		return array(
-			'dot'    => __( 'Dot', 'shopnook' ),
-			'pulse'  => __( 'Pulsing dot', 'shopnook' ),
-			'plus'   => __( 'Plus', 'shopnook' ),
-			'number' => __( 'Number', 'shopnook' ),
-			'bag'    => __( 'Shopping bag', 'shopnook' ),
-			'tag'    => __( 'Price tag', 'shopnook' ),
-			'custom' => __( 'Custom image', 'shopnook' ),
+			'dot'    => __( 'Dot', 'shopnook-shoppable-images' ),
+			'pulse'  => __( 'Pulsing dot', 'shopnook-shoppable-images' ),
+			'plus'   => __( 'Plus', 'shopnook-shoppable-images' ),
+			'number' => __( 'Number', 'shopnook-shoppable-images' ),
+			'bag'    => __( 'Shopping bag', 'shopnook-shoppable-images' ),
+			'tag'    => __( 'Price tag', 'shopnook-shoppable-images' ),
+			'custom' => __( 'Custom image', 'shopnook-shoppable-images' ),
 		);
 	}
 

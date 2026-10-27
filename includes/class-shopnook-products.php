@@ -99,7 +99,7 @@ class Shopnook_Products {
 			'excerpt'   => wp_trim_words( wp_strip_all_tags( strip_shortcodes( $excerpt ) ), 18 ),
 			'image'     => $image,
 			'stock'     => $stock,
-			'stockText' => 'outofstock' === $stock ? __( 'Out of stock', 'shopnook' ) : ( 'onbackorder' === $stock ? __( 'On backorder', 'shopnook' ) : '' ),
+			'stockText' => 'outofstock' === $stock ? __( 'Out of stock', 'shopnook-shoppable-images' ) : ( 'onbackorder' === $stock ? __( 'On backorder', 'shopnook-shoppable-images' ) : '' ),
 			'cart'      => $cart,
 		);
 

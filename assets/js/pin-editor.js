@@ -111,7 +111,7 @@
 				el(
 					'span',
 					null,
-					[ p.price, p.sku ? 'SKU ' + p.sku : '', 'outofstock' === p.stock ? __( 'Out of stock', 'shopnook' ) : '', 'publish' !== p.status ? __( 'Not published', 'shopnook' ) : '' ]
+					[ p.price, p.sku ? 'SKU ' + p.sku : '', 'outofstock' === p.stock ? __( 'Out of stock', 'shopnook-shoppable-images' ) : '', 'publish' !== p.status ? __( 'Not published', 'shopnook-shoppable-images' ) : '' ]
 						.filter( Boolean )
 						.join( ' · ' )
 				)
@@ -160,7 +160,7 @@
 				'div',
 				{ className: 'shopnook-pe-picker shopnook-pe-picker--selected' },
 				/* translators: %d: product ID */
-				selected ? el( ProductSummary, { product: selected } ) : el( 'span', { className: 'shopnook-pe-muted' }, sprintf( __( 'Product #%d', 'shopnook' ), props.value ) ),
+				selected ? el( ProductSummary, { product: selected } ) : el( 'span', { className: 'shopnook-pe-muted' }, sprintf( __( 'Product #%d', 'shopnook-shoppable-images' ), props.value ) ),
 				el(
 					c.Button,
 					{
@@ -169,7 +169,7 @@
 							editingState[ 1 ]( true );
 						},
 					},
-					__( 'Change', 'shopnook' )
+					__( 'Change', 'shopnook-shoppable-images' )
 				)
 			);
 		}
@@ -180,8 +180,8 @@
 			{ className: 'shopnook-pe-picker' },
 			el( c.SearchControl, {
 				__nextHasNoMarginBottom: true,
-				label: __( 'Search products', 'shopnook' ),
-				placeholder: __( 'Search by name or SKU', 'shopnook' ),
+				label: __( 'Search products', 'shopnook-shoppable-images' ),
+				placeholder: __( 'Search by name or SKU', 'shopnook-shoppable-images' ),
 				value: termState[ 0 ],
 				onChange: termState[ 1 ],
 				autoFocus: !! props.autoFocus,
@@ -189,7 +189,7 @@
 			el(
 				'div',
 				{ className: 'shopnook-pe-results', 'aria-live': 'polite', 'aria-busy': loadingState[ 0 ] ? 'true' : 'false' },
-				results && ! results.length && ! loadingState[ 0 ] ? el( 'p', { className: 'shopnook-pe-muted' }, __( 'No products found.', 'shopnook' ) ) : null,
+				results && ! results.length && ! loadingState[ 0 ] ? el( 'p', { className: 'shopnook-pe-muted' }, __( 'No products found.', 'shopnook-shoppable-images' ) ) : null,
 				results
 					? el(
 							'ul',
@@ -225,7 +225,7 @@
 								editingState[ 1 ]( false );
 							},
 						},
-						__( 'Cancel', 'shopnook' )
+						__( 'Cancel', 'shopnook-shoppable-images' )
 				  )
 				: null
 		);
@@ -387,9 +387,9 @@
 								style: { left: spot.x + '%', top: spot.y + '%' },
 								'aria-label': sprintf(
 									/* translators: 1: pin number, 2: product name */
-									__( 'Pin %1$d: %2$s. Use arrow keys to move, Delete to remove.', 'shopnook' ),
+									__( 'Pin %1$d: %2$s. Use arrow keys to move, Delete to remove.', 'shopnook-shoppable-images' ),
 									i + 1,
-									product ? product.name : __( 'no product yet', 'shopnook' )
+									product ? product.name : __( 'no product yet', 'shopnook-shoppable-images' )
 								),
 								onPointerDown: function ( event ) {
 									onPointerDown( event, spot );
@@ -405,7 +405,7 @@
 						);
 					} )
 				),
-				el( 'p', { className: 'shopnook-pe-help' }, __( 'Click the image to add a pin. Drag pins to move them, or select one and use the arrow keys.', 'shopnook' ) )
+				el( 'p', { className: 'shopnook-pe-help' }, __( 'Click the image to add a pin. Drag pins to move them, or select one and use the arrow keys.', 'shopnook-shoppable-images' ) )
 			),
 			el(
 				'div',
@@ -433,11 +433,11 @@
 										{ className: 'shopnook-pe__row-head' },
 										el( 'span', { className: 'shopnook-pe__num', 'aria-hidden': 'true' }, i + 1 ),
 										/* translators: %d: pin number */
-										el( 'span', { className: 'shopnook-pe__row-title' }, sprintf( __( 'Pin %d', 'shopnook' ), i + 1 ) ),
+										el( 'span', { className: 'shopnook-pe__row-title' }, sprintf( __( 'Pin %d', 'shopnook-shoppable-images' ), i + 1 ) ),
 										el( c.Button, {
 											icon: 'trash',
 											/* translators: %d: pin number */
-											label: sprintf( __( 'Remove pin %d', 'shopnook' ), i + 1 ),
+											label: sprintf( __( 'Remove pin %d', 'shopnook-shoppable-images' ), i + 1 ),
 											size: 'small',
 											isDestructive: true,
 											onClick: function ( event ) {
@@ -457,8 +457,8 @@
 										? el( c.TextControl, {
 												__nextHasNoMarginBottom: true,
 												__next40pxDefaultSize: true,
-												label: __( 'Label (optional)', 'shopnook' ),
-												help: __( 'Shown when hovering the pin. Defaults to the product name.', 'shopnook' ),
+												label: __( 'Label (optional)', 'shopnook-shoppable-images' ),
+												help: __( 'Shown when hovering the pin. Defaults to the product name.', 'shopnook-shoppable-images' ),
 												value: spot.label || '',
 												onChange: function ( value ) {
 													update( spot.id, { label: value } );
@@ -468,7 +468,7 @@
 								);
 							} )
 					  )
-					: el( 'div', { className: 'shopnook-pe__empty' }, el( 'p', null, __( 'No pins yet.', 'shopnook' ) ), el( 'p', null, __( 'Click anywhere on the image to place the first one.', 'shopnook' ) ) )
+					: el( 'div', { className: 'shopnook-pe__empty' }, el( 'p', null, __( 'No pins yet.', 'shopnook-shoppable-images' ) ), el( 'p', null, __( 'Click anywhere on the image to place the first one.', 'shopnook-shoppable-images' ) ) )
 			)
 		);
 	}
@@ -482,7 +482,7 @@
 			{
 				value: '',
 				/* translators: %s: the inherited value */
-				label: sprintf( __( 'Default (%s)', 'shopnook' ), map[ current ] || current ),
+				label: sprintf( __( 'Default (%s)', 'shopnook-shoppable-images' ), map[ current ] || current ),
 			},
 		];
 		Object.keys( map ).forEach( function ( key ) {
@@ -519,9 +519,9 @@
 									props.onChange( '' );
 								},
 							},
-							__( 'Use default', 'shopnook' )
+							__( 'Use default', 'shopnook-shoppable-images' )
 					  )
-					: el( 'span', { className: 'shopnook-pe-muted' }, __( 'Default', 'shopnook' ) )
+					: el( 'span', { className: 'shopnook-pe-muted' }, __( 'Default', 'shopnook-shoppable-images' ) )
 			)
 		);
 	}
@@ -529,9 +529,9 @@
 	function PinImageField( props ) {
 		function choose() {
 			var frame = wp.media( {
-				title: __( 'Choose a pin image', 'shopnook' ),
+				title: __( 'Choose a pin image', 'shopnook-shoppable-images' ),
 				library: { type: 'image' },
-				button: { text: __( 'Use as pin', 'shopnook' ) },
+				button: { text: __( 'Use as pin', 'shopnook-shoppable-images' ) },
 				multiple: false,
 			} );
 			frame.on( 'select', function () {
@@ -546,7 +546,7 @@
 			{ className: 'shopnook-pe-pinimage components-base-control' },
 			props.url ? el( 'img', { src: props.url, alt: '', width: 32, height: 32 } ) : null,
 			wp.media
-				? el( c.Button, { variant: 'secondary', onClick: choose }, props.value ? __( 'Change pin image', 'shopnook' ) : __( 'Choose pin image', 'shopnook' ) )
+				? el( c.Button, { variant: 'secondary', onClick: choose }, props.value ? __( 'Change pin image', 'shopnook-shoppable-images' ) : __( 'Choose pin image', 'shopnook-shoppable-images' ) )
 				: null
 		);
 	}
@@ -594,7 +594,7 @@
 				el(
 					'div',
 					{ key: 'pins', className: 'shopnook-pe-look__group' },
-					select( 'pin_style', __( 'Pin style', 'shopnook' ), config.pinStyles ),
+					select( 'pin_style', __( 'Pin style', 'shopnook-shoppable-images' ), config.pinStyles ),
 					'custom' === style && value.pin_style
 						? el( PinImageField, {
 								value: value.pin_image,
@@ -605,10 +605,10 @@
 								},
 						  } )
 						: null,
-					select( 'pin_size', __( 'Pin size', 'shopnook' ), config.sizes ),
-					select( 'pin_visibility', __( 'Show pins', 'shopnook' ), config.visibility ),
+					select( 'pin_size', __( 'Pin size', 'shopnook-shoppable-images' ), config.sizes ),
+					select( 'pin_visibility', __( 'Show pins', 'shopnook-shoppable-images' ), config.visibility ),
 					el( ColorField, {
-						label: __( 'Pin background', 'shopnook' ),
+						label: __( 'Pin background', 'shopnook-shoppable-images' ),
 						value: value.pin_bg,
 						inherited: inherited.pin_bg,
 						onChange: function ( v ) {
@@ -616,7 +616,7 @@
 						},
 					} ),
 					el( ColorField, {
-						label: __( 'Pin icon color', 'shopnook' ),
+						label: __( 'Pin icon color', 'shopnook-shoppable-images' ),
 						value: value.pin_color,
 						inherited: inherited.pin_color,
 						onChange: function ( v ) {
@@ -631,8 +631,8 @@
 				el(
 					'div',
 					{ key: 'display', className: 'shopnook-pe-look__group' },
-					select( 'display', __( 'When a pin is clicked, show', 'shopnook' ), config.displays ),
-					select( 'mobile', __( 'On phones', 'shopnook' ), config.mobiles )
+					select( 'display', __( 'When a pin is clicked, show', 'shopnook-shoppable-images' ), config.displays ),
+					select( 'mobile', __( 'On phones', 'shopnook-shoppable-images' ), config.mobiles )
 				)
 			);
 		}
@@ -645,8 +645,8 @@
 					{ key: 'card', className: 'shopnook-pe-look__group' },
 					el( c.ToggleControl, {
 						__nextHasNoMarginBottom: true,
-						label: __( 'Choose what the product card shows', 'shopnook' ),
-						help: custom ? null : __( 'Using the default card.', 'shopnook' ),
+						label: __( 'Choose what the product card shows', 'shopnook-shoppable-images' ),
+						help: custom ? null : __( 'Using the default card.', 'shopnook-shoppable-images' ),
 						checked: custom,
 						onChange: function ( on ) {
 							set( 'card_fields', on ? inherited.card_fields.slice() : null );
@@ -656,7 +656,7 @@
 						? el(
 								'fieldset',
 								{ className: 'shopnook-pe-fields' },
-								el( 'legend', { className: 'screen-reader-text' }, __( 'Card fields', 'shopnook' ) ),
+								el( 'legend', { className: 'screen-reader-text' }, __( 'Card fields', 'shopnook-shoppable-images' ) ),
 								Object.keys( config.cardFields ).map( function ( key ) {
 									return el( c.CheckboxControl, {
 										__nextHasNoMarginBottom: true,
@@ -676,8 +676,8 @@
 					el( c.TextControl, {
 						__nextHasNoMarginBottom: true,
 						__next40pxDefaultSize: true,
-						label: __( 'Add to cart button text', 'shopnook' ),
-						placeholder: inherited.cart_text || __( 'Add to cart', 'shopnook' ),
+						label: __( 'Add to cart button text', 'shopnook-shoppable-images' ),
+						placeholder: inherited.cart_text || __( 'Add to cart', 'shopnook-shoppable-images' ),
 						value: value.cart_text || '',
 						onChange: function ( v ) {
 							set( 'cart_text', v );
@@ -686,15 +686,15 @@
 					el( c.TextControl, {
 						__nextHasNoMarginBottom: true,
 						__next40pxDefaultSize: true,
-						label: __( 'View product link text', 'shopnook' ),
-						placeholder: inherited.view_text || __( 'View product', 'shopnook' ),
+						label: __( 'View product link text', 'shopnook-shoppable-images' ),
+						placeholder: inherited.view_text || __( 'View product', 'shopnook-shoppable-images' ),
 						value: value.view_text || '',
 						onChange: function ( v ) {
 							set( 'view_text', v );
 						},
 					} ),
 					el( ColorField, {
-						label: __( 'Button color', 'shopnook' ),
+						label: __( 'Button color', 'shopnook-shoppable-images' ),
 						value: value.accent,
 						inherited: inherited.accent,
 						onChange: function ( v ) {
@@ -748,7 +748,7 @@
 					},
 					function ( error ) {
 						savingState[ 1 ]( false );
-						errorState[ 1 ]( ( error && error.message ) || __( 'Could not save. Please try again.', 'shopnook' ) );
+						errorState[ 1 ]( ( error && error.message ) || __( 'Could not save. Please try again.', 'shopnook-shoppable-images' ) );
 					}
 				);
 			} else {
@@ -786,8 +786,8 @@
 						'div',
 						{ className: 'shopnook-modal__tabs', role: 'tablist' },
 						[
-							[ 'pins', __( 'Pins', 'shopnook' ) ],
-							[ 'look', __( 'Look & display', 'shopnook' ) ],
+							[ 'pins', __( 'Pins', 'shopnook-shoppable-images' ) ],
+							[ 'look', __( 'Look & display', 'shopnook-shoppable-images' ) ],
 						].map( function ( tab ) {
 							return el(
 								'button',
@@ -816,14 +816,14 @@
 							'span',
 							{ className: 'shopnook-pe-muted' },
 							/* translators: %d: number of pins */
-							sprintf( _n( '%d pin without a product will not be saved.', '%d pins without a product will not be saved.', empty, 'shopnook' ), empty )
+							sprintf( _n( '%d pin without a product will not be saved.', '%d pins without a product will not be saved.', empty, 'shopnook-shoppable-images' ), empty )
 					  )
 					: el( 'span' ),
 				el(
 					'div',
 					{ className: 'shopnook-modal__buttons' },
-					el( c.Button, { variant: 'tertiary', onClick: props.onClose }, __( 'Cancel', 'shopnook' ) ),
-					el( c.Button, { variant: 'primary', isBusy: savingState[ 0 ], disabled: savingState[ 0 ], onClick: save }, props.saveLabel || __( 'Save', 'shopnook' ) )
+					el( c.Button, { variant: 'tertiary', onClick: props.onClose }, __( 'Cancel', 'shopnook-shoppable-images' ) ),
+					el( c.Button, { variant: 'primary', isBusy: savingState[ 0 ], disabled: savingState[ 0 ], onClick: save }, props.saveLabel || __( 'Save', 'shopnook-shoppable-images' ) )
 				)
 			)
 		);

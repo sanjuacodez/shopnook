@@ -17,7 +17,7 @@ local = "--local" in sys.argv
 install = (
     {"step": "activatePlugin", "pluginPath": "shopnook/shopnook.php"}
     if local
-    else {"step": "installPlugin", "pluginData": {"resource": "wordpress.org/plugins", "slug": "shopnook"}, "options": {"activate": True}}
+    else {"step": "installPlugin", "pluginData": {"resource": "wordpress.org/plugins", "slug": "shopnook-shoppable-images"}, "options": {"activate": True}}
 )
 
 blueprint = {

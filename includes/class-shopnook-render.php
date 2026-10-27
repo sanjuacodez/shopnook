@@ -113,17 +113,17 @@ class Shopnook_Render {
 			'creditDays' => (int) Shopnook_Settings::get( 'credit_days' ),
 			'cookie'     => Shopnook_Tracking::COOKIE,
 			'i18n'       => array(
-				'added'    => __( 'Added', 'shopnook' ),
-				'viewCart' => __( 'View cart', 'shopnook' ),
-				'adding'   => __( 'Adding…', 'shopnook' ),
-				'error'    => __( 'Could not add this product. Please try again.', 'shopnook' ),
-				'close'    => __( 'Close', 'shopnook' ),
-				'previous' => __( 'Previous photo', 'shopnook' ),
-				'next'     => __( 'Next photo', 'shopnook' ),
+				'added'    => __( 'Added', 'shopnook-shoppable-images' ),
+				'viewCart' => __( 'View cart', 'shopnook-shoppable-images' ),
+				'adding'   => __( 'Adding…', 'shopnook-shoppable-images' ),
+				'error'    => __( 'Could not add this product. Please try again.', 'shopnook-shoppable-images' ),
+				'close'    => __( 'Close', 'shopnook-shoppable-images' ),
+				'previous' => __( 'Previous photo', 'shopnook-shoppable-images' ),
+				'next'     => __( 'Next photo', 'shopnook-shoppable-images' ),
 				/* translators: 1: photo number, 2: number of photos */
-				'counter'  => __( '%1$d of %2$d', 'shopnook' ),
-				'products' => __( 'Products in this photo', 'shopnook' ),
-				'none'     => __( 'No products tagged in this photo.', 'shopnook' ),
+				'counter'  => __( '%1$d of %2$d', 'shopnook-shoppable-images' ),
+				'products' => __( 'Products in this photo', 'shopnook-shoppable-images' ),
+				'none'     => __( 'No products tagged in this photo.', 'shopnook-shoppable-images' ),
 			),
 		);
 		wp_add_inline_script( 'shopnook', 'window.shopnookConfig = ' . wp_json_encode( $config ) . ';', 'before' );
@@ -266,7 +266,7 @@ class Shopnook_Render {
 		foreach ( $spots as $i => $spot ) {
 			$name = '' !== $spot['label'] ? $spot['label'] : $spot['card']['name'];
 			/* translators: 1: pin number, 2: product name */
-			$label = sprintf( __( 'Product %1$d: %2$s', 'shopnook' ), $i + 1, $name );
+			$label = sprintf( __( 'Product %1$d: %2$s', 'shopnook-shoppable-images' ), $i + 1, $name );
 			$html .= sprintf(
 				'<button type="button" class="%1$s" style="left:%2$s%%;top:%3$s%%" data-product="%4$d" data-index="%5$d" data-label="%6$s" aria-label="%7$s" aria-expanded="false">%8$s</button>',
 				esc_attr( Shopnook_Pins::classes( $look ) ),
@@ -329,7 +329,7 @@ class Shopnook_Render {
 				self::card_html( $spot['card'], $look ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in card_html().
 			);
 		}
-		return '<div class="shopnook-list"><p class="shopnook-list__title">' . esc_html__( 'Shop this look', 'shopnook' ) . '</p><ol class="shopnook-list__items">' . $items . '</ol></div>';
+		return '<div class="shopnook-list"><p class="shopnook-list__title">' . esc_html__( 'Shop this look', 'shopnook-shoppable-images' ) . '</p><ol class="shopnook-list__items">' . $items . '</ol></div>';
 	}
 
 	/**
@@ -355,7 +355,7 @@ class Shopnook_Render {
 
 		$html .= '<div class="shopnook-card__body">';
 		if ( isset( $fields['sale'] ) && $card['onSale'] ) {
-			$html .= '<span class="shopnook-card__badge">' . esc_html__( 'Sale', 'shopnook' ) . '</span>';
+			$html .= '<span class="shopnook-card__badge">' . esc_html__( 'Sale', 'shopnook-shoppable-images' ) . '</span>';
 		}
 		if ( isset( $fields['name'] ) ) {
 			$html .= '<a class="shopnook-card__name" href="' . $url . '" data-shopnook-click>' . esc_html( $card['name'] ) . '</a>';
@@ -364,7 +364,7 @@ class Shopnook_Render {
 			$html .= sprintf(
 				'<span class="shopnook-card__rating"><span class="shopnook-card__stars" role="img" aria-label="%1$s" style="--shopnook-rating:%2$s%%"></span><span class="shopnook-card__reviews">(%3$s)</span></span>',
 				/* translators: %s: average rating */
-				esc_attr( sprintf( __( 'Rated %s out of 5', 'shopnook' ), number_format_i18n( $card['rating'], 1 ) ) ),
+				esc_attr( sprintf( __( 'Rated %s out of 5', 'shopnook-shoppable-images' ), number_format_i18n( $card['rating'], 1 ) ) ),
 				esc_attr( self::number( $card['rating'] * 20 ) ),
 				esc_html( number_format_i18n( $card['reviews'] ) )
 			);
@@ -394,7 +394,7 @@ class Shopnook_Render {
 			}
 		}
 		if ( isset( $fields['view'] ) ) {
-			$text     = '' !== $look['view_text'] ? $look['view_text'] : __( 'View product', 'shopnook' );
+			$text     = '' !== $look['view_text'] ? $look['view_text'] : __( 'View product', 'shopnook-shoppable-images' );
 			$actions .= '<a class="shopnook-card__view" href="' . $url . '" data-shopnook-click>' . esc_html( $text ) . '</a>';
 		}
 		if ( $actions ) {

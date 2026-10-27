@@ -60,24 +60,24 @@ foreach ( $shopnook_series as $shopnook_day => $shopnook_values ) {
 }
 
 $shopnook_metrics = array(
-	'views'   => __( 'Views', 'shopnook' ),
-	'opens'   => __( 'Pin opens', 'shopnook' ),
-	'clicks'  => __( 'Product clicks', 'shopnook' ),
-	'carts'   => __( 'Add to carts', 'shopnook' ),
-	'sold'    => __( 'Items sold', 'shopnook' ),
+	'views'   => __( 'Views', 'shopnook-shoppable-images' ),
+	'opens'   => __( 'Pin opens', 'shopnook-shoppable-images' ),
+	'clicks'  => __( 'Product clicks', 'shopnook-shoppable-images' ),
+	'carts'   => __( 'Add to carts', 'shopnook-shoppable-images' ),
+	'sold'    => __( 'Items sold', 'shopnook-shoppable-images' ),
 	/* translators: %s: currency symbol */
-	'revenue' => sprintf( __( 'Revenue (%s)', 'shopnook' ), html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, get_bloginfo( 'charset' ) ) ),
+	'revenue' => sprintf( __( 'Revenue (%s)', 'shopnook-shoppable-images' ), html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, get_bloginfo( 'charset' ) ) ),
 );
 
 $shopnook_tiles = array(
-	array( 'views', __( 'Views', 'shopnook' ), '' ),
+	array( 'views', __( 'Views', 'shopnook-shoppable-images' ), '' ),
 	/* translators: %s: percentage */
-	array( 'opens', __( 'Pin opens', 'shopnook' ), sprintf( __( '%s of views', 'shopnook' ), $shopnook_rate( $shopnook_totals['opens'], $shopnook_totals['views'] ) ) ),
+	array( 'opens', __( 'Pin opens', 'shopnook-shoppable-images' ), sprintf( __( '%s of views', 'shopnook-shoppable-images' ), $shopnook_rate( $shopnook_totals['opens'], $shopnook_totals['views'] ) ) ),
 	/* translators: %s: percentage */
-	array( 'clicks', __( 'Product clicks', 'shopnook' ), sprintf( __( '%s of pin opens', 'shopnook' ), $shopnook_rate( $shopnook_totals['clicks'], $shopnook_totals['opens'] ) ) ),
-	array( 'carts', __( 'Add to carts', 'shopnook' ), '' ),
+	array( 'clicks', __( 'Product clicks', 'shopnook-shoppable-images' ), sprintf( __( '%s of pin opens', 'shopnook-shoppable-images' ), $shopnook_rate( $shopnook_totals['clicks'], $shopnook_totals['opens'] ) ) ),
+	array( 'carts', __( 'Add to carts', 'shopnook-shoppable-images' ), '' ),
 	/* translators: %s: number of items */
-	array( 'orders', __( 'Orders', 'shopnook' ), sprintf( _n( '%s item sold', '%s items sold', $shopnook_totals['sold'], 'shopnook' ), number_format_i18n( $shopnook_totals['sold'] ) ) ),
+	array( 'orders', __( 'Orders', 'shopnook-shoppable-images' ), sprintf( _n( '%s item sold', '%s items sold', $shopnook_totals['sold'], 'shopnook-shoppable-images' ), number_format_i18n( $shopnook_totals['sold'] ) ) ),
 );
 
 $shopnook_url = function ( $range ) {
@@ -95,7 +95,7 @@ $shopnook_url = function ( $range ) {
  */
 $shopnook_change = function ( $value ) {
 	if ( null === $value ) {
-		echo '<span class="shopnook-tile__delta is-flat">' . esc_html__( 'No earlier data', 'shopnook' ) . '</span>';
+		echo '<span class="shopnook-tile__delta is-flat">' . esc_html__( 'No earlier data', 'shopnook-shoppable-images' ) . '</span>';
 		return;
 	}
 	$class = abs( $value ) < 0.5 ? 'is-flat' : ( $value > 0 ? 'is-up' : 'is-down' );
@@ -105,14 +105,14 @@ $shopnook_change = function ( $value ) {
 		esc_attr( $class ),
 		esc_html( $arrow ),
 		esc_html( number_format_i18n( abs( $value ), 1 ) ),
-		esc_html( 'is-down' === $class ? __( 'lower than the previous period', 'shopnook' ) : __( 'higher than the previous period', 'shopnook' ) )
+		esc_html( 'is-down' === $class ? __( 'lower than the previous period', 'shopnook-shoppable-images' ) : __( 'higher than the previous period', 'shopnook-shoppable-images' ) )
 	);
 };
 ?>
 <div class="wrap shopnook-admin">
 	<div class="shopnook-admin__head">
-		<h1><?php esc_html_e( 'Shopnook', 'shopnook' ); ?></h1>
-		<nav class="shopnook-range" aria-label="<?php esc_attr_e( 'Date range', 'shopnook' ); ?>">
+		<h1><?php esc_html_e( 'Shopnook', 'shopnook-shoppable-images' ); ?></h1>
+		<nav class="shopnook-range" aria-label="<?php esc_attr_e( 'Date range', 'shopnook-shoppable-images' ); ?>">
 			<?php foreach ( $shopnook_ranges as $shopnook_days => $shopnook_label ) : ?>
 				<a href="<?php echo esc_url( $shopnook_url( $shopnook_days ) ); ?>" <?php echo $shopnook_days === $shopnook_range ? 'aria-current="page" class="is-current"' : ''; ?>><?php echo esc_html( $shopnook_label ); ?></a>
 			<?php endforeach; ?>
@@ -123,37 +123,37 @@ $shopnook_change = function ( $value ) {
 
 	<?php if ( ! Shopnook_Settings::get( 'tracking' ) ) : ?>
 		<div class="notice notice-warning inline"><p>
-			<?php esc_html_e( 'Tracking is turned off, so no new activity is being counted.', 'shopnook' ); ?>
-			<a href="<?php echo esc_url( admin_url( 'admin.php?page=shopnook-settings&tab=tracking' ) ); ?>"><?php esc_html_e( 'Tracking settings', 'shopnook' ); ?></a>
+			<?php esc_html_e( 'Tracking is turned off, so no new activity is being counted.', 'shopnook-shoppable-images' ); ?>
+			<a href="<?php echo esc_url( admin_url( 'admin.php?page=shopnook-settings&tab=tracking' ) ); ?>"><?php esc_html_e( 'Tracking settings', 'shopnook-shoppable-images' ); ?></a>
 		</p></div>
 	<?php endif; ?>
 
 	<?php if ( ! $shopnook_has_data ) : ?>
 		<section class="shopnook-card-box shopnook-start">
-			<h2><?php esc_html_e( 'Make your first image shoppable', 'shopnook' ); ?></h2>
+			<h2><?php esc_html_e( 'Make your first image shoppable', 'shopnook-shoppable-images' ); ?></h2>
 			<ol>
-				<li><?php esc_html_e( 'Edit a post or page and select an Image block (or a Gallery block).', 'shopnook' ); ?></li>
-				<li><?php esc_html_e( 'In the block settings, switch on “Shoppable image” in the Shopnook panel.', 'shopnook' ); ?></li>
-				<li><?php esc_html_e( 'Click “Tag products”, click the image to drop pins, and pick a product for each.', 'shopnook' ); ?></li>
+				<li><?php esc_html_e( 'Edit a post or page and select an Image block (or a Gallery block).', 'shopnook-shoppable-images' ); ?></li>
+				<li><?php esc_html_e( 'In the block settings, switch on “Shoppable image” in the Shopnook panel.', 'shopnook-shoppable-images' ); ?></li>
+				<li><?php esc_html_e( 'Click “Tag products”, click the image to drop pins, and pick a product for each.', 'shopnook-shoppable-images' ); ?></li>
 			</ol>
-			<p><?php esc_html_e( 'You can also tag images in the Media Library: open an image and click “Tag products”. Those pins show wherever the image is shoppable.', 'shopnook' ); ?></p>
+			<p><?php esc_html_e( 'You can also tag images in the Media Library: open an image and click “Tag products”. Those pins show wherever the image is shoppable.', 'shopnook-shoppable-images' ); ?></p>
 			<p>
-				<a class="button button-primary" href="<?php echo esc_url( admin_url( 'post-new.php' ) ); ?>"><?php esc_html_e( 'Write a post', 'shopnook' ); ?></a>
-				<a class="button" href="<?php echo esc_url( admin_url( 'upload.php' ) ); ?>"><?php esc_html_e( 'Open the Media Library', 'shopnook' ); ?></a>
-				<a class="button-link" href="<?php echo esc_url( admin_url( 'admin.php?page=shopnook-settings' ) ); ?>"><?php esc_html_e( 'Choose pin and card styles', 'shopnook' ); ?></a>
+				<a class="button button-primary" href="<?php echo esc_url( admin_url( 'post-new.php' ) ); ?>"><?php esc_html_e( 'Write a post', 'shopnook-shoppable-images' ); ?></a>
+				<a class="button" href="<?php echo esc_url( admin_url( 'upload.php' ) ); ?>"><?php esc_html_e( 'Open the Media Library', 'shopnook-shoppable-images' ); ?></a>
+				<a class="button-link" href="<?php echo esc_url( admin_url( 'admin.php?page=shopnook-settings' ) ); ?>"><?php esc_html_e( 'Choose pin and card styles', 'shopnook-shoppable-images' ); ?></a>
 			</p>
 		</section>
 	<?php endif; ?>
 
-	<section class="shopnook-kpis" aria-label="<?php esc_attr_e( 'Totals', 'shopnook' ); ?>">
+	<section class="shopnook-kpis" aria-label="<?php esc_attr_e( 'Totals', 'shopnook-shoppable-images' ); ?>">
 		<div class="shopnook-tile shopnook-tile--hero">
-			<span class="shopnook-tile__label"><?php esc_html_e( 'Revenue from shoppable images', 'shopnook' ); ?></span>
+			<span class="shopnook-tile__label"><?php esc_html_e( 'Revenue from shoppable images', 'shopnook-shoppable-images' ); ?></span>
 			<span class="shopnook-tile__value"><?php echo esc_html( Shopnook_Admin::money( $shopnook_totals['revenue'] ) ); ?></span>
 			<?php $shopnook_change( $shopnook_delta( $shopnook_totals['revenue'], $shopnook_previous['revenue'] ) ); ?>
 			<span class="shopnook-tile__note">
 				<?php
 				/* translators: %d: credit window in days */
-				echo esc_html( sprintf( _n( 'Orders credited within %d day of a click.', 'Orders credited within %d days of a click.', (int) Shopnook_Settings::get( 'credit_days' ), 'shopnook' ), (int) Shopnook_Settings::get( 'credit_days' ) ) );
+				echo esc_html( sprintf( _n( 'Orders credited within %d day of a click.', 'Orders credited within %d days of a click.', (int) Shopnook_Settings::get( 'credit_days' ), 'shopnook-shoppable-images' ), (int) Shopnook_Settings::get( 'credit_days' ) ) );
 				?>
 			</span>
 		</div>
@@ -172,8 +172,8 @@ $shopnook_change = function ( $value ) {
 	<div class="shopnook-grid">
 		<section class="shopnook-card-box shopnook-trend">
 			<div class="shopnook-card-box__head">
-				<h2><?php esc_html_e( 'Trend', 'shopnook' ); ?></h2>
-				<div class="shopnook-tabs" role="tablist" aria-label="<?php esc_attr_e( 'Measure', 'shopnook' ); ?>">
+				<h2><?php esc_html_e( 'Trend', 'shopnook-shoppable-images' ); ?></h2>
+				<div class="shopnook-tabs" role="tablist" aria-label="<?php esc_attr_e( 'Measure', 'shopnook-shoppable-images' ); ?>">
 					<?php $shopnook_first = true; ?>
 					<?php foreach ( $shopnook_metrics as $shopnook_key => $shopnook_label ) : ?>
 						<button type="button" role="tab" id="shopnook-tab-<?php echo esc_attr( $shopnook_key ); ?>" aria-controls="shopnook-panel-<?php echo esc_attr( $shopnook_key ); ?>" aria-selected="<?php echo $shopnook_first ? 'true' : 'false'; ?>" tabindex="<?php echo $shopnook_first ? '0' : '-1'; ?>"><?php echo esc_html( $shopnook_label ); ?></button>
@@ -199,9 +199,9 @@ $shopnook_change = function ( $value ) {
 					include SHOPNOOK_PATH . 'includes/admin/views/chart.php';
 					?>
 					<details class="shopnook-table-view">
-						<summary><?php esc_html_e( 'Show as table', 'shopnook' ); ?></summary>
+						<summary><?php esc_html_e( 'Show as table', 'shopnook-shoppable-images' ); ?></summary>
 						<table class="widefat striped">
-							<thead><tr><th scope="col"><?php esc_html_e( 'Date', 'shopnook' ); ?></th><th scope="col" class="num"><?php echo esc_html( $shopnook_label ); ?></th></tr></thead>
+							<thead><tr><th scope="col"><?php esc_html_e( 'Date', 'shopnook-shoppable-images' ); ?></th><th scope="col" class="num"><?php echo esc_html( $shopnook_label ); ?></th></tr></thead>
 							<tbody>
 								<?php foreach ( array_reverse( $shopnook_points ) as $shopnook_point ) : ?>
 									<tr><td><?php echo esc_html( $shopnook_point[0] ); ?></td><td class="num"><?php echo esc_html( $shopnook_point[2] ); ?></td></tr>
@@ -215,14 +215,14 @@ $shopnook_change = function ( $value ) {
 		</section>
 
 		<section class="shopnook-card-box shopnook-funnel">
-			<h2><?php esc_html_e( 'From view to sale', 'shopnook' ); ?></h2>
+			<h2><?php esc_html_e( 'From view to sale', 'shopnook-shoppable-images' ); ?></h2>
 			<?php
 			$shopnook_steps = array(
-				array( __( 'Views', 'shopnook' ), $shopnook_totals['views'] ),
-				array( __( 'Pin opens', 'shopnook' ), $shopnook_totals['opens'] ),
-				array( __( 'Product clicks', 'shopnook' ), $shopnook_totals['clicks'] ),
-				array( __( 'Add to carts', 'shopnook' ), $shopnook_totals['carts'] ),
-				array( __( 'Items sold', 'shopnook' ), $shopnook_totals['sold'] ),
+				array( __( 'Views', 'shopnook-shoppable-images' ), $shopnook_totals['views'] ),
+				array( __( 'Pin opens', 'shopnook-shoppable-images' ), $shopnook_totals['opens'] ),
+				array( __( 'Product clicks', 'shopnook-shoppable-images' ), $shopnook_totals['clicks'] ),
+				array( __( 'Add to carts', 'shopnook-shoppable-images' ), $shopnook_totals['carts'] ),
+				array( __( 'Items sold', 'shopnook-shoppable-images' ), $shopnook_totals['sold'] ),
 			);
 			$shopnook_top_step = max( 1, $shopnook_totals['views'], $shopnook_totals['opens'], $shopnook_totals['clicks'], $shopnook_totals['carts'], $shopnook_totals['sold'] );
 			?>
@@ -236,39 +236,39 @@ $shopnook_change = function ( $value ) {
 							<?php
 							if ( $shopnook_i ) {
 								/* translators: %s: percentage of the previous step */
-								echo esc_html( sprintf( __( '%s of previous', 'shopnook' ), $shopnook_rate( $shopnook_step_row[1], $shopnook_steps[ $shopnook_i - 1 ][1] ) ) );
+								echo esc_html( sprintf( __( '%s of previous', 'shopnook-shoppable-images' ), $shopnook_rate( $shopnook_step_row[1], $shopnook_steps[ $shopnook_i - 1 ][1] ) ) );
 							}
 							?>
 						</span>
 					</li>
 				<?php endforeach; ?>
 			</ol>
-			<p class="shopnook-muted"><?php esc_html_e( 'Items sold counts paid orders only. Cancelled and refunded orders are removed.', 'shopnook' ); ?></p>
+			<p class="shopnook-muted"><?php esc_html_e( 'Items sold counts paid orders only. Cancelled and refunded orders are removed.', 'shopnook-shoppable-images' ); ?></p>
 		</section>
 	</div>
 
 	<?php
 	$shopnook_tables = array(
 		'attachment' => array(
-			'title'   => __( 'Top images', 'shopnook' ),
+			'title'   => __( 'Top images', 'shopnook-shoppable-images' ),
 			'columns' => array( 'views', 'opens', 'clicks', 'carts', 'sold', 'revenue' ),
 		),
 		'product'    => array(
-			'title'   => __( 'Top products', 'shopnook' ),
+			'title'   => __( 'Top products', 'shopnook-shoppable-images' ),
 			'columns' => array( 'opens', 'clicks', 'carts', 'sold', 'revenue' ),
 		),
 		'post'       => array(
-			'title'   => __( 'Top posts and galleries', 'shopnook' ),
+			'title'   => __( 'Top posts and galleries', 'shopnook-shoppable-images' ),
 			'columns' => array( 'views', 'opens', 'clicks', 'sold', 'revenue' ),
 		),
 	);
 	$shopnook_column_labels = array(
-		'views'   => __( 'Views', 'shopnook' ),
-		'opens'   => __( 'Opens', 'shopnook' ),
-		'clicks'  => __( 'Clicks', 'shopnook' ),
-		'carts'   => __( 'Carts', 'shopnook' ),
-		'sold'    => __( 'Sold', 'shopnook' ),
-		'revenue' => __( 'Revenue', 'shopnook' ),
+		'views'   => __( 'Views', 'shopnook-shoppable-images' ),
+		'opens'   => __( 'Opens', 'shopnook-shoppable-images' ),
+		'clicks'  => __( 'Clicks', 'shopnook-shoppable-images' ),
+		'carts'   => __( 'Carts', 'shopnook-shoppable-images' ),
+		'sold'    => __( 'Sold', 'shopnook-shoppable-images' ),
+		'revenue' => __( 'Revenue', 'shopnook-shoppable-images' ),
 	);
 	?>
 	<div class="shopnook-tables">
@@ -277,12 +277,12 @@ $shopnook_change = function ( $value ) {
 			<section class="shopnook-card-box shopnook-top shopnook-top--<?php echo esc_attr( $shopnook_group ); ?>">
 				<h2><?php echo esc_html( $shopnook_table['title'] ); ?></h2>
 				<?php if ( ! $shopnook_rows ) : ?>
-					<p class="shopnook-muted"><?php esc_html_e( 'Nothing in this period yet.', 'shopnook' ); ?></p>
+					<p class="shopnook-muted"><?php esc_html_e( 'Nothing in this period yet.', 'shopnook-shoppable-images' ); ?></p>
 				<?php else : ?>
 					<table class="widefat striped">
 						<thead>
 							<tr>
-								<th scope="col"><?php echo esc_html( 'product' === $shopnook_group ? __( 'Product', 'shopnook' ) : ( 'post' === $shopnook_group ? __( 'Post', 'shopnook' ) : __( 'Image', 'shopnook' ) ) ); ?></th>
+								<th scope="col"><?php echo esc_html( 'product' === $shopnook_group ? __( 'Product', 'shopnook-shoppable-images' ) : ( 'post' === $shopnook_group ? __( 'Post', 'shopnook-shoppable-images' ) : __( 'Image', 'shopnook-shoppable-images' ) ) ); ?></th>
 								<?php foreach ( $shopnook_table['columns'] as $shopnook_col ) : ?>
 									<th scope="col" class="num"><?php echo esc_html( $shopnook_column_labels[ $shopnook_col ] ); ?></th>
 								<?php endforeach; ?>
@@ -311,7 +311,7 @@ $shopnook_change = function ( $value ) {
 											echo esc_html( $shopnook_title );
 										}
 										if ( 'post' === $shopnook_group ) {
-											echo ' <span class="shopnook-chip">' . esc_html( 2 === $shopnook_row['source'] ? __( 'Gallery', 'shopnook' ) : __( 'Image', 'shopnook' ) ) . '</span>';
+											echo ' <span class="shopnook-chip">' . esc_html( 2 === $shopnook_row['source'] ? __( 'Gallery', 'shopnook-shoppable-images' ) : __( 'Image', 'shopnook-shoppable-images' ) ) . '</span>';
 										}
 										?>
 									</div></td>

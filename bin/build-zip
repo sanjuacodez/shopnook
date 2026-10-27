@@ -5,13 +5,14 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DIST="${BUILD_OUTPUT:-${ROOT}/../.shopnook-build}"
 mkdir -p "$DIST"
 DIST="$(cd "$DIST" && pwd)"
-STAGE="${DIST}/shopnook"
+SLUG="shopnook-shoppable-images"
+STAGE="${DIST}/${SLUG}"
 if [[ "$STAGE" == "$ROOT" ]]; then
   echo "Refusing to stage over the source plugin." >&2
   exit 1
 fi
 if [[ -e "$STAGE" && ! -f "$DIST/.shopnook-build-marker" ]]; then
-  echo "Output already contains shopnook/ without a build marker; choose a fresh BUILD_OUTPUT." >&2
+  echo "Output already contains ${SLUG}/ without a build marker; choose a fresh BUILD_OUTPUT." >&2
   exit 1
 fi
 printf 'Shopnook generated build directory\n' > "$DIST/.shopnook-build-marker"
@@ -22,7 +23,7 @@ rsync -a --delete \
   "${ROOT}/" "${STAGE}/"
 ARCHIVE="${DIST}/shopnook-candidate-$$.zip"
 cd "$DIST"
-zip -qr "$ARCHIVE" shopnook
-mv -f "$ARCHIVE" "${DIST}/shopnook.zip"
-echo "Built ${DIST}/shopnook.zip"
-unzip -l shopnook.zip | tail -n 2
+zip -qr "$ARCHIVE" "$SLUG"
+mv -f "$ARCHIVE" "${DIST}/${SLUG}.zip"
+echo "Built ${DIST}/${SLUG}.zip"
+unzip -l "${SLUG}.zip" | tail -n 2

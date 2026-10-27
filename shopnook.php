@@ -11,7 +11,7 @@
  * Author URI:        https://sanjayshankar.me
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       shopnook
+ * Text Domain:       shopnook-shoppable-images
  * Domain Path:       /languages
  * WC requires at least: 8.0
  * WC tested up to:   11.2
@@ -108,5 +108,5 @@ function shopnook_missing_woocommerce_notice() {
 	if ( ! current_user_can( 'activate_plugins' ) ) {
 		return;
 	}
-	echo '<div class="notice notice-warning"><p>' . esc_html__( 'Shopnook needs WooCommerce to be installed and active.', 'shopnook' ) . '</p></div>';
+	echo '<div class="notice notice-warning"><p>' . esc_html__( 'Shopnook needs WooCommerce to be installed and active.', 'shopnook-shoppable-images' ) . '</p></div>';
 }

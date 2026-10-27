@@ -31,9 +31,9 @@ class Shopnook_Gallery {
 	 */
 	public static function layouts() {
 		return array(
-			'instagram' => __( 'Instagram grid', 'shopnook' ),
-			'masonry'   => __( 'Masonry', 'shopnook' ),
-			'stories'   => __( 'Stories carousel', 'shopnook' ),
+			'instagram' => __( 'Instagram grid', 'shopnook-shoppable-images' ),
+			'masonry'   => __( 'Masonry', 'shopnook-shoppable-images' ),
+			'stories'   => __( 'Stories carousel', 'shopnook-shoppable-images' ),
 		);
 	}
 
@@ -237,14 +237,14 @@ class Shopnook_Gallery {
 			$count = count( $item['spots'] );
 			$label = sprintf(
 				/* translators: 1: photo number, 2: number of photos, 3: image description */
-				__( 'Open photo %1$d of %2$d: %3$s', 'shopnook' ),
+				__( 'Open photo %1$d of %2$d: %3$s', 'shopnook-shoppable-images' ),
 				$i + 1,
 				$total,
-				'' !== $item['alt'] ? $item['alt'] : __( 'no description', 'shopnook' )
+				'' !== $item['alt'] ? $item['alt'] : __( 'no description', 'shopnook-shoppable-images' )
 			);
 			if ( $count ) {
 				/* translators: %d: number of tagged products */
-				$label .= '. ' . sprintf( _n( '%d product', '%d products', $count, 'shopnook' ), $count );
+				$label .= '. ' . sprintf( _n( '%d product', '%d products', $count, 'shopnook-shoppable-images' ), $count );
 			}
 			$badge = ( $count && Shopnook_Settings::get( 'gallery_badge' ) ) ? '<span class="shopnook-gallery__badge" aria-hidden="true">' . $icons['bag'] . '<span>' . (int) $count . '</span></span>' : '';
 			$html .= sprintf(
@@ -288,15 +288,15 @@ class Shopnook_Gallery {
 				}
 				if ( $count ) {
 					/* translators: %d: number of tagged products */
-					$meta .= '<p class="shopnook-stories__count">' . esc_html( sprintf( _n( '%d product', '%d products', $count, 'shopnook' ), $count ) ) . '</p>';
+					$meta .= '<p class="shopnook-stories__count">' . esc_html( sprintf( _n( '%d product', '%d products', $count, 'shopnook-shoppable-images' ), $count ) ) . '</p>';
 				}
 				$meta .= '</div>';
 			}
 			$slides .= sprintf(
 				'<li class="shopnook-stories__slide" aria-roledescription="%1$s" aria-label="%2$s"><div class="shopnook-stage shopnook-stage--cover" data-a="%3$d" data-w="%4$d" data-h="%5$d">%6$s%7$s</div>%8$s</li>',
-				esc_attr__( 'slide', 'shopnook' ),
+				esc_attr__( 'slide', 'shopnook-shoppable-images' ),
 				/* translators: 1: photo number, 2: number of photos */
-				esc_attr( sprintf( __( '%1$d of %2$d', 'shopnook' ), $i + 1, $total ) ),
+				esc_attr( sprintf( __( '%1$d of %2$d', 'shopnook-shoppable-images' ), $i + 1, $total ) ),
 				(int) $item['id'],
 				(int) $item['large'][1],
 				(int) $item['large'][2],
@@ -318,11 +318,11 @@ class Shopnook_Gallery {
 		$arrow = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="%s"/></svg>';
 		return sprintf(
 			'<div class="shopnook-stories" aria-roledescription="%1$s"><button type="button" class="shopnook-stories__nav shopnook-stories__nav--prev" aria-label="%2$s">%3$s</button><ul class="shopnook-stories__track" role="list">%4$s</ul><button type="button" class="shopnook-stories__nav shopnook-stories__nav--next" aria-label="%5$s">%6$s</button></div>',
-			esc_attr__( 'carousel', 'shopnook' ),
-			esc_attr__( 'Previous slides', 'shopnook' ),
+			esc_attr__( 'carousel', 'shopnook-shoppable-images' ),
+			esc_attr__( 'Previous slides', 'shopnook-shoppable-images' ),
 			sprintf( $arrow, 'M15 18l-6-6 6-6' ),
 			$slides,
-			esc_attr__( 'Next slides', 'shopnook' ),
+			esc_attr__( 'Next slides', 'shopnook-shoppable-images' ),
 			sprintf( $arrow, 'M9 18l6-6-6-6' )
 		);
 	}

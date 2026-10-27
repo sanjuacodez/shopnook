@@ -50,7 +50,7 @@ jobs:
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          SLUG: shopnook
+          SLUG: shopnook-shoppable-images
           # Ship the built directory, not the repository root.
           BUILD_DIR: build/shopnook
           # Screenshots go to SVN assets/, separate from the plugin itself.

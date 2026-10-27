@@ -90,14 +90,14 @@ class Shopnook_Settings {
 	 */
 	public static function card_fields() {
 		return array(
-			'image'   => __( 'Product image', 'shopnook' ),
-			'name'    => __( 'Name', 'shopnook' ),
-			'price'   => __( 'Price', 'shopnook' ),
-			'sale'    => __( 'Sale badge', 'shopnook' ),
-			'rating'  => __( 'Star rating', 'shopnook' ),
-			'excerpt' => __( 'Short description', 'shopnook' ),
-			'cart'    => __( 'Add to cart button', 'shopnook' ),
-			'view'    => __( 'View product link', 'shopnook' ),
+			'image'   => __( 'Product image', 'shopnook-shoppable-images' ),
+			'name'    => __( 'Name', 'shopnook-shoppable-images' ),
+			'price'   => __( 'Price', 'shopnook-shoppable-images' ),
+			'sale'    => __( 'Sale badge', 'shopnook-shoppable-images' ),
+			'rating'  => __( 'Star rating', 'shopnook-shoppable-images' ),
+			'excerpt' => __( 'Short description', 'shopnook-shoppable-images' ),
+			'cart'    => __( 'Add to cart button', 'shopnook-shoppable-images' ),
+			'view'    => __( 'View product link', 'shopnook-shoppable-images' ),
 		);
 	}
 
@@ -108,10 +108,10 @@ class Shopnook_Settings {
 	 */
 	public static function displays() {
 		return array(
-			'tooltip' => __( 'Tooltip card', 'shopnook' ),
-			'panel'   => __( 'Panel below image', 'shopnook' ),
-			'drawer'  => __( 'Side drawer', 'shopnook' ),
-			'list'    => __( 'Shop this look list', 'shopnook' ),
+			'tooltip' => __( 'Tooltip card', 'shopnook-shoppable-images' ),
+			'panel'   => __( 'Panel below image', 'shopnook-shoppable-images' ),
+			'drawer'  => __( 'Side drawer', 'shopnook-shoppable-images' ),
+			'list'    => __( 'Shop this look list', 'shopnook-shoppable-images' ),
 		);
 	}
 
@@ -122,9 +122,9 @@ class Shopnook_Settings {
 	 */
 	public static function mobiles() {
 		return array(
-			'sheet' => __( 'Bottom sheet', 'shopnook' ),
-			'same'  => __( 'Same as desktop', 'shopnook' ),
-			'panel' => __( 'Panel below image', 'shopnook' ),
+			'sheet' => __( 'Bottom sheet', 'shopnook-shoppable-images' ),
+			'same'  => __( 'Same as desktop', 'shopnook-shoppable-images' ),
+			'panel' => __( 'Panel below image', 'shopnook-shoppable-images' ),
 		);
 	}
 

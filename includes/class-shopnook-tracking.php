@@ -70,8 +70,8 @@ class Shopnook_Tracking {
 				'Shopnook',
 				'statistics',
 				/* translators: %d: number of days */
-				sprintf( _n( '%d day', '%d days', $days, 'shopnook' ), $days ),
-				__( 'Remembers which shoppable image led to a product, to credit the sale to that image.', 'shopnook' ),
+				sprintf( _n( '%d day', '%d days', $days, 'shopnook-shoppable-images' ), $days ),
+				__( 'Remembers which shoppable image led to a product, to credit the sale to that image.', 'shopnook-shoppable-images' ),
 				false
 			);
 		}

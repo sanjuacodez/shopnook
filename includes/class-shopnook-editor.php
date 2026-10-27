@@ -54,7 +54,7 @@ class Shopnook_Editor {
 			true
 		);
 		foreach ( array( 'shopnook-pin-editor', 'shopnook-block-editor', 'shopnook-media' ) as $handle ) {
-			wp_set_script_translations( $handle, 'shopnook', SHOPNOOK_PATH . 'languages' );
+			wp_set_script_translations( $handle, 'shopnook-shoppable-images', SHOPNOOK_PATH . 'languages' );
 		}
 	}
 
@@ -88,13 +88,13 @@ class Shopnook_Editor {
 			'pinStyles'    => Shopnook_Pins::styles(),
 			'pinIcons'     => Shopnook_Pins::icons(),
 			'sizes'        => array(
-				'sm' => __( 'Small', 'shopnook' ),
-				'md' => __( 'Medium', 'shopnook' ),
-				'lg' => __( 'Large', 'shopnook' ),
+				'sm' => __( 'Small', 'shopnook-shoppable-images' ),
+				'md' => __( 'Medium', 'shopnook-shoppable-images' ),
+				'lg' => __( 'Large', 'shopnook-shoppable-images' ),
 			),
 			'visibility'   => array(
-				'always' => __( 'Always', 'shopnook' ),
-				'hover'  => __( 'On hover', 'shopnook' ),
+				'always' => __( 'Always', 'shopnook-shoppable-images' ),
+				'hover'  => __( 'On hover', 'shopnook-shoppable-images' ),
 			),
 			'displays'     => Shopnook_Settings::displays(),
 			'mobiles'      => Shopnook_Settings::mobiles(),

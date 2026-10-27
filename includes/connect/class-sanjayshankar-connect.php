@@ -206,9 +206,9 @@ class SanjayShankar_Connect {
 				'ajax'  => admin_url( 'admin-ajax.php' ),
 				'nonce' => wp_create_nonce( 'sanjayshankar_connect' ),
 				'i18n'  => array(
-					'sending' => __( 'Subscribing…', 'shopnook' ),
-					'invalid' => __( 'Please enter a valid email address.', 'shopnook' ),
-					'error'   => __( 'Something went wrong. Please try again later.', 'shopnook' ),
+					'sending' => __( 'Subscribing…', 'shopnook-shoppable-images' ),
+					'invalid' => __( 'Please enter a valid email address.', 'shopnook-shoppable-images' ),
+					'error'   => __( 'Something went wrong. Please try again later.', 'shopnook-shoppable-images' ),
 				),
 			)
 		);
@@ -246,10 +246,10 @@ class SanjayShankar_Connect {
 			$names = $current;
 		} elseif ( 1 === count( $others ) ) {
 			/* translators: 1: this plugin's name, 2: another plugin's name */
-			$names = sprintf( __( '%1$s and %2$s', 'shopnook' ), $current, $others[0] );
+			$names = sprintf( __( '%1$s and %2$s', 'shopnook-shoppable-images' ), $current, $others[0] );
 		} else {
 			/* translators: 1: this plugin's name, 2: number of the author's other plugins */
-			$names = sprintf( _n( '%1$s and %2$d of my other plugins', '%1$s and %2$d of my other plugins', count( $others ), 'shopnook' ), $current, count( $others ) );
+			$names = sprintf( _n( '%1$s and %2$d of my other plugins', '%1$s and %2$d of my other plugins', count( $others ), 'shopnook-shoppable-images' ), $current, count( $others ) );
 		}
 		// Pre-filled from the admin's own profile so they don't retype it. Nothing is
 		// sent until they click Subscribe, and they can change both fields first.
@@ -259,7 +259,7 @@ class SanjayShankar_Connect {
 		?>
 		<section class="sanjayshankar-connect sanjayshankar-connect--<?php echo esc_attr( $mode ); ?> is-theme-<?php echo esc_attr( $theme ); ?>" data-source="<?php echo esc_attr( sanitize_key( $source ) ); ?>" aria-labelledby="<?php echo esc_attr( $id ); ?>-title">
 			<?php if ( $card ) : ?>
-				<button type="button" class="sanjayshankar-connect__close" data-connect-action="snooze" aria-label="<?php esc_attr_e( 'Hide for 30 days', 'shopnook' ); ?>">
+				<button type="button" class="sanjayshankar-connect__close" data-connect-action="snooze" aria-label="<?php esc_attr_e( 'Hide for 30 days', 'shopnook-shoppable-images' ); ?>">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			<?php endif; ?>
@@ -268,57 +268,57 @@ class SanjayShankar_Connect {
 				<div class="sanjayshankar-connect__byline">
 					<img class="sanjayshankar-connect__avatar" src="<?php echo esc_url( plugins_url( 'avatar.jpg', self::$dir . '/connect.php' ) ); ?>" width="44" height="44" alt="" loading="lazy">
 					<span>
-						<strong class="sanjayshankar-connect__name"><?php esc_html_e( 'Hi, I’m Sanjay', 'shopnook' ); ?></strong>
-						<span class="sanjayshankar-connect__eyebrow"><?php esc_html_e( 'Plugins by Sanjay Shankar', 'shopnook' ); ?></span>
+						<strong class="sanjayshankar-connect__name"><?php esc_html_e( 'Hi, I’m Sanjay', 'shopnook-shoppable-images' ); ?></strong>
+						<span class="sanjayshankar-connect__eyebrow"><?php esc_html_e( 'Plugins by Sanjay Shankar', 'shopnook-shoppable-images' ); ?></span>
 					</span>
 				</div>
-				<h2 id="<?php echo esc_attr( $id ); ?>-title"><?php echo esc_html( $card ? __( 'Be the first to try my new plugins', 'shopnook' ) : __( 'Stay in the loop', 'shopnook' ) ); ?></h2>
+				<h2 id="<?php echo esc_attr( $id ); ?>-title"><?php echo esc_html( $card ? __( 'Be the first to try my new plugins', 'shopnook-shoppable-images' ) : __( 'Stay in the loop', 'shopnook-shoppable-images' ) ); ?></h2>
 				<p class="sanjayshankar-connect__lead">
 					<?php
 					if ( $names ) {
 						/* translators: %s: names of the author's plugins installed on this site */
-						echo esc_html( sprintf( __( 'Thanks for using %s! I build free WordPress plugins, and subscribers hear about the new ones first.', 'shopnook' ), $names ) );
+						echo esc_html( sprintf( __( 'Thanks for using %s! I build free WordPress plugins, and subscribers hear about the new ones first.', 'shopnook-shoppable-images' ), $names ) );
 					} else {
-						esc_html_e( 'I build free WordPress plugins, and subscribers hear about the new ones first.', 'shopnook' );
+						esc_html_e( 'I build free WordPress plugins, and subscribers hear about the new ones first.', 'shopnook-shoppable-images' );
 					}
 					?>
 				</p>
 				<ul class="sanjayshankar-connect__perks">
-					<li class="is-yellow"><?php esc_html_e( 'Early access to new plugins', 'shopnook' ); ?></li>
-					<li class="is-blue"><?php esc_html_e( 'Beta invites', 'shopnook' ); ?></li>
-					<li class="is-green"><?php esc_html_e( 'Release notes and tips', 'shopnook' ); ?></li>
-					<li class="is-purple"><?php esc_html_e( 'News from sanjayshankar.me', 'shopnook' ); ?></li>
+					<li class="is-yellow"><?php esc_html_e( 'Early access to new plugins', 'shopnook-shoppable-images' ); ?></li>
+					<li class="is-blue"><?php esc_html_e( 'Beta invites', 'shopnook-shoppable-images' ); ?></li>
+					<li class="is-green"><?php esc_html_e( 'Release notes and tips', 'shopnook-shoppable-images' ); ?></li>
+					<li class="is-purple"><?php esc_html_e( 'News from sanjayshankar.me', 'shopnook-shoppable-images' ); ?></li>
 				</ul>
 			</div>
 			<?php if ( ! $card && $state['subscribed'] ) : ?>
 				<p class="sanjayshankar-connect__done" role="status">
 					<?php
 					/* translators: %s: date */
-					echo esc_html( sprintf( __( 'This site subscribed on %s. Thank you!', 'shopnook' ), date_i18n( get_option( 'date_format' ), (int) $state['subscribed'] ) ) );
+					echo esc_html( sprintf( __( 'This site subscribed on %s. Thank you!', 'shopnook-shoppable-images' ), date_i18n( get_option( 'date_format' ), (int) $state['subscribed'] ) ) );
 					?>
 				</p>
 			<?php else : ?>
 				<form class="sanjayshankar-connect__form" novalidate>
 					<p class="sanjayshankar-connect__field">
-						<label for="<?php echo esc_attr( $id ); ?>-name"><?php esc_html_e( 'First name', 'shopnook' ); ?> <span class="sanjayshankar-connect__optional"><?php esc_html_e( '(optional)', 'shopnook' ); ?></span></label>
+						<label for="<?php echo esc_attr( $id ); ?>-name"><?php esc_html_e( 'First name', 'shopnook-shoppable-images' ); ?> <span class="sanjayshankar-connect__optional"><?php esc_html_e( '(optional)', 'shopnook-shoppable-images' ); ?></span></label>
 						<input type="text" id="<?php echo esc_attr( $id ); ?>-name" name="first_name" maxlength="60" autocomplete="given-name" value="<?php echo esc_attr( $first ); ?>">
 					</p>
 					<p class="sanjayshankar-connect__field">
-						<label for="<?php echo esc_attr( $id ); ?>-email"><?php esc_html_e( 'Email', 'shopnook' ); ?></label>
-						<input type="email" id="<?php echo esc_attr( $id ); ?>-email" name="email" required autocomplete="email" value="<?php echo esc_attr( $email ); ?>" placeholder="<?php esc_attr_e( 'you@example.com', 'shopnook' ); ?>">
+						<label for="<?php echo esc_attr( $id ); ?>-email"><?php esc_html_e( 'Email', 'shopnook-shoppable-images' ); ?></label>
+						<input type="email" id="<?php echo esc_attr( $id ); ?>-email" name="email" required autocomplete="email" value="<?php echo esc_attr( $email ); ?>" placeholder="<?php esc_attr_e( 'you@example.com', 'shopnook-shoppable-images' ); ?>">
 					</p>
 					<p class="sanjayshankar-connect__submit">
-						<button type="submit" class="sanjayshankar-connect__button"><?php esc_html_e( 'Subscribe', 'shopnook' ); ?> <span aria-hidden="true">&rarr;</span></button>
+						<button type="submit" class="sanjayshankar-connect__button"><?php esc_html_e( 'Subscribe', 'shopnook-shoppable-images' ); ?> <span aria-hidden="true">&rarr;</span></button>
 						<?php if ( $card ) : ?>
-							<button type="button" class="sanjayshankar-connect__later" data-connect-action="snooze"><?php esc_html_e( 'Not now', 'shopnook' ); ?></button>
+							<button type="button" class="sanjayshankar-connect__later" data-connect-action="snooze"><?php esc_html_e( 'Not now', 'shopnook-shoppable-images' ); ?></button>
 						<?php endif; ?>
 					</p>
 					<p class="sanjayshankar-connect__fine">
 						<?php
 						printf(
 							/* translators: %s: privacy policy link */
-							esc_html__( 'About one email a month, only about my plugins and sanjayshankar.me. Never sold or shared. Unsubscribe anytime. Sent via Brevo when you click Subscribe. %s', 'shopnook' ),
-							'<a href="' . esc_url( self::PRIVACY_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Privacy policy', 'shopnook' ) . '</a>'
+							esc_html__( 'About one email a month, only about my plugins and sanjayshankar.me. Never sold or shared. Unsubscribe anytime. Sent via Brevo when you click Subscribe. %s', 'shopnook-shoppable-images' ),
+							'<a href="' . esc_url( self::PRIVACY_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Privacy policy', 'shopnook-shoppable-images' ) . '</a>'
 						);
 						?>
 					</p>
@@ -336,7 +336,7 @@ class SanjayShankar_Connect {
 	public static function ajax() {
 		check_ajax_referer( 'sanjayshankar_connect', 'nonce' );
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'You are not allowed to do this.', 'shopnook' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'You are not allowed to do this.', 'shopnook-shoppable-images' ) ), 403 );
 		}
 
 		$task = isset( $_POST['task'] ) ? sanitize_key( wp_unslash( $_POST['task'] ) ) : '';
@@ -351,7 +351,7 @@ class SanjayShankar_Connect {
 		}
 
 		if ( 'subscribe' !== $task ) {
-			wp_send_json_error( array( 'message' => __( 'Unknown request.', 'shopnook' ) ), 400 );
+			wp_send_json_error( array( 'message' => __( 'Unknown request.', 'shopnook-shoppable-images' ) ), 400 );
 		}
 
 		$email = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
@@ -361,7 +361,7 @@ class SanjayShankar_Connect {
 		// The plugin's display name when it registered one, so Brevo shows "Shopnook" rather than "shopnook".
 		$from  = isset( $all[ $slug ] ) ? $all[ $slug ]['name'] : $slug;
 		if ( ! is_email( $email ) ) {
-			wp_send_json_error( array( 'message' => __( 'Please enter a valid email address.', 'shopnook' ) ), 400 );
+			wp_send_json_error( array( 'message' => __( 'Please enter a valid email address.', 'shopnook-shoppable-images' ) ), 400 );
 		}
 
 		$response = wp_remote_post(
@@ -381,14 +381,14 @@ class SanjayShankar_Connect {
 		$body = is_wp_error( $response ) ? null : json_decode( wp_remote_retrieve_body( $response ), true );
 
 		if ( 200 !== (int) wp_remote_retrieve_response_code( $response ) || empty( $body['success'] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Could not reach the newsletter service. Please try again later.', 'shopnook' ) ), 502 );
+			wp_send_json_error( array( 'message' => __( 'Could not reach the newsletter service. Please try again later.', 'shopnook-shoppable-images' ) ), 502 );
 		}
 
 		$state               = self::state();
 		$state['subscribed'] = time();
 		update_option( self::OPTION, $state, false );
 
-		wp_send_json_success( array( 'message' => __( 'Thanks! Check your inbox to confirm your subscription.', 'shopnook' ) ) );
+		wp_send_json_success( array( 'message' => __( 'Thanks! Check your inbox to confirm your subscription.', 'shopnook-shoppable-images' ) ) );
 	}
 
 	/**
@@ -398,12 +398,12 @@ class SanjayShankar_Connect {
 	 */
 	private static function reasons() {
 		return array(
-			'not_working'     => array( __( 'I couldn’t get it to work', 'shopnook' ), __( 'What went wrong?', 'shopnook' ) ),
-			'better_plugin'   => array( __( 'I found a better plugin', 'shopnook' ), __( 'Which plugin? What does it do better?', 'shopnook' ) ),
-			'missing_feature' => array( __( 'It’s missing a feature I need', 'shopnook' ), __( 'Which feature would you like?', 'shopnook' ) ),
-			'broke_site'      => array( __( 'It broke my site or conflicts with something', 'shopnook' ), __( 'What happened, and with which theme or plugin?', 'shopnook' ) ),
-			'temporary'       => array( __( 'I only needed it for a short time', 'shopnook' ), __( 'Anything you’d like to add? (optional)', 'shopnook' ) ),
-			'other'           => array( __( 'Other', 'shopnook' ), __( 'Please tell me more', 'shopnook' ) ),
+			'not_working'     => array( __( 'I couldn’t get it to work', 'shopnook-shoppable-images' ), __( 'What went wrong?', 'shopnook-shoppable-images' ) ),
+			'better_plugin'   => array( __( 'I found a better plugin', 'shopnook-shoppable-images' ), __( 'Which plugin? What does it do better?', 'shopnook-shoppable-images' ) ),
+			'missing_feature' => array( __( 'It’s missing a feature I need', 'shopnook-shoppable-images' ), __( 'Which feature would you like?', 'shopnook-shoppable-images' ) ),
+			'broke_site'      => array( __( 'It broke my site or conflicts with something', 'shopnook-shoppable-images' ), __( 'What happened, and with which theme or plugin?', 'shopnook-shoppable-images' ) ),
+			'temporary'       => array( __( 'I only needed it for a short time', 'shopnook-shoppable-images' ), __( 'Anything you’d like to add? (optional)', 'shopnook-shoppable-images' ) ),
+			'other'           => array( __( 'Other', 'shopnook-shoppable-images' ), __( 'Please tell me more', 'shopnook-shoppable-images' ) ),
 		);
 	}
 
@@ -478,8 +478,8 @@ class SanjayShankar_Connect {
 				'prompts' => $prompts,
 				'i18n'    => array(
 					/* translators: %s: plugin name */
-					'title'   => __( 'Quick question before you deactivate %s', 'shopnook' ),
-					'sending' => __( 'Sending…', 'shopnook' ),
+					'title'   => __( 'Quick question before you deactivate %s', 'shopnook-shoppable-images' ),
+					'sending' => __( 'Sending…', 'shopnook-shoppable-images' ),
 				),
 			)
 		);
@@ -501,11 +501,11 @@ class SanjayShankar_Connect {
 					<img class="sanjayshankar-connect__avatar" src="<?php echo esc_url( plugins_url( 'avatar.jpg', self::$dir . '/connect.php' ) ); ?>" width="40" height="40" alt="">
 					<div>
 						<h2 id="sanjayshankar-survey-title"></h2>
-						<p><?php esc_html_e( 'If you have a moment, tell me why. I read every answer and use it to make the plugin better.', 'shopnook' ); ?></p>
+						<p><?php esc_html_e( 'If you have a moment, tell me why. I read every answer and use it to make the plugin better.', 'shopnook-shoppable-images' ); ?></p>
 					</div>
 				</div>
 				<fieldset class="sanjayshankar-survey__reasons">
-					<legend class="screen-reader-text"><?php esc_html_e( 'Reason for deactivating', 'shopnook' ); ?></legend>
+					<legend class="screen-reader-text"><?php esc_html_e( 'Reason for deactivating', 'shopnook-shoppable-images' ); ?></legend>
 					<?php foreach ( self::reasons() as $key => $reason ) : ?>
 						<label class="sanjayshankar-survey__reason">
 							<input type="radio" name="reason" value="<?php echo esc_attr( $key ); ?>">
@@ -520,26 +520,26 @@ class SanjayShankar_Connect {
 				<div class="sanjayshankar-survey__contact">
 					<label class="sanjayshankar-survey__check">
 						<input type="checkbox" name="contact" value="1" checked>
-						<span><?php esc_html_e( 'You can contact me about this', 'shopnook' ); ?></span>
+						<span><?php esc_html_e( 'You can contact me about this', 'shopnook-shoppable-images' ); ?></span>
 					</label>
 					<div class="sanjayshankar-survey__who">
-						<input type="text" name="name" value="<?php echo esc_attr( $name ); ?>" aria-label="<?php esc_attr_e( 'Your name', 'shopnook' ); ?>" maxlength="60">
-						<input type="email" name="email" value="<?php echo esc_attr( $email ); ?>" aria-label="<?php esc_attr_e( 'Your email', 'shopnook' ); ?>" maxlength="120">
+						<input type="text" name="name" value="<?php echo esc_attr( $name ); ?>" aria-label="<?php esc_attr_e( 'Your name', 'shopnook-shoppable-images' ); ?>" maxlength="60">
+						<input type="email" name="email" value="<?php echo esc_attr( $email ); ?>" aria-label="<?php esc_attr_e( 'Your email', 'shopnook-shoppable-images' ); ?>" maxlength="120">
 					</div>
 				</div>
 				<p class="sanjayshankar-survey__fine">
 					<?php
 					printf(
 						/* translators: %s: privacy policy link */
-						esc_html__( 'Sent to the plugin author only if you click Send: your answer, the plugin version and your WordPress, WooCommerce and PHP versions. Your name and email above are included while the box is ticked; untick it to send your answer anonymously. %s', 'shopnook' ),
-						'<a href="' . esc_url( self::PRIVACY_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Privacy policy', 'shopnook' ) . '</a>'
+						esc_html__( 'Sent to the plugin author only if you click Send: your answer, the plugin version and your WordPress, WooCommerce and PHP versions. Your name and email above are included while the box is ticked; untick it to send your answer anonymously. %s', 'shopnook-shoppable-images' ),
+						'<a href="' . esc_url( self::PRIVACY_URL ) . '" target="_blank" rel="noopener">' . esc_html__( 'Privacy policy', 'shopnook-shoppable-images' ) . '</a>'
 					);
 					?>
 				</p>
 				<div class="sanjayshankar-survey__actions">
-					<button type="button" class="sanjayshankar-connect__button" data-survey="send" disabled><?php esc_html_e( 'Send & deactivate', 'shopnook' ); ?></button>
-					<button type="button" class="sanjayshankar-survey__skip" data-survey="skip"><?php esc_html_e( 'Skip & deactivate', 'shopnook' ); ?></button>
-					<button type="button" class="sanjayshankar-survey__cancel" data-survey="cancel"><?php esc_html_e( 'Cancel', 'shopnook' ); ?></button>
+					<button type="button" class="sanjayshankar-connect__button" data-survey="send" disabled><?php esc_html_e( 'Send & deactivate', 'shopnook-shoppable-images' ); ?></button>
+					<button type="button" class="sanjayshankar-survey__skip" data-survey="skip"><?php esc_html_e( 'Skip & deactivate', 'shopnook-shoppable-images' ); ?></button>
+					<button type="button" class="sanjayshankar-survey__cancel" data-survey="cancel"><?php esc_html_e( 'Cancel', 'shopnook-shoppable-images' ); ?></button>
 				</div>
 			</form>
 		</dialog>

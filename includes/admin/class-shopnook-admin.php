@@ -39,9 +39,9 @@ class Shopnook_Admin {
 	public static function menu() {
 		$icon = 'data:image/svg+xml;base64,' . base64_encode( '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#a7aaad" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>' ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Menu icon data URI.
 
-		self::$pages[] = add_menu_page( __( 'Shopnook', 'shopnook' ), __( 'Shopnook', 'shopnook' ), self::STATS_CAP, 'shopnook', array( __CLASS__, 'page_dashboard' ), $icon, 58 );
-		self::$pages[] = add_submenu_page( 'shopnook', __( 'Shopnook Dashboard', 'shopnook' ), __( 'Dashboard', 'shopnook' ), self::STATS_CAP, 'shopnook', array( __CLASS__, 'page_dashboard' ) );
-		self::$pages[] = add_submenu_page( 'shopnook', __( 'Shopnook Settings', 'shopnook' ), __( 'Settings', 'shopnook' ), 'manage_options', 'shopnook-settings', array( __CLASS__, 'page_settings' ) );
+		self::$pages[] = add_menu_page( __( 'Shopnook', 'shopnook-shoppable-images' ), __( 'Shopnook', 'shopnook-shoppable-images' ), self::STATS_CAP, 'shopnook', array( __CLASS__, 'page_dashboard' ), $icon, 58 );
+		self::$pages[] = add_submenu_page( 'shopnook', __( 'Shopnook Dashboard', 'shopnook-shoppable-images' ), __( 'Dashboard', 'shopnook-shoppable-images' ), self::STATS_CAP, 'shopnook', array( __CLASS__, 'page_dashboard' ) );
+		self::$pages[] = add_submenu_page( 'shopnook', __( 'Shopnook Settings', 'shopnook-shoppable-images' ), __( 'Settings', 'shopnook-shoppable-images' ), 'manage_options', 'shopnook-settings', array( __CLASS__, 'page_settings' ) );
 	}
 
 	/**
@@ -68,8 +68,8 @@ class Shopnook_Admin {
 	public static function action_links( $links ) {
 		array_unshift(
 			$links,
-			'<a href="' . esc_url( admin_url( 'admin.php?page=shopnook-settings' ) ) . '">' . esc_html__( 'Settings', 'shopnook' ) . '</a>',
-			'<a href="' . esc_url( admin_url( 'admin.php?page=shopnook' ) ) . '">' . esc_html__( 'Dashboard', 'shopnook' ) . '</a>'
+			'<a href="' . esc_url( admin_url( 'admin.php?page=shopnook-settings' ) ) . '">' . esc_html__( 'Settings', 'shopnook-shoppable-images' ) . '</a>',
+			'<a href="' . esc_url( admin_url( 'admin.php?page=shopnook' ) ) . '">' . esc_html__( 'Dashboard', 'shopnook-shoppable-images' ) . '</a>'
 		);
 		return $links;
 	}
@@ -95,8 +95,8 @@ class Shopnook_Admin {
 			array(
 				'icons' => Shopnook_Pins::icons(),
 				'i18n'  => array(
-					'choose' => __( 'Choose a pin image', 'shopnook' ),
-					'use'    => __( 'Use as pin', 'shopnook' ),
+					'choose' => __( 'Choose a pin image', 'shopnook-shoppable-images' ),
+					'use'    => __( 'Use as pin', 'shopnook-shoppable-images' ),
 				),
 			)
 		);
@@ -129,10 +129,10 @@ class Shopnook_Admin {
 	 */
 	public static function ranges() {
 		return array(
-			7   => __( 'Last 7 days', 'shopnook' ),
-			30  => __( 'Last 30 days', 'shopnook' ),
-			90  => __( 'Last 90 days', 'shopnook' ),
-			365 => __( 'Last 12 months', 'shopnook' ),
+			7   => __( 'Last 7 days', 'shopnook-shoppable-images' ),
+			30  => __( 'Last 30 days', 'shopnook-shoppable-images' ),
+			90  => __( 'Last 90 days', 'shopnook-shoppable-images' ),
+			365 => __( 'Last 12 months', 'shopnook-shoppable-images' ),
 		);
 	}
 
@@ -180,11 +180,11 @@ class Shopnook_Admin {
 			$where   = $post_id ? get_the_title( $post_id ) : '';
 			$name    = $product ? $product->get_name() : '#' . (int) $line['product'];
 			/* translators: 1: product name, 2: post title */
-			$items[] = $where ? sprintf( __( '%1$s (from “%2$s”)', 'shopnook' ), $name, $where ) : $name;
+			$items[] = $where ? sprintf( __( '%1$s (from “%2$s”)', 'shopnook-shoppable-images' ), $name, $where ) : $name;
 		}
-		echo '<p class="form-field form-field-wide shopnook-order-note"><strong>' . esc_html__( 'Shopnook:', 'shopnook' ) . '</strong> ' . esc_html(
+		echo '<p class="form-field form-field-wide shopnook-order-note"><strong>' . esc_html__( 'Shopnook:', 'shopnook-shoppable-images' ) . '</strong> ' . esc_html(
 			/* translators: %s: list of products */
-			sprintf( __( 'credited to shoppable images: %s', 'shopnook' ), implode( ', ', $items ) )
+			sprintf( __( 'credited to shoppable images: %s', 'shopnook-shoppable-images' ), implode( ', ', $items ) )
 		) . '</p>';
 	}
 }
