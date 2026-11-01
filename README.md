@@ -21,6 +21,8 @@ Think of an Instagram post where you can tap a jacket in the photo to see where 
 | A visitor likes the lamp in your photo, goes to your shop, searches for "lamp", scrolls, maybe gives up. | The visitor taps the lamp in the photo and adds it to the cart in one click. |
 | You don't know if your blog photos lead to any sales. | You see views, taps, clicks, add to carts and revenue for every photo. |
 
+> **Needs WooCommerce.** Shopnook works with WooCommerce products today. Support for more e-commerce plugins is planned.
+
 ## Who is it for?
 
 Anyone with a **WordPress** site that sells with **WooCommerce** and shows products in photos:

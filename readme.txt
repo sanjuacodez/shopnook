@@ -22,6 +22,8 @@ There is no separate builder, shortcode or custom post type to learn. You tag pr
 
 Then the dashboard shows what each image actually does for your shop: views, pin opens, product clicks, add to carts, orders and revenue.
 
+**Requires WooCommerce.** Shopnook works with WooCommerce products today (simple, variable, grouped and external products). Support for more e-commerce plugins is planned.
+
 👉 **Try it before you install:** click **Live Preview** at the top of this page to open a demo shop with a shoppable lookbook and three gallery layouts.
 
 = Who it is for =
@@ -237,6 +239,10 @@ Your images and galleries show as normal images and galleries. Shopnook only add
 = Which products can I tag? =
 
 Any published WooCommerce product. Simple products can be added to the cart from the card. Variable and grouped products show "Select options" and link to the product page. External products link to their own site. Out of stock products are labelled. Pins for deleted or unpublished products are hidden automatically.
+
+= Does Shopnook need WooCommerce? Does it work with other e-commerce plugins? =
+
+Yes, it needs WooCommerce, and for now it works only with WooCommerce products. Support for other e-commerce plugins is planned. If you use another one, tell us which in the [support forum](https://wordpress.org/support/plugin/shopnook-shoppable-images/) so we know what to build first.
 
 = Can I tag products from other stores, like Amazon? =
 
