@@ -1,12 +1,11 @@
 <?php
 /**
- * Plugin Name:       Shopnook – Shoppable Images for WooCommerce
+ * Plugin Name:       Shopnook – Shoppable Images for WooCommerce, EDD & SureCart
  * Plugin URI:        https://github.com/sanjuacodez/shopnook
- * Description:       Tag WooCommerce products on any image or gallery in the block editor. Pins open product cards with add to cart, galleries get Instagram, masonry and stories layouts, and an analytics dashboard shows views, clicks and the sales they bring.
- * Version:           1.0.0
+ * Description:       Shoppable images and shop the look for WooCommerce, Easy Digital Downloads and SureCart. Tag products on any image or gallery in the block editor. Pins open product cards with add to cart, galleries get Instagram, masonry and stories layouts, and an analytics dashboard shows views, clicks and the sales they bring.
+ * Version:           1.1.0
  * Requires at least: 6.5
  * Requires PHP:      7.4
- * Requires Plugins:  woocommerce
  * Author:            Sanjay Shankar
  * Author URI:        https://sanjayshankar.me
  * License:           GPLv2 or later
@@ -21,7 +20,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SHOPNOOK_VERSION', '1.0.0' );
+define( 'SHOPNOOK_VERSION', '1.1.0' );
 define( 'SHOPNOOK_DB_VERSION', '1' );
 define( 'SHOPNOOK_FILE', __FILE__ );
 define( 'SHOPNOOK_PATH', plugin_dir_path( __FILE__ ) );
@@ -31,6 +30,11 @@ require_once SHOPNOOK_PATH . 'includes/class-shopnook-settings.php';
 require_once SHOPNOOK_PATH . 'includes/class-shopnook-db.php';
 require_once SHOPNOOK_PATH . 'includes/class-shopnook-pins.php';
 require_once SHOPNOOK_PATH . 'includes/class-shopnook-images.php';
+require_once SHOPNOOK_PATH . 'includes/stores/class-shopnook-store.php';
+require_once SHOPNOOK_PATH . 'includes/stores/class-shopnook-store-woocommerce.php';
+require_once SHOPNOOK_PATH . 'includes/stores/class-shopnook-store-edd.php';
+require_once SHOPNOOK_PATH . 'includes/stores/class-shopnook-store-surecart.php';
+require_once SHOPNOOK_PATH . 'includes/stores/class-shopnook-stores.php';
 require_once SHOPNOOK_PATH . 'includes/class-shopnook-products.php';
 require_once SHOPNOOK_PATH . 'includes/class-shopnook-render.php';
 require_once SHOPNOOK_PATH . 'includes/class-shopnook-gallery.php';
@@ -81,8 +85,8 @@ function shopnook_connect_register( $plugins ) {
  * Wires every part of the plugin once WordPress and other plugins are loaded.
  */
 function shopnook_boot() {
-	if ( ! class_exists( 'WooCommerce' ) ) {
-		add_action( 'admin_notices', 'shopnook_missing_woocommerce_notice' );
+	if ( ! Shopnook_Stores::active() ) {
+		add_action( 'admin_notices', 'shopnook_missing_store_notice' );
 		return;
 	}
 
@@ -102,11 +106,11 @@ function shopnook_boot() {
 }
 
 /**
- * Explains that WooCommerce is needed, for sites that skip plugin dependencies.
+ * Explains that a store plugin is needed.
  */
-function shopnook_missing_woocommerce_notice() {
+function shopnook_missing_store_notice() {
 	if ( ! current_user_can( 'activate_plugins' ) ) {
 		return;
 	}
-	echo '<div class="notice notice-warning"><p>' . esc_html__( 'Shopnook needs WooCommerce to be installed and active.', 'shopnook-shoppable-images' ) . '</p></div>';
+	echo '<div class="notice notice-warning"><p>' . esc_html__( 'Shopnook needs a store plugin to tag products from: install and activate WooCommerce, Easy Digital Downloads or SureCart.', 'shopnook-shoppable-images' ) . '</p></div>';
 }

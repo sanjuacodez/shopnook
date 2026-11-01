@@ -66,7 +66,7 @@ $shopnook_metrics = array(
 	'carts'   => __( 'Add to carts', 'shopnook-shoppable-images' ),
 	'sold'    => __( 'Items sold', 'shopnook-shoppable-images' ),
 	/* translators: %s: currency symbol */
-	'revenue' => sprintf( __( 'Revenue (%s)', 'shopnook-shoppable-images' ), html_entity_decode( get_woocommerce_currency_symbol(), ENT_QUOTES, get_bloginfo( 'charset' ) ) ),
+	'revenue' => sprintf( __( 'Revenue (%s)', 'shopnook-shoppable-images' ), Shopnook_Stores::currency_symbol() ),
 );
 
 $shopnook_tiles = array(

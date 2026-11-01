@@ -106,15 +106,14 @@ class Shopnook_Render {
 		}
 		$config = array(
 			'events'     => esc_url_raw( rest_url( 'shopnook/v1/events' ) ),
-			'addToCart'  => esc_url_raw( WC_AJAX::get_endpoint( 'add_to_cart' ) ),
-			'cartUrl'    => esc_url_raw( wc_get_cart_url() ),
-			'redirect'   => 'yes' === get_option( 'woocommerce_cart_redirect_after_add' ),
+			'stores'     => self::store_config(),
 			'track'      => Shopnook_Tracking::enabled_for_visitor(),
 			'creditDays' => (int) Shopnook_Settings::get( 'credit_days' ),
 			'cookie'     => Shopnook_Tracking::COOKIE,
 			'i18n'       => array(
 				'added'    => __( 'Added', 'shopnook-shoppable-images' ),
 				'viewCart' => __( 'View cart', 'shopnook-shoppable-images' ),
+				'checkout' => __( 'Checkout', 'shopnook-shoppable-images' ),
 				'adding'   => __( 'Adding…', 'shopnook-shoppable-images' ),
 				'error'    => __( 'Could not add this product. Please try again.', 'shopnook-shoppable-images' ),
 				'close'    => __( 'Close', 'shopnook-shoppable-images' ),
@@ -127,6 +126,23 @@ class Shopnook_Render {
 			),
 		);
 		wp_add_inline_script( 'shopnook', 'window.shopnookConfig = ' . wp_json_encode( $config ) . ';', 'before' );
+	}
+
+	/**
+	 * Add-to-cart settings for each store that has products on this page.
+	 *
+	 * @return array Store ID => { url, cartUrl, redirect }.
+	 */
+	private static function store_config() {
+		$out = array();
+		foreach ( Shopnook_Products::used() as $card ) {
+			$id = $card['store'];
+			if ( ! isset( $out[ $id ] ) && 'ajax' === $card['cart']['mode'] ) {
+				$store      = Shopnook_Stores::all()[ $id ] ?? null;
+				$out[ $id ] = $store ? $store->cart_config() : array();
+			}
+		}
+		return $out;
 	}
 
 	/**
@@ -188,9 +204,24 @@ class Shopnook_Render {
 		}
 		// Extras go inside the figure, before the caption if there is one.
 		if ( false !== strpos( $wrapped, '<figcaption' ) ) {
-			$wrapped = preg_replace( '#<figcaption#i', $extra . '<figcaption', $wrapped, 1 );
+			// A callback, so a "$" in product names or prices is not read as a backreference.
+			$wrapped = preg_replace_callback(
+				'#<figcaption#i',
+				function ( $m ) use ( $extra ) {
+					return $extra . $m[0];
+				},
+				$wrapped,
+				1
+			);
 		} else {
-			$wrapped = preg_replace( '#</figure>\s*$#i', $extra . '</figure>', $wrapped, 1 );
+			$wrapped = preg_replace_callback(
+				'#</figure>\s*$#i',
+				function () use ( $extra ) {
+					return $extra . '</figure>';
+				},
+				$wrapped,
+				1
+			);
 		}
 
 		$tags = new WP_HTML_Tag_Processor( $wrapped );
@@ -344,7 +375,7 @@ class Shopnook_Render {
 		$url    = esc_url( $card['url'] );
 		$html   = '<div class="shopnook-card" data-product="' . (int) $card['id'] . '">';
 
-		if ( isset( $fields['image'] ) ) {
+		if ( isset( $fields['image'] ) && '' !== $card['image']['src'] ) {
 			$html .= sprintf(
 				'<a class="shopnook-card__media" href="%1$s" data-shopnook-click tabindex="-1" aria-hidden="true"><img src="%2$s"%3$s sizes="96px" alt="" loading="lazy" decoding="async"></a>',
 				$url,
@@ -383,7 +414,14 @@ class Shopnook_Render {
 		if ( isset( $fields['cart'] ) ) {
 			if ( 'ajax' === $card['cart']['mode'] ) {
 				$text     = '' !== $look['cart_text'] ? $look['cart_text'] : $card['cart']['text'];
-				$actions .= '<button type="button" class="shopnook-card__cart" data-shopnook-cart="' . (int) $card['id'] . '">' . esc_html( $text ) . '</button>';
+				$fields   = isset( $card['cart']['fields'] ) ? $card['cart']['fields'] : array( 'product_id' => (int) $card['id'] );
+				$actions .= sprintf(
+					'<button type="button" class="shopnook-card__cart" data-shopnook-cart="%1$d" data-store="%2$s" data-fields="%3$s">%4$s</button>',
+					(int) $card['id'],
+					esc_attr( $card['store'] ),
+					esc_attr( (string) wp_json_encode( $fields ) ),
+					esc_html( $text )
+				);
 			} elseif ( 'link' === $card['cart']['mode'] ) {
 				$actions .= sprintf(
 					'<a class="shopnook-card__cart" href="%1$s" data-shopnook-click%2$s>%3$s</a>',

@@ -201,7 +201,7 @@ try {
 	$shopnook_order->calculate_totals();
 	$shopnook_orders[] = $shopnook_order->get_id();
 	$shopnook_sold     = $shopnook_stats_of( 'purchase', $shopnook_product_id );
-	Shopnook_Tracking::attribute( $shopnook_order );
+	Shopnook_Stores::all()['woocommerce']->attribute( $shopnook_order );
 	$shopnook_order = wc_get_order( $shopnook_order->get_id() );
 	shopnook_test_assert( is_array( $shopnook_order->get_meta( Shopnook_Tracking::ORDER_META ) ), 'Order lines are credited from the cookie' );
 	shopnook_test_assert( (int) $shopnook_sold['hits'] === (int) $shopnook_stats_of( 'purchase', $shopnook_product_id )['hits'], 'Unpaid orders are not counted yet' );
@@ -220,7 +220,7 @@ try {
 	$shopnook_order2->add_product( wc_get_product( $shopnook_product_id ), 1 );
 	$shopnook_order2->calculate_totals();
 	$shopnook_orders[] = $shopnook_order2->get_id();
-	Shopnook_Tracking::attribute( $shopnook_order2 );
+	Shopnook_Stores::all()['woocommerce']->attribute( $shopnook_order2 );
 	shopnook_test_assert( ! wc_get_order( $shopnook_order2->get_id() )->get_meta( Shopnook_Tracking::ORDER_META ), 'Clicks outside the credit window are not credited' );
 	unset( $_COOKIE[ Shopnook_Tracking::COOKIE ] );
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin screens: dashboard, settings and the order note.
+ * Admin screens: dashboard and settings.
  *
  * @package Shopnook
  */
@@ -11,8 +11,6 @@ defined( 'ABSPATH' ) || exit;
  * Everything under the "Shopnook" admin menu.
  */
 class Shopnook_Admin {
-
-	const STATS_CAP = 'view_woocommerce_reports';
 
 	/**
 	 * Admin page hook suffixes.
@@ -30,7 +28,28 @@ class Shopnook_Admin {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'assets' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( SHOPNOOK_FILE ), array( __CLASS__, 'action_links' ) );
 		add_action( 'update_option_' . Shopnook_Settings::OPTION, array( 'Shopnook_Settings', 'flush' ) );
-		add_action( 'woocommerce_admin_order_data_after_order_details', array( __CLASS__, 'order_note' ) );
+	}
+
+	/**
+	 * The capability needed to see the dashboard: the store's reports capability, or manage_options.
+	 *
+	 * @return string
+	 */
+	public static function stats_cap() {
+		$store = Shopnook_Stores::primary();
+		$cap   = 'manage_options';
+		if ( $store && 'woocommerce' === $store->id() ) {
+			$cap = 'view_woocommerce_reports';
+		} elseif ( $store && 'edd' === $store->id() ) {
+			$cap = 'view_shop_reports';
+		}
+
+		/**
+		 * Filters the capability needed to see the Shopnook dashboard.
+		 *
+		 * @param string $cap Capability.
+		 */
+		return (string) apply_filters( 'shopnook_stats_capability', $cap );
 	}
 
 	/**
@@ -39,8 +58,8 @@ class Shopnook_Admin {
 	public static function menu() {
 		$icon = 'data:image/svg+xml;base64,' . base64_encode( '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#a7aaad" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>' ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Menu icon data URI.
 
-		self::$pages[] = add_menu_page( __( 'Shopnook', 'shopnook-shoppable-images' ), __( 'Shopnook', 'shopnook-shoppable-images' ), self::STATS_CAP, 'shopnook', array( __CLASS__, 'page_dashboard' ), $icon, 58 );
-		self::$pages[] = add_submenu_page( 'shopnook', __( 'Shopnook Dashboard', 'shopnook-shoppable-images' ), __( 'Dashboard', 'shopnook-shoppable-images' ), self::STATS_CAP, 'shopnook', array( __CLASS__, 'page_dashboard' ) );
+		self::$pages[] = add_menu_page( __( 'Shopnook', 'shopnook-shoppable-images' ), __( 'Shopnook', 'shopnook-shoppable-images' ), self::stats_cap(), 'shopnook', array( __CLASS__, 'page_dashboard' ), $icon, 58 );
+		self::$pages[] = add_submenu_page( 'shopnook', __( 'Shopnook Dashboard', 'shopnook-shoppable-images' ), __( 'Dashboard', 'shopnook-shoppable-images' ), self::stats_cap(), 'shopnook', array( __CLASS__, 'page_dashboard' ) );
 		self::$pages[] = add_submenu_page( 'shopnook', __( 'Shopnook Settings', 'shopnook-shoppable-images' ), __( 'Settings', 'shopnook-shoppable-images' ), 'manage_options', 'shopnook-settings', array( __CLASS__, 'page_settings' ) );
 	}
 
@@ -106,7 +125,7 @@ class Shopnook_Admin {
 	 * The dashboard screen.
 	 */
 	public static function page_dashboard() {
-		if ( ! current_user_can( self::STATS_CAP ) ) {
+		if ( ! current_user_can( self::stats_cap() ) ) {
 			return;
 		}
 		include SHOPNOOK_PATH . 'includes/admin/views/dashboard.php';
@@ -160,31 +179,6 @@ class Shopnook_Admin {
 	 * @return string
 	 */
 	public static function money( $amount ) {
-		return html_entity_decode( wp_strip_all_tags( wc_price( $amount ) ), ENT_QUOTES, get_bloginfo( 'charset' ) );
-	}
-
-	/**
-	 * Notes on the order screen which items Shopnook credited.
-	 *
-	 * @param WC_Order $order Order.
-	 */
-	public static function order_note( $order ) {
-		$lines = $order instanceof WC_Order ? $order->get_meta( Shopnook_Tracking::ORDER_META ) : array();
-		if ( ! is_array( $lines ) || ! $lines ) {
-			return;
-		}
-		$items = array();
-		foreach ( $lines as $line ) {
-			$product = wc_get_product( $line['product'] );
-			$post_id = isset( $line['source']['p'] ) ? (int) $line['source']['p'] : 0;
-			$where   = $post_id ? get_the_title( $post_id ) : '';
-			$name    = $product ? $product->get_name() : '#' . (int) $line['product'];
-			/* translators: 1: product name, 2: post title */
-			$items[] = $where ? sprintf( __( '%1$s (from “%2$s”)', 'shopnook-shoppable-images' ), $name, $where ) : $name;
-		}
-		echo '<p class="form-field form-field-wide shopnook-order-note"><strong>' . esc_html__( 'Shopnook:', 'shopnook-shoppable-images' ) . '</strong> ' . esc_html(
-			/* translators: %s: list of products */
-			sprintf( __( 'credited to shoppable images: %s', 'shopnook-shoppable-images' ), implode( ', ', $items ) )
-		) . '</p>';
+		return Shopnook_Stores::money( $amount );
 	}
 }

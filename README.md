@@ -1,4 +1,4 @@
-# Shopnook – Shoppable Images for WooCommerce
+# Shopnook – Shoppable Images for WooCommerce, EDD & SureCart
 
 [![WordPress.org](https://img.shields.io/wordpress/plugin/v/shopnook-shoppable-images?label=WordPress.org)](https://wordpress.org/plugins/shopnook-shoppable-images/)
 
@@ -14,18 +14,26 @@ Shopnook also shows you which photos actually sell: how many people saw each pho
 
 ## What is a "shoppable image"?
 
-Think of an Instagram post where you can tap a jacket in the photo to see where to buy it. A shoppable image does the same thing on your own website, with products from your own WooCommerce store.
+Think of an Instagram post where you can tap a jacket in the photo to see where to buy it. A shoppable image does the same thing on your own website, with products from your own store: **WooCommerce**, **Easy Digital Downloads** or **SureCart**.
 
 | Without Shopnook | With Shopnook |
 |---|---|
 | A visitor likes the lamp in your photo, goes to your shop, searches for "lamp", scrolls, maybe gives up. | The visitor taps the lamp in the photo and adds it to the cart in one click. |
 | You don't know if your blog photos lead to any sales. | You see views, taps, clicks, add to carts and revenue for every photo. |
 
-> **Needs WooCommerce.** Shopnook works with WooCommerce products today. Support for more e-commerce plugins is planned.
+## Works with your store
+
+| Store plugin | Good for | On the product card | Sales credited |
+|---|---|---|---|
+| **WooCommerce** | Physical and digital products | Add to cart in place (simple products) | When the order is paid |
+| **Easy Digital Downloads** | Ebooks, courses, templates, software | Add to cart in place (single-price downloads) | When the order is complete |
+| **SureCart** | Products and subscriptions | **Buy now** to SureCart's instant checkout | When SureCart confirms the checkout |
+
+You need one of them, and you can mix products from several in one photo. Refunds come back out of the stats. More store plugins are planned.
 
 ## Who is it for?
 
-Anyone with a **WordPress** site that sells with **WooCommerce** and shows products in photos:
+Anyone with a **WordPress** site that sells with **WooCommerce**, **Easy Digital Downloads** or **SureCart** and shows products in photos:
 
 - **Clothing stores:** an outfit photo where every piece is tagged ("shop the look").
 - **Furniture and home decor:** a styled living room where you can buy the sofa, the lamp and the rug.
@@ -34,6 +42,8 @@ Anyone with a **WordPress** site that sells with **WooCommerce** and shows produ
 - **Gift guides:** one photo of all the gifts, each one tagged.
 - **Company merch stores:** tees, hoodies, mugs and stickers styled together.
 - **Bloggers who sell:** keep writing posts as usual; the photos in them now sell too.
+- **Digital product sellers (EDD):** ebooks, courses, presets and templates, tagged in a photo of your workspace or a mockup.
+- **SureCart stores:** creators and small brands selling products and subscriptions with SureCart's checkout.
 
 ## How it works (3 steps)
 
@@ -109,12 +119,12 @@ Admins see a "Plugins by Sanjay Shankar" card on the Shopnook dashboard with an 
 ## Requirements
 
 - WordPress 6.5 or newer
-- WooCommerce 8.0 or newer
+- One store plugin: WooCommerce 8.0 or newer, Easy Digital Downloads 3.0 or newer, or SureCart
 - PHP 7.4 or newer
 
 ## Install
 
-1. Make sure WooCommerce is installed and active.
+1. Make sure your store plugin (WooCommerce, Easy Digital Downloads or SureCart) is installed and active.
 2. In WordPress, go to **Plugins → Add New**, search for **Shopnook**, install and activate. It is also on [WordPress.org](https://wordpress.org/plugins/shopnook-shoppable-images/).
 3. Edit a post, click an image, switch on **Shoppable image** and click **Tag products**.
 4. Optional: choose your pin style, colours and card layout under **Shopnook → Settings**.
@@ -130,7 +140,7 @@ Click the image, then look in the right-hand sidebar. In WordPress 7.0 and later
 Open the post, click the image and switch on **Shoppable image**. Media Library pins show wherever that switch is on.
 
 **Can I tag Amazon or other stores' products?**
-Not in this version. Shopnook tags products from your own WooCommerce store.
+Not in this version. Shopnook tags products from your own WooCommerce, Easy Digital Downloads or SureCart store.
 
 **Does it work with page builders like Elementor?**
 Version 1.0 works in the WordPress block editor. More editors are planned.
@@ -147,6 +157,7 @@ More answers are in [`readme.txt`](readme.txt), which is also the WordPress.org 
 ### Layout
 
 - `shopnook.php` – bootstrap.
+- `includes/stores/` – one class per store plugin (WooCommerce, Easy Digital Downloads, SureCart): cards, product search, add to cart and sales credit. Add your own through the `shopnook_stores` filter.
 - `includes/` – settings, pins, Media Library pins, rendering (images and galleries), products, tracking and attribution, stats, REST, editor loader, privacy.
 - `includes/admin/` – dashboard and settings screens.
 - `assets/js/` – `shopnook.js` (front end, no dependencies), `pin-editor.js` (shared pin editor), `block-editor.js`, `media.js`, `admin.js`. Plain scripts on the `wp.*` globals, no build step.
@@ -158,6 +169,7 @@ More answers are in [`readme.txt`](readme.txt), which is also the WordPress.org 
 ```sh
 ./bin/lint                                   # PHP/JSON/JS syntax checks
 wp eval-file bin/test-integration.php        # integration checks (needs WooCommerce)
+wp eval-file bin/test-stores.php             # EDD and SureCart checks (skips stores that are not active)
 ./bin/build-blueprint --local /tmp/bp.json   # Playground blueprint with a demo shop
 ./bin/build-zip                              # distribution zip
 ```
@@ -172,7 +184,9 @@ npx @wp-playground/cli@3 server --php=8.3 --wp=latest \
 
 ### Hooks
 
-- `shopnook_product_card` (filter): the data a product card shows, `( array $card, WC_Product $product )`.
+- `shopnook_product_card` (filter): the data a product card shows, `( array $card, object $product )`. `$card['store']` is `woocommerce`, `edd` or `surecart`.
+- `shopnook_stores` (filter): the list of `Shopnook_Store` integrations.
+- `shopnook_stats_capability` (filter): who can see the dashboard.
 
 ### Shared newsletter card (`includes/connect/`)
 

@@ -27,8 +27,14 @@ foreach ( array( '_shopnook_attribution', '_shopnook_counted' ) as $shopnook_key
 	if ( $shopnook_orders_meta === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $shopnook_orders_meta ) ) ) ) {
 		$wpdb->delete( $shopnook_orders_meta, array( 'meta_key' => $shopnook_key ) ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 	}
+	$shopnook_edd_meta = $wpdb->prefix . 'edd_ordermeta';
+	if ( $shopnook_edd_meta === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $shopnook_edd_meta ) ) ) ) {
+		$wpdb->delete( $shopnook_edd_meta, array( 'meta_key' => $shopnook_key ) ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+	}
 }
+$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\\_transient\\_shopnook\\_sc\\_%' OR option_name LIKE '\\_transient\\_timeout\\_shopnook\\_sc\\_%'" );
 // phpcs:enable
 
 delete_option( 'shopnook_settings' );
 delete_option( 'shopnook_db_version' );
+delete_option( 'shopnook_surecart_purchases' );

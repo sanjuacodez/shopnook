@@ -1,28 +1,35 @@
-=== Shopnook – Shoppable Images for WooCommerce ===
+=== Shopnook – Shoppable Images for WooCommerce, EDD & SureCart ===
 Contributors: sanju-shankar
 Donate link: https://buymeacoffee.com/sanjayshankar
-Tags: shoppable images, woocommerce, lookbook, shop the look, image hotspots
+Tags: shoppable images, shop the look, woocommerce, easy digital downloads, surecart
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
-Requires Plugins: woocommerce
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Shoppable images for WooCommerce: tag products on any image or gallery in the block editor, and see the views, clicks and sales they bring.
+Shoppable images and shop the look for WooCommerce, Easy Digital Downloads and SureCart. Tag products on photos and galleries. Track sales.
 
 == Description ==
 
-Shopnook is a shoppable images plugin for WooCommerce. Add product hotspots to any photo, build "shop the look" lookbooks, and turn galleries into shoppable Instagram-style feeds, all with the WordPress blocks you already use.
+Shopnook is a shoppable images plugin for **WooCommerce**, **Easy Digital Downloads (EDD)** and **SureCart**. Add product hotspots (product tags) to any photo, build "shop the look" lookbooks, and turn galleries into shoppable Instagram-style feeds, all with the WordPress blocks you already use.
 
-Shopnook turns the photos in your posts and pages into shoppable images. Switch on "Shoppable image" on any Image block, click the photo to drop pins, and pick a WooCommerce product for each. Visitors tap a pin to see the product, add it to the cart without leaving the page, or open the product page.
+Shopnook turns the photos in your posts and pages into shoppable images. Switch on "Shoppable image" on any Image block, click the photo to drop pins, and pick a product from your store for each. Visitors tap a pin to see the product, add it to the cart without leaving the page, or open the product page.
 
 There is no separate builder, shortcode or custom post type to learn. You tag products where the image already lives: in the block editor, or once in the Media Library so the photo is shoppable everywhere you use it. Turn the switch off and it is a normal image again.
 
 Then the dashboard shows what each image actually does for your shop: views, pin opens, product clicks, add to carts, orders and revenue.
 
-**Requires WooCommerce.** Shopnook works with WooCommerce products today (simple, variable, grouped and external products). Support for more e-commerce plugins is planned.
+= Works with your store =
+
+Shopnook needs one of these e-commerce plugins. Use one, or several on the same site:
+
+* **WooCommerce:** physical and digital products. Simple products add to the cart right from the card; variable, grouped and external products link to their page. Sales are credited when the order is paid.
+* **Easy Digital Downloads (EDD):** ebooks, courses, software, templates, music and other downloads. Single-price downloads add to the cart right from the card; downloads with price options link to their page. Sales are credited when the order is complete.
+* **SureCart:** physical products, digital products and subscriptions. The card's **Buy now** button opens SureCart's instant checkout (or the product page), and sales are credited when SureCart confirms the checkout.
+
+Refunds and cancellations are taken back out of the stats in all three. Other store plugins are planned; tell us which one you use.
 
 👉 **Try it before you install:** click **Live Preview** at the top of this page to open a demo shop with a shoppable lookbook and three gallery layouts.
 
@@ -38,6 +45,8 @@ Then the dashboard shows what each image actually does for your shop: views, pin
 * **Instagram-style feeds:** turn a gallery into a shoppable grid or a stories carousel that feels familiar to social shoppers.
 * **Creators and influencers with their own shop:** tag your products in the photos you already post on your blog.
 * **Agencies and freelancers:** give clients shoppable lookbooks and campaign pages without custom code or a page builder.
+* **Digital product sellers (EDD):** course creators, designers, photographers, musicians and software makers who sell downloads. Tag the ebook cover, the template preview or the preset in a photo.
+* **SureCart stores:** creators and small brands selling products and subscriptions with SureCart's fast checkout.
 
 = Ideas: where to use shoppable images =
 
@@ -48,6 +57,8 @@ Then the dashboard shows what each image actually does for your shop: views, pin
 * **Product launches and campaigns:** a launch photo with the new range tagged, linked from your newsletter or social posts.
 * **Home page and landing pages:** a shoppable hero image or a stories carousel at the top of the page.
 * **Customer and community photos:** real photos of your products in use, tagged and ready to buy.
+* **Digital product showcases:** a desk setup with the Notion template, Lightroom presets or icon pack you sell, each one tagged.
+* **Course and ebook promotions:** a photo of your workspace or a book mockup with the course or ebook tagged, sold through EDD or SureCart.
 * **A shoppable feed on your own site:** upload your social photos to a gallery and show them as an Instagram grid or stories, with products tagged.
 
 = How it works =
@@ -114,7 +125,7 @@ The Shopnook dashboard shows, for any date range and compared with the previous 
 * A **trend chart** for each measure, with a table view.
 * A **view-to-sale funnel** with the conversion rate at every step.
 * **Top images, top products and top posts and galleries**, ranked by revenue.
-* Orders that came from an image are marked on the WooCommerce order screen.
+* Orders that came from an image are marked on the WooCommerce and EDD order screens.
 
 **How sales are credited:** when a visitor clicks a product on a shoppable image (or adds it to the cart from the card), Shopnook remembers the product and the image. If that product is bought within the credit window (7 days by default, adjustable from 1 to 90), the order line is credited to the image. The most recent click wins. Only paid orders count, and cancelled, refunded or failed orders are taken back out.
 
@@ -155,7 +166,8 @@ Want Shopnook to do something it does not do yet, such as a custom layout, an in
 
 = For developers =
 
-* `shopnook_product_card` filter: change the data a product card shows.
+* `shopnook_product_card` filter: change the data a product card shows. The card's `store` key says which store it came from.
+* `shopnook_stores` filter: add your own store integration by extending `Shopnook_Store`.
 * Pins on an image are stored in the `_shopnook_image` attachment meta; per-post pins live in the block's `shopnook` attribute.
 * REST routes under `shopnook/v1`.
 * Development happens on [GitHub](https://github.com/sanjuacodez/shopnook). Bug reports and pull requests are welcome.
@@ -196,7 +208,7 @@ Shopnook is built and maintained by [Sanjay Shankar](https://sanjayshankar.me).
 
 == Installation ==
 
-1. Install and activate WooCommerce.
+1. Install and activate your store plugin: WooCommerce, Easy Digital Downloads or SureCart.
 2. Go to **Plugins → Add New**, search for **Shopnook** and click **Install Now**, then **Activate**.
 3. Edit a post or page, select an Image block, and switch on **Shoppable image** in the Shopnook panel. In WordPress 7.0 and later the panel is in the block sidebar's **Content** tab.
 4. Click **Tag products**, click the photo to drop pins and pick a product for each.
@@ -238,15 +250,33 @@ Your images and galleries show as normal images and galleries. Shopnook only add
 
 = Which products can I tag? =
 
-Any published WooCommerce product. Simple products can be added to the cart from the card. Variable and grouped products show "Select options" and link to the product page. External products link to their own site. Out of stock products are labelled. Pins for deleted or unpublished products are hidden automatically.
+Any published product from WooCommerce, Easy Digital Downloads or SureCart, and you can mix them in one photo.
 
-= Does Shopnook need WooCommerce? Does it work with other e-commerce plugins? =
+* **WooCommerce:** simple products add to the cart from the card. Variable and grouped products show "Select options" and link to the product page. External products link to their own site.
+* **Easy Digital Downloads:** single-price downloads add to the cart from the card, with a Checkout link. Downloads with price options link to their page.
+* **SureCart:** **Buy now** opens SureCart's instant checkout when the product's buy link is on, otherwise the product page. Products with variants or several prices link to their page.
 
-Yes, it needs WooCommerce, and for now it works only with WooCommerce products. Support for other e-commerce plugins is planned. If you use another one, tell us which in the [support forum](https://wordpress.org/support/plugin/shopnook-shoppable-images/) so we know what to build first.
+Out of stock products are labelled. Pins for deleted or unpublished products are hidden automatically.
+
+= Which e-commerce plugins does Shopnook work with? =
+
+WooCommerce, Easy Digital Downloads (EDD) and SureCart. You need at least one of them, and you can use more than one on the same site. Support for more store plugins is planned. If you use another one, tell us which in the [support forum](https://wordpress.org/support/plugin/shopnook-shoppable-images/) so we know what to build first.
+
+= Does it work without WooCommerce? =
+
+Yes. Since version 1.1, WooCommerce is optional. Shopnook works with Easy Digital Downloads or SureCart on their own.
+
+= Can I sell digital products with shoppable images? =
+
+Yes. With Easy Digital Downloads, tag ebooks, courses, templates, presets or software in your photos, and shoppers add them to the cart from the card. WooCommerce digital products and SureCart products work too.
+
+= How are SureCart sales credited? =
+
+When a shopper clicks a SureCart product on a shoppable image and then pays, SureCart confirms the checkout in the shopper's browser and Shopnook credits the sale to the image. Refunded (revoked) purchases are taken back out.
 
 = Can I tag products from other stores, like Amazon? =
 
-Not in this version. Shopnook tags products from your own WooCommerce store.
+Not in this version. Shopnook tags products from your own WooCommerce, Easy Digital Downloads or SureCart store.
 
 = Can you add a feature I need? =
 
@@ -302,10 +332,21 @@ By default, deleting the plugin keeps your data in case you reinstall. Switch on
 
 == Changelog ==
 
+= 1.1.0 =
+* New: Easy Digital Downloads support. Tag downloads on images and galleries, add them to the cart from the card, and see their sales in the dashboard. Refunds are taken back out.
+* New: SureCart support. Tag SureCart products, open SureCart's instant checkout from the card, and credit confirmed checkouts to the image. Revoked purchases are taken back out.
+* New: WooCommerce is no longer required. Shopnook works with any one of WooCommerce, Easy Digital Downloads or SureCart, or several together.
+* New: the product picker shows which store each product comes from when more than one store is active.
+* New: `shopnook_stores` filter for custom store integrations.
+* Fix: a product name or price with a "$" followed by digits (like "Gift card $50") could lose that text on the page.
+
 = 1.0.0 =
 * First release: shoppable Image and Gallery blocks, Media Library tagging, seven pin styles, four display modes plus a phone bottom sheet, Instagram, masonry and stories gallery layouts, sales attribution and the analytics dashboard.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Adds Easy Digital Downloads and SureCart support, makes WooCommerce optional, and fixes prices with "$" text going missing.
 
 = 1.0.0 =
 First release.

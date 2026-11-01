@@ -182,28 +182,61 @@
 		} );
 	}
 
+	// Tells the theme's mini cart that something was added.
+	function notifyCart( store, json ) {
+		if ( 'edd' === store ) {
+			var qty = document.querySelectorAll( '.edd-cart-quantity' );
+			for ( var i = 0; i < qty.length; i++ ) {
+				qty[ i ].textContent = json.cart_quantity;
+			}
+			if ( window.jQuery ) {
+				window.jQuery( document.body ).trigger( 'edd_cart_item_added', [ json ] );
+			}
+			return;
+		}
+		// WooCommerce: classic themes listen on jQuery, block themes on this event.
+		applyFragments( json.fragments );
+		// No button argument: WooCommerce would add its own "View cart" link next to it.
+		if ( window.jQuery ) {
+			window.jQuery( document.body ).trigger( 'added_to_cart', [ json.fragments, json.cart_hash ] );
+		}
+		document.body.dispatchEvent( new CustomEvent( 'wc-blocks_added_to_cart', { bubbles: true, cancelable: true } ) );
+	}
+
 	function addToCart( button ) {
 		if ( button.disabled ) {
 			return;
 		}
 		var product = button.getAttribute( 'data-shopnook-cart' );
+		var store = button.getAttribute( 'data-store' ) || 'woocommerce';
+		var settings = ( cfg.stores && cfg.stores[ store ] ) || {};
 		var src = sourceOf( button );
 		var label = button.textContent;
+		var fields = {};
+		try {
+			fields = JSON.parse( button.getAttribute( 'data-fields' ) || '{}' );
+		} catch ( e ) {
+			fields = { product_id: product };
+		}
 		var data = new FormData();
-		data.append( 'product_id', product );
-		data.append( 'quantity', '1' );
+		Object.keys( fields ).forEach( function ( key ) {
+			data.append( key, fields[ key ] );
+		} );
 
 		button.disabled = true;
 		button.classList.add( 'is-loading' );
 		button.textContent = i18n.adding || label;
 
 		window
-			.fetch( cfg.addToCart, { method: 'POST', body: data, credentials: 'same-origin' } )
+			.fetch( settings.url, { method: 'POST', body: data, credentials: 'same-origin' } )
 			.then( function ( response ) {
+				if ( ! response.ok ) {
+					throw new Error( 'add_to_cart' );
+				}
 				return response.json();
 			} )
 			.then( function ( json ) {
-				if ( ! json || json.error ) {
+				if ( ! json || json.error || ( 'edd' === store && undefined === json.cart_quantity ) ) {
 					if ( json && json.product_url ) {
 						window.location.href = json.product_url;
 						return;
@@ -214,8 +247,8 @@
 				credit( product, src );
 				flush();
 
-				if ( cfg.redirect && cfg.cartUrl ) {
-					window.location.href = cfg.cartUrl;
+				if ( settings.redirect && settings.cartUrl ) {
+					window.location.href = settings.cartUrl;
 					return;
 				}
 
@@ -229,19 +262,13 @@
 				}, 2500 );
 
 				var actions = button.parentNode;
-				if ( cfg.cartUrl && ! actions.querySelector( '.shopnook-card__viewcart' ) ) {
-					var link = make( 'a', 'shopnook-card__viewcart', { href: cfg.cartUrl } );
-					link.textContent = i18n.viewCart || 'View cart';
+				if ( settings.cartUrl && ! actions.querySelector( '.shopnook-card__viewcart' ) ) {
+					var link = make( 'a', 'shopnook-card__viewcart', { href: settings.cartUrl } );
+					link.textContent = 'edd' === store ? i18n.checkout || 'Checkout' : i18n.viewCart || 'View cart';
 					actions.appendChild( link );
 				}
 
-				// Let the theme's mini cart update: classic themes listen on jQuery, block themes on this event.
-				applyFragments( json.fragments );
-				// No button argument: WooCommerce would add its own "View cart" link next to it.
-				if ( window.jQuery ) {
-					window.jQuery( document.body ).trigger( 'added_to_cart', [ json.fragments, json.cart_hash ] );
-				}
-				document.body.dispatchEvent( new CustomEvent( 'wc-blocks_added_to_cart', { bubbles: true, cancelable: true } ) );
+				notifyCart( store, json );
 			} )
 			.catch( function () {
 				button.disabled = false;

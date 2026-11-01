@@ -40,9 +40,9 @@ class Shopnook_Tracking {
 	 * Hooks.
 	 */
 	public static function init() {
-		add_action( 'woocommerce_checkout_order_processed', array( __CLASS__, 'attribute_classic' ), 10, 3 );
-		add_action( 'woocommerce_store_api_checkout_order_processed', array( __CLASS__, 'attribute' ) );
-		add_action( 'woocommerce_order_status_changed', array( __CLASS__, 'status_changed' ), 10, 4 );
+		foreach ( Shopnook_Stores::active() as $store ) {
+			$store->init();
+		}
 		add_filter( 'wp_consent_api_registered_' . plugin_basename( SHOPNOOK_FILE ), '__return_true' );
 		add_action( 'init', array( __CLASS__, 'cookie_info' ) );
 	}
@@ -201,7 +201,7 @@ class Shopnook_Tracking {
 		}
 		if ( 'view' === $name ) {
 			$product = 0;
-		} elseif ( ! $product || 'product' !== get_post_type( $product ) ) {
+		} elseif ( ! $product || ! Shopnook_Stores::is_product( $product ) ) {
 			return null;
 		}
 		return array( $name, $s, $a, $p, $product );
@@ -275,114 +275,98 @@ class Shopnook_Tracking {
 	}
 
 	/**
-	 * Classic checkout: credits the new order.
+	 * The order lines that came from a shoppable image.
 	 *
-	 * @param int      $order_id    Order ID.
-	 * @param array    $posted_data Checkout data.
-	 * @param WC_Order $order       Order.
+	 * @param array $items List of { item, product, qty, total } from the order.
+	 * @return array Credited lines, each with its `source`.
 	 */
-	public static function attribute_classic( $order_id, $posted_data = array(), $order = null ) {
-		$order = $order instanceof WC_Order ? $order : wc_get_order( $order_id );
-		if ( $order ) {
-			self::attribute( $order );
-		}
-	}
-
-	/**
-	 * Credits order lines to the shoppable images that led to them.
-	 *
-	 * @param WC_Order $order Order.
-	 */
-	public static function attribute( $order ) {
-		if ( ! $order instanceof WC_Order || ! Shopnook_Settings::get( 'tracking' ) || $order->get_meta( self::ORDER_META ) ) {
-			return;
+	public static function credit_lines( array $items ) {
+		if ( ! Shopnook_Settings::get( 'tracking' ) ) {
+			return array();
 		}
 		$credits = self::cookie_credits();
-		if ( ! $credits ) {
-			return;
-		}
-
-		$lines = array();
-		foreach ( $order->get_items() as $item_id => $item ) {
-			if ( ! $item instanceof WC_Order_Item_Product ) {
-				continue;
-			}
-			$product = (int) $item->get_product_id();
-			if ( isset( $credits[ $product ] ) ) {
-				$lines[] = array(
-					'item'    => (int) $item_id,
-					'product' => $product,
-					'qty'     => max( 1, (int) $item->get_quantity() ),
-					'total'   => (float) $item->get_total(),
-					'source'  => $credits[ $product ],
-				);
+		$lines   = array();
+		foreach ( $items as $item ) {
+			$product = (int) $item['product'];
+			if ( $product && isset( $credits[ $product ] ) ) {
+				$item['product'] = $product;
+				$item['qty']     = max( 1, (int) $item['qty'] );
+				$item['total']   = (float) $item['total'];
+				$item['source']  = $credits[ $product ];
+				$lines[]         = $item;
 			}
 		}
-		if ( $lines ) {
-			$order->update_meta_data( self::ORDER_META, $lines );
-			$order->save();
-			if ( $order->is_paid() ) {
-				self::count_order( $order );
-			}
-		}
+		return $lines;
 	}
 
 	/**
-	 * Counts a credited order once it is paid, and takes it back if it is
-	 * cancelled, refunded or failed afterwards.
+	 * Adds credited lines of a paid order to today's stats.
 	 *
-	 * @param int      $order_id Order ID.
-	 * @param string   $from     Old status.
-	 * @param string   $to       New status.
-	 * @param WC_Order $order    Order.
+	 * @param mixed $lines Credited lines.
+	 * @return string The day they were counted on, or '' when there was nothing to count.
 	 */
-	public static function status_changed( $order_id, $from, $to, $order = null ) {
-		$order = $order instanceof WC_Order ? $order : wc_get_order( $order_id );
-		if ( ! $order || ! $order->get_meta( self::ORDER_META ) ) {
-			return;
-		}
-		if ( in_array( $to, wc_get_is_paid_statuses(), true ) ) {
-			self::count_order( $order );
-		} elseif ( in_array( $to, array( 'cancelled', 'refunded', 'failed' ), true ) ) {
-			self::uncount_order( $order );
-		}
-	}
-
-	/**
-	 * Adds a paid order to the stats, once.
-	 *
-	 * @param WC_Order $order Order.
-	 */
-	public static function count_order( WC_Order $order ) {
-		$lines = $order->get_meta( self::ORDER_META );
-		if ( ! is_array( $lines ) || $order->get_meta( self::PAID_META ) ) {
-			return;
+	public static function count_lines( $lines ) {
+		if ( ! is_array( $lines ) || ! $lines ) {
+			return '';
 		}
 		$day = current_time( 'Y-m-d' );
 		foreach ( $lines as $line ) {
 			self::record( 'purchase', $line['source'], $line['product'], $line['qty'], $line['total'], $day );
 		}
 		self::record( 'order', array( 's' => 0 ), 0, 1, 0.0, $day );
-		$order->update_meta_data( self::PAID_META, $day );
-		$order->save();
+		return $day;
 	}
 
 	/**
-	 * Removes a counted order from the stats.
+	 * Takes counted lines back out of the stats.
 	 *
-	 * @param WC_Order $order Order.
+	 * @param mixed  $lines Credited lines.
+	 * @param string $day   Day they were counted on.
+	 * @param bool   $order Also take one order off the order count.
+	 * @return bool Whether anything was removed.
 	 */
-	public static function uncount_order( WC_Order $order ) {
-		$lines = $order->get_meta( self::ORDER_META );
-		$day   = $order->get_meta( self::PAID_META );
-		if ( ! is_array( $lines ) || ! $day ) {
-			return;
+	public static function uncount_lines( $lines, $day, $order = true ) {
+		if ( ! is_array( $lines ) || ! $lines || ! $day ) {
+			return false;
 		}
 		foreach ( $lines as $line ) {
 			self::unrecord( 'purchase', $line['source'], $line['product'], $line['qty'], $line['total'], $day );
 		}
-		self::unrecord( 'order', array( 's' => 0 ), 0, 1, 0.0, $day );
-		$order->delete_meta_data( self::PAID_META );
-		$order->save();
+		if ( $order ) {
+			self::unrecord( 'order', array( 's' => 0 ), 0, 1, 0.0, $day );
+		}
+		return true;
+	}
+
+	/**
+	 * Prints which items of an order Shopnook credited, for order screens.
+	 *
+	 * @param mixed  $lines Credited lines.
+	 * @param string $tag   Wrapping element.
+	 * @param string $class CSS class.
+	 */
+	public static function print_order_note( $lines, $tag = 'p', $class = '' ) {
+		if ( ! is_array( $lines ) || ! $lines ) {
+			return;
+		}
+		$items = array();
+		foreach ( $lines as $line ) {
+			$post_id = isset( $line['source']['p'] ) ? (int) $line['source']['p'] : 0;
+			$where   = $post_id ? get_the_title( $post_id ) : '';
+			$name    = get_the_title( (int) $line['product'] );
+			$name    = '' !== $name ? $name : '#' . (int) $line['product'];
+			/* translators: 1: product name, 2: post title */
+			$items[] = $where ? sprintf( __( '%1$s (from “%2$s”)', 'shopnook-shoppable-images' ), $name, $where ) : $name;
+		}
+		printf(
+			'<%1$s class="%2$s"><strong>%3$s</strong> %4$s</%1$s>',
+			tag_escape( $tag ),
+			esc_attr( $class ),
+			esc_html__( 'Shopnook:', 'shopnook-shoppable-images' ),
+			esc_html(
+				/* translators: %s: list of products */
+				sprintf( __( 'credited to shoppable images: %s', 'shopnook-shoppable-images' ), implode( ', ', $items ) )
+			)
+		);
 	}
 }

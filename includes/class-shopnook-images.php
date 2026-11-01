@@ -82,7 +82,7 @@ class Shopnook_Images {
 				continue;
 			}
 			$product = isset( $spot['product'] ) ? absint( $spot['product'] ) : 0;
-			if ( ! $product || 'product' !== get_post_type( $product ) ) {
+			if ( ! $product || ! Shopnook_Stores::is_product_type( $product ) ) {
 				continue;
 			}
 			$id    = isset( $spot['id'] ) ? preg_replace( '/[^a-z0-9]/', '', strtolower( (string) $spot['id'] ) ) : '';

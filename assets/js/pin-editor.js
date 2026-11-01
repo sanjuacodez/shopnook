@@ -111,7 +111,7 @@
 				el(
 					'span',
 					null,
-					[ p.price, p.sku ? 'SKU ' + p.sku : '', 'outofstock' === p.stock ? __( 'Out of stock', 'shopnook-shoppable-images' ) : '', 'publish' !== p.status ? __( 'Not published', 'shopnook-shoppable-images' ) : '' ]
+					[ p.store || '', p.price, p.sku ? 'SKU ' + p.sku : '', 'outofstock' === p.stock ? __( 'Out of stock', 'shopnook-shoppable-images' ) : '', 'publish' !== p.status ? __( 'Not published', 'shopnook-shoppable-images' ) : '' ]
 						.filter( Boolean )
 						.join( ' · ' )
 				)

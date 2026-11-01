@@ -241,14 +241,8 @@ $shopnook_look = Shopnook_Settings::resolve();
 				<aside class="shopnook-card-box shopnook-preview" aria-label="<?php esc_attr_e( 'Card preview', 'shopnook-shoppable-images' ); ?>">
 					<p class="shopnook-field__label"><?php esc_html_e( 'Card preview', 'shopnook-shoppable-images' ); ?></p>
 					<?php
-					$shopnook_sample = wc_get_products(
-						array(
-							'status' => 'publish',
-							'limit'  => 1,
-							'return' => 'ids',
-						)
-					);
-					$shopnook_card   = $shopnook_sample ? Shopnook_Products::card( $shopnook_sample[0] ) : null;
+					$shopnook_sample = Shopnook_Products::sample_id();
+					$shopnook_card   = $shopnook_sample ? Shopnook_Products::card( $shopnook_sample ) : null;
 					if ( $shopnook_card ) :
 						?>
 						<div class="shopnook-pop shopnook-pop--preview" style="<?php echo esc_attr( Shopnook_Pins::style_vars( $shopnook_look ) ); ?>">
