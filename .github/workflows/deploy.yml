@@ -38,12 +38,12 @@ jobs:
 
       - name: Verify nothing unwanted slipped in
         run: |
-          if find build/shopnook -name '.*' -not -name '.' | grep -q .; then
+          if find build/shopnook-shoppable-images -name '.*' -not -name '.' | grep -q .; then
             echo "::error::hidden files present in the build"
-            find build/shopnook -name '.*' -not -name '.'
+            find build/shopnook-shoppable-images -name '.*' -not -name '.'
             exit 1
           fi
-          echo "build contains $(find build/shopnook -type f | wc -l) files"
+          echo "build contains $(find build/shopnook-shoppable-images -type f | wc -l) files"
 
       - name: Deploy to the plugin directory
         uses: 10up/action-wordpress-plugin-deploy@stable
@@ -52,6 +52,6 @@ jobs:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SLUG: shopnook-shoppable-images
           # Ship the built directory, not the repository root.
-          BUILD_DIR: build/shopnook
+          BUILD_DIR: build/shopnook-shoppable-images
           # Screenshots go to SVN assets/, separate from the plugin itself.
           ASSETS_DIR: .wordpress-org

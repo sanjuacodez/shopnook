@@ -1,5 +1,7 @@
 # Shopnook – Shoppable Images for WooCommerce
 
+[![WordPress.org](https://img.shields.io/wordpress/plugin/v/shopnook-shoppable-images?label=WordPress.org)](https://wordpress.org/plugins/shopnook-shoppable-images/)
+
 **Shopnook lets visitors buy the products they see in your photos.**
 
 You put small dots (pins) on a photo in a WordPress post or page, one on each product in the picture. When a visitor taps a dot, a little card pops up with that product's name, price and an **Add to cart** button. They can buy it right there, without searching your shop.
@@ -111,7 +113,7 @@ Admins see a "Plugins by Sanjay Shankar" card on the Shopnook dashboard with an 
 ## Install
 
 1. Make sure WooCommerce is installed and active.
-2. In WordPress, go to **Plugins → Add New**, search for **Shopnook**, install and activate. (Before it is listed on WordPress.org, download this repository as a zip or build one with `./bin/build-zip`, then use **Upload Plugin**.)
+2. In WordPress, go to **Plugins → Add New**, search for **Shopnook**, install and activate. It is also on [WordPress.org](https://wordpress.org/plugins/shopnook-shoppable-images/).
 3. Edit a post, click an image, switch on **Shoppable image** and click **Tag products**.
 4. Optional: choose your pin style, colours and card layout under **Shopnook → Settings**.
 
@@ -147,7 +149,7 @@ More answers are in [`readme.txt`](readme.txt), which is also the WordPress.org 
 - `includes/admin/` – dashboard and settings screens.
 - `assets/js/` – `shopnook.js` (front end, no dependencies), `pin-editor.js` (shared pin editor), `block-editor.js`, `media.js`, `admin.js`. Plain scripts on the `wp.*` globals, no build step.
 - `bin/` – development only (excluded from the release zip).
-- `.wordpress-org/` – WordPress.org listing assets (screenshots; icon, banners and Live Preview blueprint to come).
+- `.wordpress-org/` – WordPress.org listing assets: animated icon (source in `bin/brand/`), banners, screenshots and the Live Preview blueprint.
 
 ### Commands
 

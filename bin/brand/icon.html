@@ -1,0 +1,74 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>html,body{margin:0;background:#fff}svg{display:block}</style></head><body>
+<svg id="A" viewBox="0 0 256 256" width="256" height="256" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" fill="#F1ECE3"/>
+  <rect x="24" y="24" width="208" height="208" rx="30" fill="#FAF7F2" stroke="#111" stroke-width="12"/>
+  <!-- Floor lamp -->
+  <g fill="#111">
+    <path d="M44 98 A34 32 0 0 1 112 98 Z"/>
+    <rect x="75" y="96" width="6" height="104" rx="3"/>
+    <ellipse cx="78" cy="201" rx="22" ry="6"/>
+  </g>
+  <!-- Armchair -->
+  <g fill="#111" stroke="#FAF7F2" stroke-width="4">
+    <rect x="116" y="108" width="88" height="64" rx="28" stroke="none"/>
+    <rect x="122" y="156" width="76" height="34" rx="10"/>
+    <rect x="98" y="144" width="32" height="48" rx="16"/>
+    <rect x="190" y="144" width="32" height="48" rx="16"/>
+  </g>
+  <path d="M120 192 L114 208 M200 192 L206 208" stroke="#111" stroke-width="7" stroke-linecap="round"/>
+  <!-- Pin -->
+  <circle id="ripple" cx="158" cy="101" r="16" fill="none" stroke="#EE6A4D" stroke-width="5" opacity="0"/>
+  <g id="pin" transform="translate(158 128)">
+    <path d="M0 0 C-5 -9 -17 -15 -17 -27 A17 17 0 1 1 17 -27 C17 -15 5 -9 0 0 Z" fill="#fff" stroke="#111" stroke-width="5" stroke-linejoin="round"/>
+    <circle cy="-27" r="6.5" fill="#111"/>
+  </g>
+  <!-- Shopping bag -->
+  <g id="bag" transform="translate(200 70)">
+    <g transform="rotate(-10)">
+      <path d="M-11 -14 V-19 A11 11 0 0 1 11 -19 V-14" fill="none" stroke="#EE6A4D" stroke-width="5.5" stroke-linecap="round"/>
+      <rect x="-24" y="-16" width="48" height="42" rx="10" fill="#EE6A4D"/>
+      <rect x="-19" y="-12" width="38" height="10" rx="5" fill="#fff" opacity=".22"/>
+      <circle cx="-9" cy="-4" r="3" fill="#fff"/>
+      <circle cx="9" cy="-4" r="3" fill="#fff"/>
+    </g>
+  </g>
+  <g id="sparks" fill="#EE6A4D"></g>
+</svg>
+<script>
+// t runs 0..1.35s. The first and last frames are the still design.
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const seg = (t, a, b) => clamp((t - a) / (b - a), 0, 1);
+const out = t => 1 - Math.pow(1 - t, 3);
+const NS = 'http://www.w3.org/2000/svg';
+const pin = document.getElementById('pin'), rip = document.getElementById('ripple');
+const bag = document.getElementById('bag'), sparks = document.getElementById('sparks');
+const S = [[-34, -18], [30, -26], [36, 14], [-6, -40]];
+S.forEach(() => sparks.appendChild(document.createElementNS(NS, 'circle')));
+window.render = (id, t) => {
+  // Tap: the pin dips and springs back.
+  const press = seg(t, 0, .14), back = seg(t, .14, .5);
+  const ps = t < .14 ? 1 - .18 * out(press) : .82 + .18 * (1 + 0.35 * Math.sin(Math.PI * back) * (1 - back)) ;
+  pin.setAttribute('transform', `translate(158 128) scale(${(t >= .5 ? 1 : ps).toFixed(4)})`);
+  // Ripple out of the pin.
+  const r = seg(t, .14, .7);
+  rip.setAttribute('r', (16 + 34 * out(r)).toFixed(2));
+  rip.setAttribute('opacity', (r > 0 && r < 1 ? (1 - r) * .9 : 0).toFixed(3));
+  // The bag hops and wiggles, then settles.
+  const h = seg(t, .22, 1.2);
+  const lift = -14 * Math.sin(Math.PI * Math.min(1, h * 1.6)) * (h < .625 ? 1 : 0);
+  const wig = h > 0 && h < 1 ? 9 * Math.sin(h * Math.PI * 4) * (1 - h) : 0;
+  const sc = h > 0 && h < 1 ? 1 + .14 * Math.sin(Math.PI * Math.min(1, h * 1.6)) * (h < .625 ? 1 : 0) : 1;
+  bag.setAttribute('transform', `translate(200 ${(70 + lift).toFixed(2)}) rotate(${wig.toFixed(2)}) scale(${sc.toFixed(4)})`);
+  // Sparks around the bag at the top of the hop.
+  const sp = seg(t, .3, .85);
+  [...sparks.children].forEach((c, i) => {
+    const k = out(sp), d = 1 + .5 * k;
+    c.setAttribute('cx', (200 + S[i][0] * d).toFixed(2));
+    c.setAttribute('cy', (64 + S[i][1] * d).toFixed(2));
+    c.setAttribute('r', (sp > 0 && sp < 1 ? 4.5 * Math.sin(Math.PI * sp) : 0).toFixed(2));
+  });
+};
+window.render('A', 0);
+</script>
+</body></html>
