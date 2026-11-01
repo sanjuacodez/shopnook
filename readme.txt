@@ -14,6 +14,8 @@ Shoppable images for WooCommerce: tag products on any image or gallery in the bl
 
 == Description ==
 
+Shopnook is a shoppable images plugin for WooCommerce. Add product hotspots to any photo, build "shop the look" lookbooks, and turn galleries into shoppable Instagram-style feeds, all with the WordPress blocks you already use.
+
 Shopnook turns the photos in your posts and pages into shoppable images. Switch on "Shoppable image" on any Image block, click the photo to drop pins, and pick a WooCommerce product for each. Visitors tap a pin to see the product, add it to the cart without leaving the page, or open the product page.
 
 There is no separate builder, shortcode or custom post type to learn. You tag products where the image already lives: in the block editor, or once in the Media Library so the photo is shoppable everywhere you use it. Turn the switch off and it is a normal image again.
@@ -32,6 +34,19 @@ Then the dashboard shows what each image actually does for your shop: views, pin
 * **Brand merch and company stores:** show tees, hoodies, mugs and stickers styled together on a desk or in the wild.
 * **Blogs that sell:** keep writing as you do now and make the photos in your posts shop for you.
 * **Instagram-style feeds:** turn a gallery into a shoppable grid or a stories carousel that feels familiar to social shoppers.
+* **Creators and influencers with their own shop:** tag your products in the photos you already post on your blog.
+* **Agencies and freelancers:** give clients shoppable lookbooks and campaign pages without custom code or a page builder.
+
+= Ideas: where to use shoppable images =
+
+* **Lookbooks and collections:** a seasonal lookbook post where every outfit or room is shoppable.
+* **Shop the look pages:** one hero photo with a "Shop this look" list of every product under it.
+* **Blog posts and tutorials:** "how to style", "my morning routine" or "what I cook with" posts that sell the products in them.
+* **Gift guides:** "gifts under $50" or holiday guides with every gift tagged.
+* **Product launches and campaigns:** a launch photo with the new range tagged, linked from your newsletter or social posts.
+* **Home page and landing pages:** a shoppable hero image or a stories carousel at the top of the page.
+* **Customer and community photos:** real photos of your products in use, tagged and ready to buy.
+* **A shoppable feed on your own site:** upload your social photos to a gallery and show them as an Instagram grid or stories, with products tagged.
 
 = How it works =
 
@@ -132,6 +147,10 @@ The Shopnook dashboard shows, for any date range and compared with the previous 
 * Compatible with WooCommerce High-Performance Order Storage (HPOS) and the Cart and Checkout blocks.
 * Translation ready.
 
+= Need a custom feature? =
+
+Want Shopnook to do something it does not do yet, such as a custom layout, an integration with another plugin, or help setting it up on your store? [Get in touch](https://sanjayshankar.me/contact/). I build custom WordPress and WooCommerce features, and good ideas often make it into the free plugin for everyone. Feature requests are also welcome in the [support forum](https://wordpress.org/support/plugin/shopnook-shoppable-images/).
+
 = For developers =
 
 * `shopnook_product_card` filter: change the data a product card shows.
@@ -146,12 +165,32 @@ Used only when an admin chooses to. Visitors never trigger them.
 * **Newsletter (Brevo):** when an admin clicks Subscribe, their email, first name and the plugin name are sent to Brevo. [Terms](https://www.brevo.com/legal/termsofuse/), [Privacy](https://www.brevo.com/legal/privacypolicy/)
 * **Deactivation survey (Google Apps Script):** when an admin clicks Send & deactivate, the reason, comment, plugin, WordPress, WooCommerce and PHP versions, admin language and, if the contact box is ticked, their name and email are sent to the author's Google Sheet. [Terms](https://policies.google.com/terms), [Privacy](https://policies.google.com/privacy)
 
-= Support and feedback =
+= Support Shopnook =
 
-* Questions or problems: the [support forum](https://wordpress.org/support/plugin/shopnook-shoppable-images/).
-* Code and issues: [GitHub](https://github.com/sanjuacodez/shopnook).
-* More from the author: [sanjayshankar.me](https://sanjayshankar.me).
-* If Shopnook helps your shop, a [review](https://wordpress.org/support/plugin/shopnook-shoppable-images/reviews/#new-post) or a [coffee](https://buymeacoffee.com/sanjayshankar) means a lot.
+Shopnook is free, with no locked features and no ads. If it helps your shop:
+
+* ☕ [Buy me a coffee](https://buymeacoffee.com/sanjayshankar) to support development.
+* ⭐ [Leave a review](https://wordpress.org/support/plugin/shopnook-shoppable-images/reviews/#new-post) so other store owners can find it.
+* 💬 Questions or problems: the [support forum](https://wordpress.org/support/plugin/shopnook-shoppable-images/).
+* 🛠 Code, bug reports and pull requests: [GitHub](https://github.com/sanjuacodez/shopnook).
+
+= About the author =
+
+Shopnook is built and maintained by [Sanjay Shankar](https://sanjayshankar.me).
+
+* Website: [sanjayshankar.me](https://sanjayshankar.me)
+* Contact: [sanjayshankar.me/contact](https://sanjayshankar.me/contact/)
+* LinkedIn: [Sanjay Shankar](https://www.linkedin.com/in/sanjay-shankar-a6885224/)
+* X (Twitter): [@sanjayshankarr](https://x.com/sanjayshankarr)
+* GitHub: [sanjuacodez](https://github.com/sanjuacodez)
+* All my WordPress plugins: [profiles.wordpress.org/sanju-shankar](https://profiles.wordpress.org/sanju-shankar/)
+
+= More plugins by Sanjay Shankar =
+
+* [Likenook – Like Dislike Buttons](https://wordpress.org/plugins/likenook/): like and dislike buttons for posts, pages, products and comments, with "Was this helpful?" feedback and analytics.
+* [Anchormap – AI Internal Linking & Link Map](https://wordpress.org/plugins/anchormap/): a visual link map, orphan page finder and one-click internal link suggestions.
+* [Seasonal Effects & Notice Bar](https://wordpress.org/plugins/halloween-animations/): festive animations, countdown timers and notice bars for Black Friday, Christmas and every season.
+* [Advanced Preloader](https://wordpress.org/plugins/advanced-preloader/): beautiful loading animations while your site loads.
 
 == Installation ==
 
@@ -162,6 +201,18 @@ Used only when an admin chooses to. Visitors never trigger them.
 5. Optional: choose your default pin, card and gallery styles under **Shopnook → Settings**.
 
 == Frequently Asked Questions ==
+
+= What is a shoppable image? =
+
+A photo with small pins (hotspots) on the products in it. Visitors tap a pin to see the product's name, price and an Add to cart button, so they can buy what they see without searching your shop. Shopnook adds this to any image or gallery on your WooCommerce site.
+
+= Can I create a "shop the look" page or a lookbook? =
+
+Yes. Add your photos to a post or page, switch on **Shoppable image** and tag the products. Choose the **Shop this look** display to list every product under the photo, or turn a gallery into an Instagram grid, masonry or stories layout for a full lookbook.
+
+= Can I make my Instagram photos shoppable on my website? =
+
+Shopnook does not connect to your Instagram account. Upload the photos to a Gallery block, switch on **Shoppable gallery** and choose the Instagram grid or stories layout. Your visitors get the same tap-to-shop feel, with products from your own store.
 
 = Do I need a special block or shortcode? =
 
@@ -190,6 +241,10 @@ Any published WooCommerce product. Simple products can be added to the cart from
 = Can I tag products from other stores, like Amazon? =
 
 Not in this version. Shopnook tags products from your own WooCommerce store.
+
+= Can you add a feature I need? =
+
+Very likely. Post it in the [support forum](https://wordpress.org/support/plugin/shopnook-shoppable-images/), or [contact me](https://sanjayshankar.me/contact/) if you need a custom feature or integration for your store.
 
 = Does it work with my theme? =
 

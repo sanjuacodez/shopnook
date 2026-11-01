@@ -208,6 +208,28 @@ Push a `v*` tag that matches `Stable tag` in `readme.txt` and `Version` in `shop
 
 </details>
 
+## Need a custom feature?
+
+Want Shopnook to do something it does not do yet, an integration with another plugin, or help setting it up on your store? [Get in touch](https://sanjayshankar.me/contact/). Feature requests are also welcome in the [support forum](https://wordpress.org/support/plugin/shopnook-shoppable-images/) or as a [GitHub issue](https://github.com/sanjuacodez/shopnook/issues).
+
+## Support Shopnook
+
+Shopnook is free, with no locked features. If it helps your shop:
+
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=000&style=for-the-badge)](https://buymeacoffee.com/sanjayshankar)
+
+- ⭐ [Leave a review on WordPress.org](https://wordpress.org/support/plugin/shopnook-shoppable-images/reviews/#new-post)
+- 🐞 [Report a bug or suggest a feature](https://github.com/sanjuacodez/shopnook/issues)
+
+## More plugins by Sanjay Shankar
+
+- [Likenook – Like Dislike Buttons](https://wordpress.org/plugins/likenook/): like and dislike buttons with "Was this helpful?" feedback and analytics.
+- [Anchormap – AI Internal Linking & Link Map](https://wordpress.org/plugins/anchormap/): a visual link map, orphan page finder and internal link suggestions.
+- [Seasonal Effects & Notice Bar](https://wordpress.org/plugins/halloween-animations/): festive animations, countdown timers and notice bars.
+- [Advanced Preloader](https://wordpress.org/plugins/advanced-preloader/): loading animations while your site loads.
+
+**Find me:** [sanjayshankar.me](https://sanjayshankar.me) · [LinkedIn](https://www.linkedin.com/in/sanjay-shankar-a6885224/) · [X](https://x.com/sanjayshankarr) · [GitHub](https://github.com/sanjuacodez) · [WordPress.org](https://profiles.wordpress.org/sanju-shankar/)
+
 ## License
 
 GPLv2 or later. Made by [Sanjay Shankar](https://sanjayshankar.me).
